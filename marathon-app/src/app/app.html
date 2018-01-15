@@ -6,7 +6,7 @@
   </ion-header>
   <ion-content>
     <ion-list>
-      <button ion-item (click)="onload(eventsPage)">Events</button>
+      <button ion-item (click)="onLoad(eventsPage)">Events</button>
       <button ion-item (click)="onLoad(profilePage)">Profile</button>
       <button ion-item (click)="onLoad(settingsPage)">Settings</button>
       <button ion-item (click)="onLoad(logout)">Logout</button>
@@ -14,4 +14,4 @@
   </ion-content>
 </ion-menu>
 
-<ion-nav #content [root]="rootPage"></ion-nav>
+<ion-nav #content [root]="mapPage"></ion-nav>

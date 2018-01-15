@@ -6,15 +6,16 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import {EventsPage} from "../pages/events/events";
 import {ProfilePage} from "../pages/profile/profile";
 import {SettingsPage} from "../pages/settings/settings";
+import {MapPage} from "../pages/map/map";
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild('content') nav: NavController;
+  mapPage = MapPage;
   eventsPage = EventsPage;
   profilePage = ProfilePage;
   settingsPage = SettingsPage;
-  rootPage:any = EventsPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,private menuCtrl: MenuController) {
     platform.ready().then(() => {
