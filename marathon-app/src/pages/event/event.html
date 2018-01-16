@@ -1,18 +1,35 @@
-<!--
-  Generated template for the EventPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-
+<ion-header no-border>
   <ion-navbar>
-    <ion-title>event</ion-title>
+    <ion-buttons left>
+      <button ion-button icon-only menuToggle color="white">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>EVENT TITLE</ion-title>
   </ion-navbar>
-
 </ion-header>
 
+<ion-content>
+  <ion-grid no-padding>
+    <ion-row>
+      <ion-col>
+        <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg" alt="Photo">
+      </ion-col>
+    </ion-row>
 
-<ion-content padding>
+    <ion-row padding>
+      <ion-col>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vehicula est dolor, non feugiat odio cursus ac. Cras erat nisi, cursus non aliquet eget, lacinia sit amet nulla. Aliquam a blandit elit, vel auctor ipsum. Suspendisse ut pretium massa, eget euismod nunc. Duis et massa sed erat tincidunt sodales.</p>
+      </ion-col>
+    </ion-row>
 
+    <ion-row>
+      <ion-col>
+        <button ion-button clear>VIEW ROUTE</button>
+      </ion-col>
+      <ion-col text-right>
+        <button ion-button medium>JOIN</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
