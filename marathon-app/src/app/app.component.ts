@@ -7,7 +7,6 @@ import firebase from 'firebase';
 import {EventsPage} from "../pages/events/events";
 import {ProfilePage} from "../pages/profile/profile";
 import {SettingsPage} from "../pages/settings/settings";
-import {RegisterPage} from "../pages/register/register";
 import {AuthService} from "../services/auth";
 import {LoginPage} from "../pages/login/login";
 

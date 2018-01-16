@@ -36,6 +36,6 @@ export class RegisterPage {
   }
 
   onGoToSignin() {
-    this.navCtrl.push(this.loginPage);
+    this.navCtrl.setRoot(this.loginPage);
   }
 }

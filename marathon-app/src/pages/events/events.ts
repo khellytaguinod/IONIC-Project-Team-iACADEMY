@@ -1,33 +1,34 @@
 import {Component} from '@angular/core';
-import {IonicPage, MenuController, NavController, NavParams} from 'ionic-angular';
+import { AlertController } from 'ionic-angular';
 
-/**
- * Generated class for the EventsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
-@IonicPage()
 @Component({
   selector: 'page-events',
   templateUrl: 'events.html',
 })
 export class EventsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private menuCtrl: MenuController) {
-  }
+  constructor(private alertCtrl: AlertController) {}
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad EventsPage');
-  }
-
-  openMenu() {
-    this.menuCtrl.open();
-  }
-
-  openSearch() {
-
+  openSortBy() {
+    const alert = this.alertCtrl.create({
+      title: 'Sort By',
+      inputs: [{
+        type: 'radio',
+        label: 'Latest',
+        value: 'latest',
+        checked: true
+      }, {
+        type: 'radio',
+        label: 'Name',
+        value: 'name'
+      }],
+      buttons: [{
+        text: 'OK'
+      }, {
+        text: 'Cancel'
+      }]
+    });
+    alert.present();
   }
 
 }
