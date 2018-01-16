@@ -1,12 +1,12 @@
-<ion-header>
+<ion-header no-border>
   <ion-navbar>
     <ion-buttons left>
-      <button ion-button (click)="openMenu()">
+      <button ion-button icon-only menuToggle color="white">
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
     <ion-buttons right>
-      <button ion-button (click)="openSearch()">
+      <button ion-button (click)="openSearch()" color="white">
         <ion-icon name="search"></ion-icon>
       </button>
     </ion-buttons>
@@ -16,35 +16,36 @@
 
 
 <ion-content no-padding>
-  <button ion-item detail-none no-lines color="light" style="font-size: 10px;">SORT BY</button>
+  <button ion-item detail-none no-lines color="light" small (click)="openSortBy()">SORT BY</button>
 
-
-  <ion-item-group>
-    <ion-item-divider color="light">Ongoing</ion-item-divider>
+  <!-- Loop through events array -->
+  <ion-list>
     <button ion-item>
+      <ion-thumbnail item-end>
+        <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg" alt="Photos">
+      </ion-thumbnail>
       <h2>Marathon 1</h2>
       <h3>Longest race you've ever seen</h3>
-      <p>500m</p>
+      <p>10m</p>
     </button>
-    <button ion-item>
-      <h2>Marathon 2</h2>
-      <h3>Shortest race you've ever seen</h3>
-      <p>250m</p>
-    </button>
-  </ion-item-group>
 
-  <ion-item-group>
-    <ion-item-divider color="light">Upcoming</ion-item-divider>
     <button ion-item>
-      <h2>Marathon 3</h2>
-      <h3>Good for beginners</h3>
-      <p>50m</p>
-    </button>
-    <button ion-item>
-      <h2>Marathon 4</h2>
-      <h3>Impossible to finish</h3>
-      <p>100000m</p>
-    </button>
-  </ion-item-group>
+        <ion-thumbnail item-end>
+          <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg" alt="Photos">
+        </ion-thumbnail>
+        <h2>Marathon 2</h2>
+        <h3>Longest race you've ever seen</h3>
+        <p>10m</p>
+      </button>
+
+      <button ion-item>
+          <ion-thumbnail item-end>
+            <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg" alt="Photos">
+          </ion-thumbnail>
+          <h2>Marathon 3</h2>
+          <h3>Longest race you've ever seen</h3>
+          <p>10m</p>
+        </button>
+  </ion-list>
 
 </ion-content>

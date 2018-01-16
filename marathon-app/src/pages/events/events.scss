@@ -1,3 +1,14 @@
 page-events {
-
+  ion-header {
+    .toolbar-background {
+      background: map-get($colors, primary);
+    }
+    .toolbar-title, .toolbar-button-default {
+      color: white;
+      font-weight: normal;
+    }
+  }
+  ion-content {
+    background-color: #333;
+  }
 }
