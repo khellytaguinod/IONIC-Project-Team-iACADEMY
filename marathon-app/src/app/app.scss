@@ -30,3 +30,19 @@
     background-color: #BBDEFB;
   }
 }
+
+page-events, page-event {
+  ion-header {
+    .toolbar-background {
+      background: map-get($colors, primary);
+      box-shadow: 0px -1px 3px #888888;
+    }
+    .toolbar-title, .toolbar-button-default {
+      color: white;
+      font-weight: normal;
+    }
+    ion-navbar ion-icon {
+      color: white;
+    }
+  }
+}

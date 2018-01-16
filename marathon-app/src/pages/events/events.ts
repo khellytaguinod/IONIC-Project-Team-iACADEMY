@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
-import { AlertController } from 'ionic-angular';
+import { AlertController, NavController } from 'ionic-angular';
+import { EventPage } from '../event/event';
 
 @Component({
   selector: 'page-events',
@@ -7,7 +8,7 @@ import { AlertController } from 'ionic-angular';
 })
 export class EventsPage {
 
-  constructor(private alertCtrl: AlertController) {}
+  constructor(private alertCtrl: AlertController, private navCtrl: NavController) {}
 
   openSortBy() {
     const alert = this.alertCtrl.create({
@@ -29,6 +30,10 @@ export class EventsPage {
       }]
     });
     alert.present();
+  }
+
+  onOpenEvent() {
+    this.navCtrl.push(EventPage)
   }
 
 }
