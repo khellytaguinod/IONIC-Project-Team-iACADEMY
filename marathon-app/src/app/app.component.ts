@@ -12,7 +12,6 @@ import {MapPage} from "../pages/map/map";
 })
 export class MyApp {
   @ViewChild('content') nav: NavController;
-  mapPage = MapPage;
   eventsPage = EventsPage;
   profilePage = ProfilePage;
   settingsPage = SettingsPage;

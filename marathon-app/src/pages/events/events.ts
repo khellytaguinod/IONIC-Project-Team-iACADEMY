@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {IonicPage, MenuController, NavController, NavParams} from 'ionic-angular';
 
 /**
@@ -22,8 +22,12 @@ export class EventsPage {
     console.log('ionViewDidLoad EventsPage');
   }
 
-  onOpenMenu() {
+  openMenu() {
     this.menuCtrl.open();
+  }
+
+  openSearch() {
+
   }
 
 }

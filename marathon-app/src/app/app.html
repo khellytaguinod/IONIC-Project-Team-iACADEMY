@@ -6,6 +6,23 @@
   </ion-header>
   <ion-content>
     <ion-list>
+      <ion-item no-padding>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-avatar>
+                <img style="width: 80px; height: 90px; margin: auto ;"
+                  src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
+              </ion-avatar>
+            </ion-col>
+            <ion-col style="margin: auto;">
+              <p>Username</p>
+              <p>Email</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+
       <button ion-item (click)="onLoad(eventsPage)">Events</button>
       <button ion-item (click)="onLoad(profilePage)">Profile</button>
       <button ion-item (click)="onLoad(settingsPage)">Settings</button>
@@ -14,4 +31,4 @@
   </ion-content>
 </ion-menu>
 
-<ion-nav #content [root]="mapPage"></ion-nav>
+<ion-nav #content [root]="eventsPage"></ion-nav>
