@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
-import { NavController} from 'ionic-angular';
-import { NgForm } from '@angular/forms';
+import {Component} from '@angular/core';
+import {AlertController, LoadingController, NavController} from 'ionic-angular';
+import {NgForm} from "@angular/forms";
 
-import { LoginPage } from '../login/login';
-import { EventsPage } from '../events/events';
+import {LoginPage} from '../login/login';
+import {AuthService} from "../../services/auth";
 
 @Component({
   selector: 'page-register',
@@ -11,15 +11,31 @@ import { EventsPage } from '../events/events';
 })
 export class RegisterPage {
   loginPage = LoginPage;
-  eventsPage = EventsPage;
 
-  constructor(private navCtrl: NavController) {}
-
-  onGoToSignin() {
-    this.navCtrl.setRoot(this.loginPage);
+  constructor(private navCtrl: NavController, private authService: AuthService, private loadingCtrl: LoadingController, private alertCtrl: AlertController) {
   }
 
   onSignUp(form: NgForm) {
-    this.navCtrl.setRoot(this.eventsPage);
+    const loading = this.loadingCtrl.create({
+      content: 'Signing you up...'
+    });
+    loading.present();
+    this.authService.signup(form.value.email, form.value.password)
+      .then(data => {
+        loading.dismiss();
+      })
+      .catch(error => {
+        loading.dismiss();
+        const alert = this.alertCtrl.create({
+          title: 'Signup failed',
+          message: error.message,
+          buttons: ['Ok']
+        });
+        alert.present();
+      });
+  }
+
+  onGoToSignin() {
+    this.navCtrl.setRoot(this.loginPage);
   }
 }

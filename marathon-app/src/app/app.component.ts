@@ -1,37 +1,65 @@
 import {Component, ViewChild} from '@angular/core';
-import {MenuController, NavController, Platform} from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
+import {LoadingController, MenuController, NavController, Platform} from 'ionic-angular';
+import {StatusBar} from '@ionic-native/status-bar';
+import {SplashScreen} from '@ionic-native/splash-screen';
+import firebase from 'firebase';
 
 import {EventsPage} from "../pages/events/events";
 import {ProfilePage} from "../pages/profile/profile";
 import {SettingsPage} from "../pages/settings/settings";
-import {MapPage} from "../pages/map/map";
-import { LoginPage } from '../pages/login/login';
+import {AuthService} from "../services/auth";
+import {LoginPage} from "../pages/login/login";
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild('content') nav: NavController;
-  loginPage = LoginPage;
-  mapPage = MapPage;
-  eventsPage = EventsPage;
+  rootPage: any = EventsPage;
   profilePage = ProfilePage;
   settingsPage = SettingsPage;
+  isAuthenticated = false;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,private menuCtrl: MenuController) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menuCtrl: MenuController, private authService: AuthService, private loadingCtrl: LoadingController) {
+    firebase.initializeApp({
+      apiKey: "AIzaSyB69ECSbnlRhzzjDWl9G1RkylwdP_r0oVI",
+      authDomain: "marathon-app-database.firebaseapp.com",
+      databaseURL: "https://marathon-app-database.firebaseio.com",
+      projectId: "marathon-app-database",
+      storageBucket: "marathon-app-database.appspot.com",
+      messagingSenderId: "941647442438"
+    });
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.isAuthenticated = true;
+        this.rootPage = EventsPage;
+      } else {
+        this.isAuthenticated = false;
+        this.rootPage = LoginPage;
+      }
+    });
     platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
     });
   }
 
-  onLoad(page: any){
+  onLoad(page: any) {
     this.nav.setRoot(page);
     this.menuCtrl.close();
+  }
+
+  onLogout() {
+    const loading = this.loadingCtrl.create({
+      content: 'Signing you out...',
+      duration: 800
+    });
+    loading.present();
+    this.authService.logout();
+    setTimeout(() => {
+      this.menuCtrl.close();
+      this.nav.setRoot(LoginPage);
+    }, 800);
   }
 }
 
