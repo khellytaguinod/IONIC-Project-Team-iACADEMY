@@ -11,6 +11,7 @@ import {EventsPage} from "../pages/events/events";
 import {ProfilePage} from "../pages/profile/profile";
 import {SettingsPage} from "../pages/settings/settings";
 import {MapPage} from "../pages/map/map";
+import { RegisterPage } from '../pages/register/register';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {MapPage} from "../pages/map/map";
     EventPage,
     EventsPage,
     ProfilePage,
-    SettingsPage
+    SettingsPage,
+    RegisterPage
   ],
   imports: [
     BrowserModule,
@@ -34,7 +36,8 @@ import {MapPage} from "../pages/map/map";
     EventPage,
     EventsPage,
     ProfilePage,
-    SettingsPage
+    SettingsPage,
+    RegisterPage
   ],
   providers: [
     StatusBar,

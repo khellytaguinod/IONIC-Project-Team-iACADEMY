@@ -1,14 +1,19 @@
 import { Component } from '@angular/core';
-import {IonicPage, MenuController, NavController, NavParams} from 'ionic-angular';
+import { NavController} from 'ionic-angular';
+import { RegisterPage } from '../register/register';
 
-@IonicPage()
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
 })
-export class LoginPage {
+export class LoginPage{
+  registerPage = RegisterPage;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public menu: MenuController) {
-    menu.enable(false);
+  constructor(private navCtrl: NavController) {}
+
+  onGoToSignup() {
+    this.navCtrl.push(this.registerPage);
   }
+
+
 }
