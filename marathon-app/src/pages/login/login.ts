@@ -1,19 +1,41 @@
-import { Component } from '@angular/core';
-import { NavController} from 'ionic-angular';
-import { RegisterPage } from '../register/register';
+import {Component} from '@angular/core';
+import {AlertController, LoadingController, NavController} from 'ionic-angular';
+import {RegisterPage} from '../register/register';
+import {AuthService} from "../../services/auth";
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
 })
-export class LoginPage{
+export class LoginPage {
   registerPage = RegisterPage;
 
-  constructor(private navCtrl: NavController) {}
+  constructor(private navCtrl: NavController, private authService: AuthService, private loadingCtrl: LoadingController, private alertCtrl: AlertController) {
+  }
+
+  onSignin(form: NgForm) {
+    const loading = this.loadingCtrl.create({
+      content: 'Signing you in...'
+    });
+    loading.present();
+    this.authService.signin(form.value.email, form.value.password)
+      .then(data => {
+        loading.dismiss();
+      })
+      .catch(error => {
+        loading.dismiss();
+        const alert = this.alertCtrl.create({
+          title: 'Signin failed',
+          message: error.message,
+          buttons: ['Ok']
+        })
+        alert.present();
+      })
+  }
 
   onGoToSignup() {
     this.navCtrl.push(this.registerPage);
   }
-
 
 }

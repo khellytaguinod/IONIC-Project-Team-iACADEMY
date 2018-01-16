@@ -1,6 +1,6 @@
 <ion-content padding>
   <div class="container">
-    <form #f="ngForm">
+    <form #f="ngForm" (ngSubmit)="onSignin(f)">
       <ion-list inset>
         <ion-avatar>
           <img width="40%" style="margin: auto;" src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">

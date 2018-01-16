@@ -12,7 +12,7 @@
             <ion-col>
               <ion-avatar>
                 <img style="width: 80px; height: 90px; margin: auto ;"
-                  src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
+                     src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
               </ion-avatar>
             </ion-col>
             <ion-col style="margin: auto;">
@@ -26,9 +26,9 @@
       <button ion-item (click)="onLoad(eventsPage)">Events</button>
       <button ion-item (click)="onLoad(profilePage)">Profile</button>
       <button ion-item (click)="onLoad(settingsPage)">Settings</button>
-      <button ion-item (click)="onLoad(logout)">Logout</button>
+      <button ion-item (click)="onLogout()">Logout</button>
     </ion-list>
   </ion-content>
 </ion-menu>
 
-<ion-nav #content [root]="loginPage"></ion-nav>
+<ion-nav #content [root]="rootPage"></ion-nav>
