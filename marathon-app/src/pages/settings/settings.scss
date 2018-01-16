@@ -1,3 +1,8 @@
 page-settings {
-
+  .bg {
+    background-color: map-get($colors, bg);
+  }
+  .list-margin {
+    margin-bottom: 30px;
+  }
 }
