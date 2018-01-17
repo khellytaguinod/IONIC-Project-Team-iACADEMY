@@ -12,12 +12,15 @@
 <ion-content class="bg">
   <ion-list class="list-margin">
     <ion-list-header class="bg"><b>Map Settings</b></ion-list-header>
-    <button ion-item (click)="onLoad(changeFrequency)">Change Frequency</button>
+    <button ion-item (click)="onChangeFrequency()">
+      Change Frequency
+      <p item-end>{{ frequency }}test</p>
+    </button>
   </ion-list>
 
   <ion-list>
-      <ion-list-header class="bg"><b>Account Settings</b></ion-list-header>
-      <button ion-item>Edit User Details</button>
-      <button ion-item>Change Password</button>
-    </ion-list>
+    <ion-list-header class="bg"><b>Account Settings</b></ion-list-header>
+    <button ion-item>Edit User Details</button>
+    <button ion-item>Change Password</button>
+  </ion-list>
 </ion-content>

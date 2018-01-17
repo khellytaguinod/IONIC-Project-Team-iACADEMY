@@ -13,6 +13,7 @@ import {SettingsPage} from "../pages/settings/settings";
 import {MapPage} from "../pages/map/map";
 import {RegisterPage} from '../pages/register/register';
 import {AuthService} from "../services/auth";
+import { ChangeFrequencyPage } from '../pages/change-frequency/change-frequency';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {AuthService} from "../services/auth";
     EventsPage,
     ProfilePage,
     SettingsPage,
-    RegisterPage
+    RegisterPage,
+    ChangeFrequencyPage
   ],
   imports: [
     BrowserModule,
@@ -38,7 +40,8 @@ import {AuthService} from "../services/auth";
     EventsPage,
     ProfilePage,
     SettingsPage,
-    RegisterPage
+    RegisterPage,
+    ChangeFrequencyPage
   ],
   providers: [
     StatusBar,
