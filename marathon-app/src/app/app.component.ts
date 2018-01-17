@@ -52,13 +52,13 @@ export class MyApp {
   onLogout() {
     const loading = this.loadingCtrl.create({
       content: 'Signing you out...',
-      duration: 800
     });
     loading.present();
-    this.authService.logout();
+    this.menuCtrl.close();
     setTimeout(() => {
-      this.menuCtrl.close();
+      this.authService.logout();
       this.nav.setRoot(LoginPage);
+      loading.dismiss();
     }, 800);
   }
 }
