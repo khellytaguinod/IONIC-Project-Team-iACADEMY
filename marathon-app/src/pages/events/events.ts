@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
-import { AlertController, NavController } from 'ionic-angular';
-import { EventPage } from '../event/event';
+import {AlertController, NavController} from 'ionic-angular';
+import {EventPage} from '../event/event';
 
 @Component({
   selector: 'page-events',
@@ -8,7 +8,8 @@ import { EventPage } from '../event/event';
 })
 export class EventsPage {
 
-  constructor(private alertCtrl: AlertController, private navCtrl: NavController) {}
+  constructor(private alertCtrl: AlertController, private navCtrl: NavController) {
+  }
 
   openSortBy() {
     const alert = this.alertCtrl.create({
