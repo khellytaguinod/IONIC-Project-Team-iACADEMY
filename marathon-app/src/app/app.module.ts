@@ -13,6 +13,7 @@ import {SettingsPage} from "../pages/settings/settings";
 import {MapPage} from "../pages/map/map";
 import {RegisterPage} from '../pages/register/register';
 import {AuthService} from "../services/auth";
+import {HttpClient} from "@angular/common/http";
 import { ChangeFrequencyPage } from '../pages/change-frequency/change-frequency';
 
 @NgModule({
@@ -29,6 +30,7 @@ import { ChangeFrequencyPage } from '../pages/change-frequency/change-frequency'
   ],
   imports: [
     BrowserModule,
+    HttpClient,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
