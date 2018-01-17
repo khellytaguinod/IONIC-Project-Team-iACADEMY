@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {AlertController, LoadingController, NavController} from 'ionic-angular';
+import {AlertController, LoadingController, MenuController, NavController} from 'ionic-angular';
 import {NgForm} from "@angular/forms";
 
 import {LoginPage} from '../login/login';
@@ -12,7 +12,15 @@ import {AuthService} from "../../services/auth";
 export class RegisterPage {
   loginPage = LoginPage;
 
-  constructor(private navCtrl: NavController, private authService: AuthService, private loadingCtrl: LoadingController, private alertCtrl: AlertController) {
+  constructor(private navCtrl: NavController, private authService: AuthService, private loadingCtrl: LoadingController, private alertCtrl: AlertController, private menuCtrl: MenuController) {
+  }
+
+  ionViewWillEnter() {
+    this.menuCtrl.enable(false);
+  }
+
+  ionViewWillLeave() {
+    this.menuCtrl.enable(true);
   }
 
   onSignUp(form: NgForm) {

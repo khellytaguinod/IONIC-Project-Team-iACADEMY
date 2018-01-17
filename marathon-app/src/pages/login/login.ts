@@ -15,11 +15,12 @@ export class LoginPage {
 
   constructor(private navCtrl: NavController, private authService: AuthService, private loadingCtrl: LoadingController, private alertCtrl: AlertController, private menuCtrl: MenuController) {
   }
-  ionViewDidEnter(){
+
+  ionViewWillEnter() {
     this.menuCtrl.enable(false);
   }
 
-  ionViewDidLeave(){
+  ionViewWillLeave() {
     this.menuCtrl.enable(true);
   }
 
@@ -38,7 +39,7 @@ export class LoginPage {
           title: 'Signin failed',
           message: error.message,
           buttons: ['Ok']
-        })
+        });
         alert.present();
       })
   }
