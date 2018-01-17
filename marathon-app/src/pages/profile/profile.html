@@ -1,18 +1,56 @@
-<!--
-  Generated template for the ProfilePage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-
+<ion-header no-border>
   <ion-navbar>
-    <ion-title>profile</ion-title>
+    <ion-buttons left>
+      <button ion-button icon-only menuToggle color="white">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>PROFILE</ion-title>
   </ion-navbar>
-
 </ion-header>
 
+<ion-content>
+  <ion-list no-lines class="profile-header">
+    <ion-item>
+      <ion-thumbnail item-start>
+        <img src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png" alt="Photo">
+      </ion-thumbnail>
+      <h2>Username</h2>
+      <p>Email Address</p>
+      <button ion-button clear item-end (click)="onLoad(settingsPage)">EDIT</button>
+    </ion-item>
+  </ion-list>
 
-<ion-content padding>
+  <ion-list>
+    <ion-list-header><b>Incoming Events</b></ion-list-header>
+    <button ion-item>
+        <ion-thumbnail item-end>
+          <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg" alt="Photos">
+        </ion-thumbnail>
+        <h2>Marathon 1</h2>
+        <h3>Longest race you've ever seen</h3>
+        <p>10m</p>
+    </button>
+  </ion-list>
+
+  <ion-list>
+      <ion-list-header><b>Past Events</b></ion-list-header>
+      <button ion-item>
+          <ion-thumbnail item-end>
+            <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg" alt="Photos">
+          </ion-thumbnail>
+          <h2>Marathon 2</h2>
+          <h3>Longest race you've ever seen</h3>
+          <p>10m</p>
+      </button>
+      <button ion-item>
+          <ion-thumbnail item-end>
+            <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg" alt="Photos">
+          </ion-thumbnail>
+          <h2>Marathon 3</h2>
+          <h3>Longest race you've ever seen</h3>
+          <p>10m</p>
+      </button>
+    </ion-list>
 
 </ion-content>
