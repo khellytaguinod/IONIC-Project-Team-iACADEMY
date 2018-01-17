@@ -1,21 +1,12 @@
 <ion-menu [content]="content">
   <ion-content>
-    <ion-list>
-      <ion-item no-padding class="menu-header">
-        <ion-grid>
-          <ion-row>
-            <ion-col>
-              <ion-avatar>
-                <img style="width: 80px; height: 90px; margin: auto ;"
-                     src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
-              </ion-avatar>
-            </ion-col>
-            <ion-col style="margin: auto;">
-              <p>Username</p>
-              <p>Email</p>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
+    <ion-list no-lines>
+      <ion-item class="menu-header">
+        <ion-avatar item-start>
+          <img style="width: 80px; height: 90px; margin: auto ;" src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
+        </ion-avatar>
+        <h2>{{ username }} </h2>
+        <p>{{ email }}</p>
       </ion-item>
 
       <button ion-item icon-left (click)="onLoad(rootPage)" class="menu-button">
