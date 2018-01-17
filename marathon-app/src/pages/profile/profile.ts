@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
-import { EventPage } from '../event/event';
 import { SettingsPage } from '../settings/settings';
 
 @Component({

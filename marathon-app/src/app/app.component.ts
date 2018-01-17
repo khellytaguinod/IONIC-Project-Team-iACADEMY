@@ -19,6 +19,8 @@ export class MyApp {
   profilePage = ProfilePage;
   settingsPage = SettingsPage;
   isAuthenticated = false;
+  username;
+  email;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menuCtrl: MenuController, private authService: AuthService, private loadingCtrl: LoadingController) {
     firebase.initializeApp({
@@ -31,6 +33,8 @@ export class MyApp {
     });
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
+        this.username = user.displayName;
+        this.email = user.email;
         this.isAuthenticated = true;
         this.rootPage = EventsPage;
       } else {

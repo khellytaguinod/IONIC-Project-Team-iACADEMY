@@ -30,6 +30,9 @@ export class RegisterPage {
     loading.present();
     this.authService.signup(form.value.email, form.value.password)
       .then(data => {
+        data.updateProfile({
+          displayName: form.value.name
+        })
         loading.dismiss();
       })
       .catch(error => {

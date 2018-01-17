@@ -14,6 +14,7 @@ import {MapPage} from "../pages/map/map";
 import {RegisterPage} from '../pages/register/register';
 import {AuthService} from "../services/auth";
 import {HttpClient} from "@angular/common/http";
+import { ChangeFrequencyPage } from '../pages/change-frequency/change-frequency';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {HttpClient} from "@angular/common/http";
     EventsPage,
     ProfilePage,
     SettingsPage,
-    RegisterPage
+    RegisterPage,
+    ChangeFrequencyPage
   ],
   imports: [
     BrowserModule,
@@ -40,7 +42,8 @@ import {HttpClient} from "@angular/common/http";
     EventsPage,
     ProfilePage,
     SettingsPage,
-    RegisterPage
+    RegisterPage,
+    ChangeFrequencyPage
   ],
   providers: [
     StatusBar,
