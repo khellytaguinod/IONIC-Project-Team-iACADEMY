@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
-import {AlertController, LoadingController, NavController} from 'ionic-angular';
+import {AlertController, LoadingController, MenuController, NavController} from 'ionic-angular';
 import {RegisterPage} from '../register/register';
 import {AuthService} from "../../services/auth";
 import {NgForm} from "@angular/forms";
-import { EventsPage } from '../events/events';
+import {EventsPage} from '../events/events';
 
 @Component({
   selector: 'page-login',
@@ -13,7 +13,14 @@ export class LoginPage {
   registerPage = RegisterPage;
   eventsPage = EventsPage;
 
-  constructor(private navCtrl: NavController, private authService: AuthService, private loadingCtrl: LoadingController, private alertCtrl: AlertController) {
+  constructor(private navCtrl: NavController, private authService: AuthService, private loadingCtrl: LoadingController, private alertCtrl: AlertController, private menuCtrl: MenuController) {
+  }
+  ionViewDidEnter(){
+    this.menuCtrl.enable(false);
+  }
+
+  ionViewDidLeave(){
+    this.menuCtrl.enable(true);
   }
 
   onSignin(form: NgForm) {
