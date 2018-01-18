@@ -51,6 +51,7 @@ import { EditUserPage } from '../pages/edit-user/edit-user';
   providers: [
     StatusBar,
     SplashScreen,
+    HttpClient,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthService
   ]
