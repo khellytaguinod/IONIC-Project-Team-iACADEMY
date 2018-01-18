@@ -5,8 +5,8 @@
         <ion-avatar item-start>
           <img style="width: 80px; height: 90px; margin: auto ;" src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
         </ion-avatar>
-        <h2>{{ username }} </h2>
-        <p>{{ email }}</p>
+        <h2>{{ [(username)] }}</h2>
+        <p>{{ [(email)] }}</p>
       </ion-item>
 
       <button ion-item icon-left (click)="onLoad(rootPage)" class="menu-button">

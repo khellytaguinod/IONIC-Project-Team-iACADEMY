@@ -1,28 +1,32 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { ChangeFrequencyPage } from '../change-frequency/change-frequency';
+import { EditUserPage } from '../edit-user/edit-user';
 
 @Component({
   selector: 'page-settings',
   templateUrl: 'settings.html',
 })
 export class SettingsPage {
-  frequency;
+  // changeFrequency = ChangeFrequencyPage;
+  // editUser = EditUserPage;
+  // changePassword = EditUserPage;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController) {}
 
   onChangeFrequency() {
     let modal = this.modalCtrl.create(ChangeFrequencyPage);
     modal.present();
-    modal.onDidDismiss((change: boolean) => {
-      if(change) {
-        this.getFrequency();
-      }
-    })
   }
 
-  getFrequency() {
-    this.frequency = this.navParams.get('frequency');
+  onEditUser() {
+    let modal = this.modalCtrl.create(EditUserPage, {mode: 'Edit User Details'});
+    modal.present();
+  }
+
+  onChangePassword() {
+    let modal = this.modalCtrl.create(EditUserPage, {mode: 'Change Password'});
+    modal.present();
   }
 
 }

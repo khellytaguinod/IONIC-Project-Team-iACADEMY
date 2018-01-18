@@ -20,7 +20,7 @@
 
   <ion-list>
     <ion-list-header class="bg"><b>Account Settings</b></ion-list-header>
-    <button ion-item>Edit User Details</button>
-    <button ion-item>Change Password</button>
+    <button ion-item (click)="onEditUser()">Edit User Details</button>
+    <button ion-item (click)="onChangePassword()">Change Password</button>
   </ion-list>
 </ion-content>

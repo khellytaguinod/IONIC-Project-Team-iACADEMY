@@ -13,8 +13,9 @@ import {SettingsPage} from "../pages/settings/settings";
 import {MapPage} from "../pages/map/map";
 import {RegisterPage} from '../pages/register/register';
 import {AuthService} from "../services/auth";
-import {ChangeFrequencyPage} from '../pages/change-frequency/change-frequency';
-import {HttpClient} from "@angular/common/http";
+// import {HttpClient} from "@angular/common/http";
+import { ChangeFrequencyPage } from '../pages/change-frequency/change-frequency';
+import { EditUserPage } from '../pages/edit-user/edit-user';
 
 @NgModule({
   declarations: [
@@ -26,10 +27,12 @@ import {HttpClient} from "@angular/common/http";
     ProfilePage,
     SettingsPage,
     RegisterPage,
-    ChangeFrequencyPage
+    ChangeFrequencyPage,
+    EditUserPage
   ],
   imports: [
     BrowserModule,
+    // HttpClient,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -42,7 +45,8 @@ import {HttpClient} from "@angular/common/http";
     ProfilePage,
     SettingsPage,
     RegisterPage,
-    ChangeFrequencyPage
+    ChangeFrequencyPage,
+    EditUserPage
   ],
   providers: [
     StatusBar,
