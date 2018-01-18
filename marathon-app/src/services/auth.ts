@@ -4,19 +4,15 @@ export class AuthService {
   public username: string;
   public email: string;
 
-  signup(email: string, password: string, name: string){
-    return firebase.auth()
-    .createUserWithEmailAndPassword(email, password)
-    .then(newUser => {
-      newUser.updateProfile({
-        displayName: name
-      })
-      firebase.database()
-      .ref('/userProfile')
-      .child(newUser.uid)
-      .set({
-        email: email,
-        name: name
+
+  signup(email: string, password: string, name: string) {
+    return firebase.auth().createUserWithEmailAndPassword(email, password).then((user) => {
+      user = firebase.auth().currentUser;
+      user.updateProfile({displayName: name}).then(() => {
+        firebase.database().ref('/users').child(user.uid).set({
+          name: user.displayName,
+          email: user.email
+        });
       });
     })
   }
