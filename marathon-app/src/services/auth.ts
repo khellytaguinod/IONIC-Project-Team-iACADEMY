@@ -4,8 +4,21 @@ export class AuthService {
   public username: string;
   public email: string;
 
-  signup(email: string, password: string){
-    return firebase.auth().createUserWithEmailAndPassword(email, password);
+  signup(email: string, password: string, name: string){
+    return firebase.auth()
+    .createUserWithEmailAndPassword(email, password)
+    .then(newUser => {
+      newUser.updateProfile({
+        displayName: name
+      })
+      firebase.database()
+      .ref('/userProfile')
+      .child(newUser.uid)
+      .set({
+        email: email,
+        name: name
+      });
+    })
   }
 
   signin(email: string, password: string) {

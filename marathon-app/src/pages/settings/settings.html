@@ -12,7 +12,7 @@
 <ion-content class="bg">
   <ion-list class="list-margin">
     <ion-list-header class="bg"><b>Map Settings</b></ion-list-header>
-    <button ion-item (click)="onOpenPage(changeFrequency)">
+    <button ion-item (click)="onChangeFrequency()">
       Change Frequency
       <p item-end>{{ frequency }}test</p>
     </button>
@@ -20,7 +20,7 @@
 
   <ion-list>
     <ion-list-header class="bg"><b>Account Settings</b></ion-list-header>
-    <button ion-item (click)="onOpenPage(editUser)">Edit User Details</button>
-    <button ion-item (click)="onOpenPage(changePassword)">Change Password</button>
+    <button ion-item (click)="onEditUser()">Edit User Details</button>
+    <button ion-item (click)="onChangePassword()">Change Password</button>
   </ion-list>
 </ion-content>
