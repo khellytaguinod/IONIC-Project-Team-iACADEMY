@@ -1,0 +1,30 @@
+<ion-header no-border>
+  <ion-navbar>
+    <ion-buttons left>
+      <button ion-button icon-only (click)="onClose(true)">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content no-padding class="bg">
+  <form #f="ngForm" (ngSubmit)="onEditUser(f)">
+    <ion-list>
+      <ion-item>
+        <ion-label fixed>Full Name</ion-label>
+        <ion-input type="text" name="name" ngModel [(value)]="username"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label fixed>Email</ion-label>
+        <ion-input type="email" name="email" ngModel [(value)]="email"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <button item-end ion-button clear type="submit">Update</button>
+      </ion-item>
+    </ion-list>
+  </form>
+</ion-content>
