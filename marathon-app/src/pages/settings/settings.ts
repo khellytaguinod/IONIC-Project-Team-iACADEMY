@@ -8,21 +8,24 @@ import { EditUserPage } from '../edit-user/edit-user';
   templateUrl: 'settings.html',
 })
 export class SettingsPage {
-  changeFrequency = ChangeFrequencyPage;
-  editUser = EditUserPage;
-  changePassword = EditUserPage;
+  // changeFrequency = ChangeFrequencyPage;
+  // editUser = EditUserPage;
+  // changePassword = EditUserPage;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController) {}
 
-  onOpenPage(page: any) {
-    let modal;
-    if(this.editUser) {
-      modal = this.modalCtrl.create(page, {mode: 'Edit User Details'});
-    } else if (this.changePassword) {
-      modal = this.modalCtrl.create(page, {mode: 'Change Password'});
-    } else {
-      modal = this.modalCtrl.create(page);
-    }
+  onChangeFrequency() {
+    let modal = this.modalCtrl.create(ChangeFrequencyPage);
+    modal.present();
+  }
+
+  onEditUser() {
+    let modal = this.modalCtrl.create(EditUserPage, {mode: 'Edit User Details'});
+    modal.present();
+  }
+
+  onChangePassword() {
+    let modal = this.modalCtrl.create(EditUserPage, {mode: 'Change Password'});
     modal.present();
   }
 

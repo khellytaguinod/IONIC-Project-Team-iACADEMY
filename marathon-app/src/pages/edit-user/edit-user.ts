@@ -1,19 +1,25 @@
-import { Component } from '@angular/core';
-import { ViewController } from 'ionic-angular';
-// import firebase from 'firebase';
+import { Component, OnInit } from '@angular/core';
+import { ViewController, NavParams } from 'ionic-angular';
 import { NgForm } from '@angular/forms';
+
 import { AuthService } from '../../services/auth';
 
 @Component({
   selector: 'page-edit-user',
   templateUrl: 'edit-user.html',
 })
-export class EditUserPage {
+export class EditUserPage implements OnInit {
   username;
   email;
-  // user;
+  mode;
+  isEditUser: boolean;
 
-  constructor(private viewCtrl: ViewController, private authService: AuthService) {}
+  constructor(private viewCtrl: ViewController, private authService: AuthService, private navParams: NavParams) {}
+
+  ngOnInit() {
+    this.mode = this.navParams.get('mode');
+    this.isEditUser = (this.mode === 'Edit User Details') ? true : false;
+  }
 
   ionViewWillEnter() {
     this.onGetUserDetails();
@@ -35,5 +41,7 @@ export class EditUserPage {
     this.authService.updateUserEmail(form.value.email);
     this.viewCtrl.dismiss();
   }
+
+  onChangePassword(form: NgForm) {}
 
 }

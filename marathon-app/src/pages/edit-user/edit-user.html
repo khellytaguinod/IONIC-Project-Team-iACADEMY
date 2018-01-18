@@ -5,12 +5,13 @@
         <ion-icon name="close"></ion-icon>
       </button>
     </ion-buttons>
+    <ion-title>{{ mode | uppercase }}</ion-title>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content no-padding class="bg">
-  <form #f="ngForm" (ngSubmit)="onEditUser(f)">
+  <form #f="ngForm" (ngSubmit)="onEditUser(f)" *ngIf="isEditUser">
     <ion-list>
       <ion-item>
         <ion-label fixed>Full Name</ion-label>
@@ -23,7 +24,25 @@
       </ion-item>
 
       <ion-item>
-        <button item-end ion-button clear type="submit">Update</button>
+        <button item-end ion-button block type="submit">Update</button>
+      </ion-item>
+    </ion-list>
+  </form>
+
+  <form *ngIf="!isEditUser" #f="ngForm" (ngSubmit)="onChangePassword(f)">
+    <ion-list>
+      <ion-item>
+        <ion-label fixed>Old Password</ion-label>
+        <ion-input type="password" name="password" ngModel required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label fixed>New Password</ion-label>
+        <ion-input type="password" name="password" ngModel required [minlength]="6"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <button item-end ion-button block type="submit">Update</button>
       </ion-item>
     </ion-list>
   </form>

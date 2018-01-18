@@ -28,11 +28,8 @@ export class RegisterPage {
       content: 'Signing you up...'
     });
     loading.present();
-    this.authService.signup(form.value.email, form.value.password)
-      .then(data => {
-        data.updateProfile({
-          displayName: form.value.name
-        })
+    this.authService.signup(form.value.email, form.value.password, form.value.name)
+      .then(() => {
         loading.dismiss();
       })
       .catch(error => {
