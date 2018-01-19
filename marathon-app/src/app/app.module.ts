@@ -15,7 +15,13 @@ import {RegisterPage} from '../pages/register/register';
 import {AuthService} from "../services/auth";
 import { ChangeFrequencyPage } from '../pages/change-frequency/change-frequency';
 import { EditUserPage } from '../pages/edit-user/edit-user';
-import { UserService } from '../services/user';
+
+// import { UserService } from '../services/user';
+
+import { GoogleMaps } from '@ionic-native/google-maps';
+import { Geolocation } from '@ionic-native/geolocation';
+
+
 
 @NgModule({
   declarations: [
@@ -49,11 +55,13 @@ import { UserService } from '../services/user';
     EditUserPage
   ],
   providers: [
+    GoogleMaps,
+    Geolocation,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthService,
-    UserService
+    AuthService
+    // UserService
   ]
 })
 export class AppModule {
