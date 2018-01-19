@@ -15,6 +15,7 @@ import {RegisterPage} from '../pages/register/register';
 import {AuthService} from "../services/auth";
 import { ChangeFrequencyPage } from '../pages/change-frequency/change-frequency';
 import { EditUserPage } from '../pages/edit-user/edit-user';
+import { UserService } from '../services/user';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { EditUserPage } from '../pages/edit-user/edit-user';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthService
+    AuthService,
+    UserService
   ]
 })
 export class AppModule {

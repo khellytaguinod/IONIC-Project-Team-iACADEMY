@@ -8,14 +8,19 @@ import { EditUserPage } from '../edit-user/edit-user';
   templateUrl: 'settings.html',
 })
 export class SettingsPage {
-  // changeFrequency = ChangeFrequencyPage;
-  // editUser = EditUserPage;
-  // changePassword = EditUserPage;
+  frequency:string = 'Realtime';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController) {}
 
   onChangeFrequency() {
-    let modal = this.modalCtrl.create(ChangeFrequencyPage);
+    let modal = this.modalCtrl.create(ChangeFrequencyPage, {frequency: 'realtime'});
+    modal.onDidDismiss(data => {
+      if(data == true) {
+        this.frequency = 'Realtime';
+      } else {
+        this.frequency = data;
+      }
+    })
     modal.present();
   }
 

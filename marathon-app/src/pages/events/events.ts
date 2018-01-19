@@ -7,6 +7,7 @@ import {EventPage} from '../event/event';
   templateUrl: 'events.html',
 })
 export class EventsPage {
+  sort: string = 'Latest';
 
   constructor(private alertCtrl: AlertController, private navCtrl: NavController) {
   }
@@ -17,15 +18,18 @@ export class EventsPage {
       inputs: [{
         type: 'radio',
         label: 'Latest',
-        value: 'latest',
+        value: 'Latest',
         checked: true
       }, {
         type: 'radio',
         label: 'Name',
-        value: 'name'
+        value: 'Name'
       }],
       buttons: [{
-        text: 'OK'
+        text: 'OK',
+        handler: data => {
+          this.sort = data;
+        }
       }, {
         text: 'Cancel'
       }]
