@@ -22,7 +22,7 @@ export class AuthService {
   }
 
   logout() {
-    firebase.auth().signOut();
+    return firebase.auth().signOut();
   }
 
   editUser(displayName: string, photoURL: string) {

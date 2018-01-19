@@ -16,8 +16,7 @@
 
 
 <ion-content no-padding>
-  <button ion-button clear small color="dark" (click)="openSortBy()">SORT BY</button>
-
+  <button ion-button clear small color="dark" (click)="openSortBy()">SORT BY {{ sort | uppercase }}</button>
   <!-- Loop through events array -->
   <ion-list no-lines>
     <button ion-item (click)="onOpenEvent()">
@@ -47,5 +46,4 @@
       <p>10m</p>
     </button>
   </ion-list>
-
 </ion-content>

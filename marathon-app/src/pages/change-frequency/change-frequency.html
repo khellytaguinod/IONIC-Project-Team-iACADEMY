@@ -1,6 +1,6 @@
 <ion-header no-border>
   <ion-navbar>
-    <ion-buttons left>
+    <ion-buttons right>
       <button ion-button icon-only (click)="onClose(true)">
         <ion-icon name="close"></ion-icon>
       </button>
@@ -12,10 +12,10 @@
 
 <ion-content no-padding class="bg">
   <form #f="ngForm" (ngSubmit)="onSubmit(f)">
-    <ion-list radio-group ngModel name="frequency">
+    <ion-list radio-group [(ngModel)]="frequency" name="frequency">
       <ion-item>
         <ion-label>Realtime</ion-label>
-        <ion-radio checked="true" value="realtime"></ion-radio>
+        <ion-radio checked="true" value="Realtime"></ion-radio>
       </ion-item>
 
       <ion-item>
@@ -59,6 +59,6 @@
       </ion-item>
     </ion-list>
 
-    <button ion-button clear type="submit">Select</button>
+    <button ion-button block type="submit">Select</button>
   </form>
 </ion-content>

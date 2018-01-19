@@ -13,11 +13,11 @@ export class ChangeFrequencyPage {
 
   onSubmit(form: NgForm) {
     this.frequency = form.value.frequency;
-    this.onClose();
+    this.onClose(this.frequency);
   }
 
-  onClose(change = false) {
-    this.viewCtrl.dismiss(change);
+  onClose(frequency) {
+    this.viewCtrl.dismiss(frequency);
   }
 
 }
