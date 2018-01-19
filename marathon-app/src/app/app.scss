@@ -46,3 +46,18 @@ page-events, page-event, page-profile, page-settings, page-change-frequency, pag
     }
   }
 }
+
+page-map {
+  ion-header {
+    .toolbar {
+      position: absolute;
+  
+      .toolbar-background {
+        background: transparent;
+      }
+      .toolbar-title {
+        color: black;
+      }
+    }
+  }
+}

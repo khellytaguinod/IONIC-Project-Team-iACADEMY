@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { Component, OnInit } from '@angular/core';
+import { NavParams } from 'ionic-angular';
 import {
   GoogleMaps,
   GoogleMap,
@@ -13,24 +12,23 @@ import {
 } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
 
-
-/**
- * Generated class for the MapPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
-@IonicPage()
 @Component({
   selector: 'page-map',
   templateUrl: 'map.html',
 })
-export class MapPage {
-
+export class MapPage implements OnInit {
+  mode;
+  isViewMode: boolean;
+  lat;
+  lng;
   map: GoogleMap;
 
-  constructor(public navCtrl: NavController, private geolocation: Geolocation) {}
+  constructor(private geolocation: Geolocation, private navParams: NavParams) {}
+
+  ngOnInit() {
+    this.mode = this.navParams.get('mode');
+    this.isViewMode = (this.mode === 'view') ? true : false;
+  }
 
   ionViewDidLoad() {
     this.loadMap();
@@ -39,10 +37,10 @@ export class MapPage {
   loadMap() {
 
     this.geolocation.getCurrentPosition().then((resp) => {
-      // resp.coords.latitude
-      // resp.coords.longitude
+      this.lat = this.roundOff(resp.coords.latitude);
+      this.lng = this.roundOff(resp.coords.longitude);
 
-      let location = new LatLng(resp.coords.latitude, resp.coords.longitude)
+      let location = new LatLng(resp.coords.latitude, resp.coords.longitude);
 
       let mapOptions: GoogleMapOptions = {
         camera: {
@@ -67,5 +65,10 @@ export class MapPage {
       console.log('Error getting location', error);
     });
 
+  }
+
+  private roundOff(number) {
+    let factor = Math.pow(10, 4);
+    return Math.round(number * factor) / factor;
   }
 }
