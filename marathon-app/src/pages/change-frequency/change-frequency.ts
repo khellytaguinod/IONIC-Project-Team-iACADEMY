@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ViewController } from 'ionic-angular';
+import {NavParams, ViewController} from 'ionic-angular';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -9,11 +9,11 @@ import { NgForm } from '@angular/forms';
 export class ChangeFrequencyPage {
   frequency;
 
-  constructor(private viewCtrl: ViewController) {}
+  constructor(private viewCtrl: ViewController, private navParams: NavParams) {}
 
   onSubmit(form: NgForm) {
     this.frequency = form.value.frequency;
-    this.onClose(this.frequency);
+    this.navParams.get('resolve')(this.frequency);
   }
 
   onClose(frequency) {

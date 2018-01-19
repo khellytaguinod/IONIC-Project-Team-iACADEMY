@@ -1,37 +1,35 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController } from 'ionic-angular';
-import { ChangeFrequencyPage } from '../change-frequency/change-frequency';
-import { EditUserPage } from '../edit-user/edit-user';
+import {Component} from '@angular/core';
+import {NavController} from 'ionic-angular';
+import {ChangeFrequencyPage} from '../change-frequency/change-frequency';
+import {EditUserPage} from '../edit-user/edit-user';
 
 @Component({
   selector: 'page-settings',
   templateUrl: 'settings.html',
 })
 export class SettingsPage {
-  frequency:string = 'Realtime';
+  frequency = 'Realtime';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController) {}
+  constructor(public navCtrl: NavController) {
+  }
 
   onChangeFrequency() {
-    let modal = this.modalCtrl.create(ChangeFrequencyPage, {frequency: 'realtime'});
-    modal.onDidDismiss(data => {
-      if(data == true) {
-        this.frequency = 'Realtime';
-      } else {
-        this.frequency = data;
-      }
-    })
-    modal.present();
+    new Promise((resolve, reject) => {
+      this.navCtrl.push(ChangeFrequencyPage, {resolve: resolve});
+    }).then(data => {
+        this.frequency = `${data}`;
+        this.navCtrl.pop();
+    });
   }
 
-  onEditUser() {
-    let modal = this.modalCtrl.create(EditUserPage, {mode: 'Edit User Details'});
-    modal.present();
-  }
-
-  onChangePassword() {
-    let modal = this.modalCtrl.create(EditUserPage, {mode: 'Change Password'});
-    modal.present();
+  onEditProfile(type) {
+    if (type === 'editName') {
+      this.navCtrl.push(EditUserPage, {editType: type});
+    } else if (type === 'editEmail') {
+      this.navCtrl.push(EditUserPage, {editType: type});
+    } else {
+      this.navCtrl.push(EditUserPage, {editType: type});
+    }
   }
 
 }

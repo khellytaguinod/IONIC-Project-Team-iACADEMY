@@ -14,13 +14,14 @@
     <ion-list-header class="bg"><b>Map Settings</b></ion-list-header>
     <button ion-item (click)="onChangeFrequency()">
       Change Frequency
-      <p item-end>{{ frequency }}</p>
+      <div item-end style="color: darkgray;">{{ frequency }}</div>
     </button>
   </ion-list>
 
   <ion-list>
     <ion-list-header class="bg"><b>Account Settings</b></ion-list-header>
-    <button ion-item (click)="onEditUser()">Edit User Details</button>
-    <button ion-item (click)="onChangePassword()">Change Password</button>
+    <button ion-item (click)="onEditProfile('editName')">Edit Name</button>
+    <button ion-item (click)="onEditProfile('editEmail')">Change Email</button>
+    <button ion-item (click)="onEditProfile('editPass')">Change Password</button>
   </ion-list>
 </ion-content>
