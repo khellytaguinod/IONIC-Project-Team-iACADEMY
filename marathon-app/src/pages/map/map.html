@@ -1,21 +1,33 @@
-<ion-header>
+<ion-header no-border>
   <ion-navbar>
-    <ion-buttons start>
-      <button ion-button>
-        <ion-icon name="arrow-back"></ion-icon>
+    <ion-buttons left>
+      <button ion-button icon-only menuToggle color="dark">
+        <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title>MAP</ion-title>
   </ion-navbar>
 </ion-header>
 
 
-<ion-content padding>
-  <div style="height: 50%;" id="map_canvas"></div>
+<ion-content no-padding>
+  <div class="location" *ngIf="!isViewMode">
+    {{ lat }}, {{ lng }}
+  </div>
+  <div id="map_canvas"></div>
 </ion-content>
 
 <ion-footer>
   <ion-toolbar>
-    <ion-title>EVENT TITLE</ion-title>
+    <ion-list no-lines *ngIf="isViewMode">
+      <ion-item>
+        <ion-title item-start>EVENT TITLE</ion-title>
+        <div item-end>
+          <p>Event starts in</p>
+          10 days
+        </div>
+      </ion-item>
+    </ion-list>
+
+    <button ion-button block *ngIf="!isViewMode">START</button>
   </ion-toolbar>
 </ion-footer>

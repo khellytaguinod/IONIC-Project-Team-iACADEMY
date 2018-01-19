@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { NavController } from 'ionic-angular';
+
+import { MapPage } from '../map/map';
 
 @Component({
   selector: 'page-event',
@@ -6,6 +9,14 @@ import { Component } from '@angular/core';
 })
 export class EventPage {
 
-  constructor() {}
+  constructor(private navCtrl: NavController) {}
+
+  onViewRoute() {
+    this.navCtrl.push(MapPage, {mode: 'view'});
+  }
+
+  onJoinEvent() {
+    this.navCtrl.push(MapPage, {mode: 'join'});
+  }
 
 }
