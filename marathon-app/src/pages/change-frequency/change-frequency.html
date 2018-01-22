@@ -13,6 +13,7 @@
 <ion-content no-padding class="bg">
   <form #f="ngForm" (ngSubmit)="onSubmit(f)">
     <ion-list radio-group [(ngModel)]="frequency" name="frequency">
+      <ion-list-header>Map frequency</ion-list-header>
       <ion-item>
         <ion-label>Realtime</ion-label>
         <ion-radio checked="true" value="Realtime"></ion-radio>
