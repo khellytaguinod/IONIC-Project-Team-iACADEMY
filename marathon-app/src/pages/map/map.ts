@@ -5,9 +5,9 @@ import {
   GoogleMap,
   GoogleMapsEvent,
   GoogleMapOptions,
-  CameraPosition,
-  MarkerOptions,
-  Marker,
+  // CameraPosition,
+  // MarkerOptions,
+  // Marker,
   LatLng
 } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
@@ -18,7 +18,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 })
 export class MapPage implements OnInit {
   mode;
-  isViewMode: boolean;
+  // isViewMode: boolean;
   lat;
   lng;
   map: GoogleMap;
@@ -27,7 +27,7 @@ export class MapPage implements OnInit {
 
   ngOnInit() {
     this.mode = this.navParams.get('mode');
-    this.isViewMode = (this.mode === 'view') ? true : false;
+    // this.isViewMode = (this.mode === 'view') ? true : false;
   }
 
   ionViewDidLoad() {
@@ -65,6 +65,10 @@ export class MapPage implements OnInit {
       console.log('Error getting location', error);
     });
 
+  }
+
+  onStart() {
+    this.mode = 'start';
   }
 
   private roundOff(number) {
