@@ -1,0 +1,43 @@
+<ion-header no-border>
+  <ion-navbar>
+    <ion-buttons left>
+      <button ion-button icon-only color="dark" (click)="onClose()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-buttons right>
+      <button ion-button clear icon-left color="primary">
+        <ion-icon name="flash"></ion-icon>
+        VIEW LIVE
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid text-center no-padding>
+    <ion-row>
+      <ion-col>
+        <p>DISTANCE</p>
+        <h2>0.2 km</h2>
+      </ion-col>
+
+      <ion-col>
+        <p>TOTAL TIME</p>
+        <h2>00:01:00</h2>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <p>NEXT CHECKPOINT: Checkpoint 1</p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <button ion-button block>PAUSE</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
