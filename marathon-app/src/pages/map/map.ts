@@ -73,10 +73,6 @@ export class MapPage implements OnInit {
     this.locationTracker.startTracking();
   }
 
-  stop() {
-    this.locationTracker.stopTracking();
-  }
-
   onOpenStats() {
     let modal = this.modalCtrl.create(StatsPage, {}, {cssClass: 'statsModal'});
     modal.present();
