@@ -11,6 +11,7 @@ import {
   LatLng
 } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
+import { LocationTrackerProvider } from '../../providers/location-tracker/location-tracker';
 
 @Component({
   selector: 'page-map',
@@ -23,7 +24,9 @@ export class MapPage implements OnInit {
   lng;
   map: GoogleMap;
 
-  constructor(private geolocation: Geolocation, private navParams: NavParams) {}
+  constructor(private geolocation: Geolocation, 
+              private navParams: NavParams, 
+              public locationTracker: LocationTrackerProvider) {}
 
   ngOnInit() {
     this.mode = this.navParams.get('mode');
@@ -67,6 +70,11 @@ export class MapPage implements OnInit {
 
   onStart() {
     this.mode = 'start';
+    this.locationTracker.startTracking();
+  }
+
+  stop() {
+    this.locationTracker.stopTracking();
   }
 
   private roundOff(number) {
