@@ -17,6 +17,7 @@ import {RegisterPage} from '../pages/register/register';
 import {AuthService} from "../services/auth";
 import { ChangeFrequencyPage } from '../pages/change-frequency/change-frequency';
 import { EditUserPage } from '../pages/edit-user/edit-user';
+import { StatsPage } from '../pages/stats/stats';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { EditUserPage } from '../pages/edit-user/edit-user';
     SettingsPage,
     RegisterPage,
     ChangeFrequencyPage,
-    EditUserPage
+    EditUserPage,
+    StatsPage
   ],
   imports: [
     BrowserModule,
@@ -47,7 +49,8 @@ import { EditUserPage } from '../pages/edit-user/edit-user';
     SettingsPage,
     RegisterPage,
     ChangeFrequencyPage,
-    EditUserPage
+    EditUserPage,
+    StatsPage
   ],
   providers: [
     GoogleMaps,

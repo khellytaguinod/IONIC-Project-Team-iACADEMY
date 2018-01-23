@@ -10,7 +10,7 @@
 
 
 <ion-content no-padding>
-  <div class="location" *ngIf="mode === 'join' || mode === 'start'">
+  <div class="location" *ngIf="mode === 'start'">
     {{ lat }}, {{ lng }}
   </div>
   <div id="map_canvas"></div>
@@ -26,24 +26,11 @@
       </div>
     </ion-item>
   </ion-list>
-  <button ion-button block *ngIf="mode === 'join'" (click)="onStart()">START</button>
-  <!-- <ion-toolbar no-padding>
-    <ion-grid *ngIf="mode === 'start'" text-center>
-      <ion-row>
-        <ion-col>
-          <h2>10km</h2>
-          DISTANCE LEFT
-        </ion-col>
 
-        <ion-col>
-          <h2>00:01:22</h2>
-          TOTAL TIME
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-toolbar> -->
+  <button ion-button block *ngIf="mode === 'join'" (click)="onStart()">START</button>
+
   <ion-list no-lines *ngIf="mode === 'start'" no-padding class="stats">
-    <button ion-item (swipe)="onOpenStats()">
+    <button ion-item (click)="onOpenStats()">
       <ion-grid text-center>
         <ion-row>
           <ion-col>
@@ -58,4 +45,5 @@
       </ion-grid>
     </button>
   </ion-list>
+
 </ion-footer>

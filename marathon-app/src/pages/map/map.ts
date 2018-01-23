@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams } from 'ionic-angular';
+import { NavParams, ModalController } from 'ionic-angular';
 import {
   GoogleMaps,
   GoogleMap,
@@ -11,6 +11,7 @@ import {
   LatLng
 } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
+import { StatsPage } from '../stats/stats';
 
 @Component({
   selector: 'page-map',
@@ -18,16 +19,14 @@ import { Geolocation } from '@ionic-native/geolocation';
 })
 export class MapPage implements OnInit {
   mode;
-  // isViewMode: boolean;
   lat;
   lng;
   map: GoogleMap;
 
-  constructor(private geolocation: Geolocation, private navParams: NavParams) {}
+  constructor(private geolocation: Geolocation, private navParams: NavParams, private modalCtrl: ModalController) {}
 
   ngOnInit() {
     this.mode = this.navParams.get('mode');
-    // this.isViewMode = (this.mode === 'view') ? true : false;
   }
 
   ionViewDidLoad() {
@@ -67,6 +66,11 @@ export class MapPage implements OnInit {
 
   onStart() {
     this.mode = 'start';
+  }
+
+  onOpenStats() {
+    let modal = this.modalCtrl.create(StatsPage, {}, {cssClass: 'statsModal'});
+    modal.present();
   }
 
   private roundOff(number) {
