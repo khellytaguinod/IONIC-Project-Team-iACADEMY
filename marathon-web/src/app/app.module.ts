@@ -3,22 +3,18 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
 import { AppRoutingModule } from './app-routing.module';
-import { EventsComponent } from './core/events/events.component';
+import { LoginComponent } from './core/login/login.component';
 import { HeaderComponent } from './core/header/header.component';
-import { EventListComponent } from './core/events/event-list/event-list.component';
-import { EventComponent } from './core/events/event-list/event/event.component';
+import { DashboardComponent } from './core/dashboard/dashboard.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    EventsComponent,
     HeaderComponent,
-    EventListComponent,
-    EventComponent
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
