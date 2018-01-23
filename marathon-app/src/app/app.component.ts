@@ -15,7 +15,7 @@ import {LoginPage} from "../pages/login/login";
 })
 export class MyApp {
   @ViewChild('content') nav: NavController;
-  rootPage: any = EventsPage;
+  rootPage: any;
   profilePage = ProfilePage;
   settingsPage = SettingsPage;
   isAuthenticated = false;
