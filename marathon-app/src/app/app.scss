@@ -18,6 +18,14 @@
   }
 }
 
+.statsModal {
+  position: absolute;
+  bottom: 0;
+  padding-top: 340px;
+  background-color: rgba(0,0,0,0.5);
+  border-top: 1px solid map-get($colors, divider);
+}
+
 page-events, page-event, page-profile, page-settings, page-change-frequency, page-edit-user {
   ion-header {
     .toolbar-background {
@@ -42,9 +50,8 @@ page-map {
       .toolbar-background {
         background: transparent;
       }
-      .toolbar-title {
-        color: black;
-      }
     }
   }
 }
+
+

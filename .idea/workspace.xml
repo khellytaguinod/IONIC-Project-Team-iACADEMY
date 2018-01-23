@@ -14,23 +14,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="app.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/marathon-app/src/app/app.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="780">
-              <caret line="33" column="0" lean-forward="true" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-              <folding>
-                <element signature="n#style#0;n#img#0;n#ion-avatar#0;n#ion-item#0;n#ion-list#0;n#ion-content#0;n#ion-menu#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="events.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/marathon-app/src/pages/events/events.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="546">
-              <caret line="28" column="30" lean-forward="true" selection-start-line="28" selection-start-column="30" selection-end-line="28" selection-end-column="30" />
+              <caret line="28" column="30" lean-forward="false" selection-start-line="28" selection-start-column="30" selection-end-line="28" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -89,8 +77,18 @@
       <file leaf-file-name="edit-user.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/marathon-app/src/pages/edit-user/edit-user.html">
           <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-496">
+              <caret line="1" column="14" lean-forward="false" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.module.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/marathon-app/src/app/app.module.ts">
+          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="182">
-              <caret line="7" column="24" lean-forward="false" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
+              <caret line="7" column="44" lean-forward="true" selection-start-line="7" selection-start-column="44" selection-end-line="7" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -162,7 +160,6 @@
         <option value="$PROJECT_DIR$/marathon-app/package-lock.json" />
         <option value="$PROJECT_DIR$/marathon-app/src/pages/change-frequency/change-frequency.html" />
         <option value="$PROJECT_DIR$/marathon-app/src/pages/profile/profile.html" />
-        <option value="$PROJECT_DIR$/marathon-app/src/app/app.module.ts" />
         <option value="$PROJECT_DIR$/marathon-app/src/app/app.component.ts" />
         <option value="$PROJECT_DIR$/marathon-app/src/app/app.scss" />
         <option value="$PROJECT_DIR$/marathon-app/src/pages/edit-user/edit-user.scss" />
@@ -173,6 +170,7 @@
         <option value="$PROJECT_DIR$/marathon-app/src/pages/events/events.html" />
         <option value="$PROJECT_DIR$/marathon-app/src/pages/events/events.scss" />
         <option value="$PROJECT_DIR$/marathon-app/src/pages/edit-user/edit-user.ts" />
+        <option value="$PROJECT_DIR$/marathon-app/src/app/app.module.ts" />
         <option value="$PROJECT_DIR$/marathon-app/src/pages/edit-user/edit-user.html" />
       </list>
     </option>
@@ -377,12 +375,12 @@
       <workItem from="1516163153205" duration="11973000" />
       <workItem from="1516583583501" duration="7313000" />
       <workItem from="1516594370802" duration="6491000" />
-      <workItem from="1516666729685" duration="22309000" />
+      <workItem from="1516666729685" duration="22483000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="97204000" />
+    <option name="totallyTimeSpent" value="97378000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
@@ -735,22 +733,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/marathon-app/src/app/app.module.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="780">
-          <caret line="55" column="16" lean-forward="false" selection-start-line="55" selection-start-column="16" selection-end-line="55" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#56#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/marathon-app/src/app/app.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="780">
           <caret line="33" column="0" lean-forward="true" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
           <folding>
-            <element signature="n#style#0;n#img#0;n#ion-avatar#0;n#ion-item#0;n#ion-list#0;n#ion-content#0;n#ion-menu#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#ion-avatar#0;n#ion-item#0;n#ion-list#0;n#ion-content#0;n#ion-menu#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -790,7 +778,7 @@
     <entry file="file://$PROJECT_DIR$/marathon-app/src/pages/events/events.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="546">
-          <caret line="28" column="30" lean-forward="true" selection-start-line="28" selection-start-column="30" selection-end-line="28" selection-end-column="30" />
+          <caret line="28" column="30" lean-forward="false" selection-start-line="28" selection-start-column="30" selection-end-line="28" selection-end-column="30" />
           <folding />
         </state>
       </provider>
@@ -819,10 +807,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/marathon-app/src/pages/edit-user/edit-user.html">
+    <entry file="file://$PROJECT_DIR$/marathon-app/src/app/app.module.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="182">
-          <caret line="7" column="24" lean-forward="false" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
+          <caret line="7" column="44" lean-forward="true" selection-start-line="7" selection-start-column="44" selection-end-line="7" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/marathon-app/src/pages/edit-user/edit-user.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-496">
+          <caret line="1" column="14" lean-forward="false" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="14" />
           <folding />
         </state>
       </provider>

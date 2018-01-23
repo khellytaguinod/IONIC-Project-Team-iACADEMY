@@ -14,7 +14,7 @@
   <form #f="ngForm" id="editName" (ngSubmit)="onEditName(f)" *ngIf="toEdit === 'editName'">
     <ion-list>
       <ion-item>
-        <ion-label color="primary" stacked>Name</ion-label>
+        <ion-label color="primary" fixed>Name</ion-label>
         <ion-input type="text" name="name" ngModel [(value)]="username"></ion-input>
       </ion-item>
     </ion-list>

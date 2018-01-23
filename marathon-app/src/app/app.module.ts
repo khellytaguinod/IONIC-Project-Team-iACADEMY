@@ -5,6 +5,8 @@ import {SplashScreen} from '@ionic-native/splash-screen';
 import {StatusBar} from '@ionic-native/status-bar';
 import {GoogleMaps} from '@ionic-native/google-maps';
 import {Geolocation} from '@ionic-native/geolocation';
+import {BackgroundGeolocation} from '@ionic-native/background-geolocation';
+import {IonicStorageModule} from '@ionic/storage';
 
 import {MyApp} from './app.component';
 import {LoginPage} from "../pages/login/login";
@@ -17,6 +19,8 @@ import {RegisterPage} from '../pages/register/register';
 import {AuthService} from "../services/auth";
 import {ChangeFrequencyPage} from '../pages/change-frequency/change-frequency';
 import {EditUserPage} from '../pages/edit-user/edit-user';
+import {StatsPage} from '../pages/stats/stats';
+import {LocationTrackerProvider} from '../providers/location-tracker/location-tracker';
 
 @NgModule({
   declarations: [
@@ -29,11 +33,13 @@ import {EditUserPage} from '../pages/edit-user/edit-user';
     SettingsPage,
     RegisterPage,
     ChangeFrequencyPage,
-    EditUserPage
+    EditUserPage,
+    StatsPage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -46,14 +52,17 @@ import {EditUserPage} from '../pages/edit-user/edit-user';
     SettingsPage,
     RegisterPage,
     ChangeFrequencyPage,
-    EditUserPage
+    EditUserPage,
+    StatsPage
   ],
   providers: [
     GoogleMaps,
+    BackgroundGeolocation,
     Geolocation,
     StatusBar,
     SplashScreen,
     AuthService,
+    LocationTrackerProvider,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
