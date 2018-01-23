@@ -15,35 +15,90 @@
 </ion-header>
 
 
-<ion-content class="bg">
+<ion-content>
   <button ion-button clear small color="dark" (click)="openSortBy()">SORT BY {{ sort | uppercase }}</button>
   <!-- Loop through events array -->
   <ion-list>
-    <button ion-item (click)="onOpenEvent()">
-      <ion-thumbnail item-end>
-        <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg" alt="Photos">
-      </ion-thumbnail>
-      <h2>Marathon 1</h2>
-      <h3>Longest race you've ever seen</h3>
-      <p>10m</p>
-    </button>
+    <ion-grid no-padding>
+      <ion-row>
 
-    <button ion-item>
-      <ion-thumbnail item-end>
-        <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg" alt="Photos">
-      </ion-thumbnail>
-      <h2>Marathon 2</h2>
-      <h3>Longest race you've ever seen</h3>
-      <p>10m</p>
-    </button>
+        <ion-col col-12 col-sm-6 col-lg-3 col-sm>
+          <ion-card (click)="onOpenEvent($event)">
+            <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg"
+                 alt="Photos">
+            <ion-card-content>
+              <ion-card-title>
+                Marathon Run 1
+              </ion-card-title>
+              <p>
+                The longest marathon run ever, great for expert runners.
+              </p>
+            </ion-card-content>
+            <ion-item color="light">
+              <span item-left>21 Miles</span>
+              <span item-right>3 Days left</span>
+            </ion-item>
+          </ion-card>
+        </ion-col>
 
-    <button ion-item>
-      <ion-thumbnail item-end>
-        <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg" alt="Photos">
-      </ion-thumbnail>
-      <h2>Marathon 3</h2>
-      <h3>Longest race you've ever seen</h3>
-      <p>10m</p>
-    </button>
+        <ion-col col-12 col-sm-6 col-lg-3 col-sm>
+          <ion-card (click)="onOpenEvent($event)">
+            <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg"
+                 alt="Photos">
+            <ion-card-content>
+              <ion-card-title>
+                Marathon Run 2
+              </ion-card-title>
+              <p>
+                The shortest marathon run ever, great for new runners.
+              </p>
+            </ion-card-content>
+            <ion-item color="light">
+              <span item-left>8 Miles</span>
+              <span item-right>3 Days left</span>
+            </ion-item>
+          </ion-card>
+        </ion-col>
+
+        <ion-col col-12 col-sm-6 col-lg-3 col-sm>
+          <ion-card (click)="onOpenEvent($event)">
+            <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg"
+                 alt="Photos">
+            <ion-card-content>
+              <ion-card-title>
+                Marathon Run 3
+              </ion-card-title>
+              <p>
+                A balance marathon run, great for experienced runners
+              </p>
+            </ion-card-content>
+            <ion-item color="light">
+              <span item-left>18 Miles</span>
+              <span item-right>3 Days left</span>
+            </ion-item>
+          </ion-card>
+        </ion-col>
+
+        <ion-col col-12 col-sm-6 col-lg-3 col-sm>
+          <ion-card (click)="onOpenEvent($event)">
+            <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg"
+                 alt="Photos">
+            <ion-card-content>
+              <ion-card-title>
+                Marathon Run 1
+              </ion-card-title>
+              <p>
+                The all-round marathon run, great for all runners.
+              </p>
+            </ion-card-content>
+            <ion-item color="light">
+              <span item-left>13 Miles</span>
+              <span item-right>3 Days left</span>
+            </ion-item>
+          </ion-card>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
   </ion-list>
 </ion-content>
