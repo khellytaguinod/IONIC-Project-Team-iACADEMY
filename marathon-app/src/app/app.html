@@ -1,5 +1,7 @@
 <ion-menu [content]="content">
+
   <ion-content>
+
     <ion-list>
       <ion-item class="profile-header bg" no-lines>
         <ion-avatar item-start>
@@ -10,6 +12,7 @@
         <p>{{ [(email)] }}</p>
       </ion-item>
     </ion-list>
+
     <ion-list>
       <button ion-item (click)="onLoad(rootPage)" class="menu-button">
         <ion-icon item-left name="calendar" class="menu-icon"></ion-icon>
@@ -28,7 +31,9 @@
         Logout
       </button>
     </ion-list>
+
   </ion-content>
+
 </ion-menu>
 
 <ion-nav #content [root]="rootPage"></ion-nav>
