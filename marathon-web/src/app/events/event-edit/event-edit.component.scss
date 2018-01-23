@@ -1,0 +1,25 @@
+@import '../../app-variables';
+
+input[type="file"] {
+  display: none;
+}
+
+input.ng-invalid.ng-touched {
+  border-left: 2px solid $danger;
+}
+
+.upload {
+  width: 100%;
+  background-color: $bg;
+  text-align: center;
+  padding: 20px 0;
+  i {
+    font-size: 400%;
+    cursor: pointer;
+    color: $danger;
+  }
+}
+
+p {
+  text-align: center;
+}

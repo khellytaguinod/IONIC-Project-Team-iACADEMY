@@ -10,8 +10,8 @@ import { EventsService } from './events.service';
 const eventsRoutes: Routes = [
   {path: '', component: EventsComponent, children: [
     {path: '', component: EventListComponent},
-    {path: ':id', component: EventComponent},
-    {path: ':id/edit', component: EventEditComponent},
+    // {path: ':id', component: EventComponent},
+    // {path: ':id/edit', component: EventEditComponent},
     {path: 'new', component: EventEditComponent}
   ]}
 ];
