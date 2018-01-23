@@ -19,6 +19,7 @@ import {RegisterPage} from '../pages/register/register';
 import {AuthService} from "../services/auth";
 import { ChangeFrequencyPage } from '../pages/change-frequency/change-frequency';
 import { EditUserPage } from '../pages/edit-user/edit-user';
+import { StatsPage } from '../pages/stats/stats';
 import { LocationTrackerProvider } from '../providers/location-tracker/location-tracker';
 
 
@@ -33,7 +34,8 @@ import { LocationTrackerProvider } from '../providers/location-tracker/location-
     SettingsPage,
     RegisterPage,
     ChangeFrequencyPage,
-    EditUserPage
+    EditUserPage,
+    StatsPage
   ],
   imports: [
     BrowserModule,
@@ -52,7 +54,8 @@ import { LocationTrackerProvider } from '../providers/location-tracker/location-
     SettingsPage,
     RegisterPage,
     ChangeFrequencyPage,
-    EditUserPage
+    EditUserPage,
+    StatsPage
   ],
   providers: [
     GoogleMaps,
