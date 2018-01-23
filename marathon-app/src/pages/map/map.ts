@@ -35,7 +35,6 @@ export class MapPage implements OnInit {
   }
 
   loadMap() {
-
     this.geolocation.getCurrentPosition().then((resp) => {
       this.lat = this.roundOff(resp.coords.latitude);
       this.lng = this.roundOff(resp.coords.longitude);
@@ -64,7 +63,6 @@ export class MapPage implements OnInit {
     }).catch((error) => {
       console.log('Error getting location', error);
     });
-
   }
 
   onStart() {
