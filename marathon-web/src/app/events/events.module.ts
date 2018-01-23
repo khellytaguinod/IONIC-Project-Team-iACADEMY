@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { EventsComponent } from './events.component';
 import { EventListComponent } from './event-list/event-list.component';
@@ -17,6 +18,7 @@ import { EventsRoutingModule } from './events-routing.module';
   imports: [
     CommonModule,
     EventsRoutingModule,
+    FormsModule
   ]
 })
 export class EventsModule {}
