@@ -24,11 +24,7 @@ export class EditUserPage implements OnInit {
     this.toEdit = this.navParams.get('editType');
   }
 
-  onClose(change = false) {
-    this.viewCtrl.dismiss(change);
-  }
-
-  onEditName(form: NgForm){
+  onEditName(form: NgForm) {
     this.authService.editUser(form.value.name, '');
     this.viewCtrl.dismiss();
   }
