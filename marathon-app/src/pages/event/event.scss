@@ -1,3 +1,14 @@
 page-event {
-
+  #header {
+    position: relative;
+  }
+  h4 {
+    margin-bottom: 0;
+  }
+  .details {
+    margin-left: 20px;
+  }
+  .sec-details {
+    color: map-get($colors, secondarytext);
+  }
 }

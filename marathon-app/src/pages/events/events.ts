@@ -7,7 +7,6 @@ import {EventPage} from '../event/event';
   templateUrl: 'events.html',
 })
 export class EventsPage {
-  sort: string = 'Latest';
 
   constructor(private alertCtrl: AlertController, private navCtrl: NavController) {
   }
@@ -26,10 +25,7 @@ export class EventsPage {
         value: 'Name'
       }],
       buttons: [{
-        text: 'OK',
-        handler: data => {
-          this.sort = data;
-        }
+        text: 'OK'
       }, {
         text: 'Cancel'
       }]
