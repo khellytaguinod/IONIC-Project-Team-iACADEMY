@@ -10,14 +10,37 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid no-padding>
+  <div id="header">
+    <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg" alt="Photo">
+    <ion-fab bottom right edge>
+      <button ion-fab color="danger" (click)="onJoinEvent()">
+        <ion-icon name="play"></ion-icon>
+      </button>
+    </ion-fab>
+  </div>
+
+  <ion-grid no-padding class="details">
     <ion-row>
       <ion-col>
-        <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg" alt="Photo">
+        <h4>January 23</h4>
       </ion-col>
     </ion-row>
+    <ion-row class="sec-details">
+      <ion-col>
+        <ion-icon name="time" item-left></ion-icon>
+        1:00 PM
+      </ion-col>
+    </ion-row>
+    <ion-row class="sec-details">
+      <ion-col>
+        <ion-icon name="pin" item-left></ion-icon>
+        Cebu, Philippines
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
-    <ion-row padding>
+  <ion-grid padding>
+    <ion-row>
       <ion-col>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vehicula est dolor, non feugiat odio cursus ac. Cras erat nisi, cursus non aliquet eget, lacinia sit amet nulla. Aliquam a blandit elit, vel auctor ipsum. Suspendisse ut pretium massa, eget euismod nunc. Duis et massa sed erat tincidunt sodales.</p>
       </ion-col>
@@ -25,11 +48,14 @@
 
     <ion-row>
       <ion-col>
-        <button ion-button clear (click)="onViewRoute()">VIEW ROUTE</button>
+        <button ion-button clear icon-left (click)="onViewRoute()">
+          <ion-icon name="map"></ion-icon>
+          VIEW ROUTE
+        </button>
       </ion-col>
-      <ion-col text-right>
-        <button ion-button medium (click)="onJoinEvent()">JOIN</button>
-      </ion-col>
+      <!-- <ion-col text-right>
+        <button ion-button (click)="onJoinEvent()">JOIN</button>
+      </ion-col> -->
     </ion-row>
   </ion-grid>
 </ion-content>

@@ -2,18 +2,17 @@
 
   <ion-content>
 
-    <ion-list>
-      <ion-item class="profile-header bg" no-lines>
-        <ion-avatar item-start>
-          <img style="width: 80px; height: 90px; margin: auto ;"
-               src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
-        </ion-avatar>
-        <h2>{{ [(username)] }}</h2>
-        <p>{{ [(email)] }}</p>
-      </ion-item>
-    </ion-list>
+    <ion-grid class="profile-header" text-center>
+      <ion-row no-padding>
+        <ion-col>
+          <img style="width: 80px; height: 90px; margin: auto ;" src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
+          <h5>{{ username }}</h5>
+          <p>{{ email }}</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
-    <ion-list>
+    <ion-list no-lines>
       <button ion-item (click)="onLoad(rootPage)" class="menu-button">
         <ion-icon item-left name="calendar" class="menu-icon"></ion-icon>
         Events

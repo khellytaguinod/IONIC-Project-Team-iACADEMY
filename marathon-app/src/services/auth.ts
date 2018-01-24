@@ -30,7 +30,7 @@ export class AuthService {
     user.updateProfile({
       displayName: displayName,
       photoURL: photoURL
-    })
+    });
   }
 
   updateUserEmail(email: string) {
