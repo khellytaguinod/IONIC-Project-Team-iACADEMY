@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {LoadingController, MenuController, NavController, Platform} from 'ionic-angular';
+import {Events, LoadingController, MenuController, NavController, Platform} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import firebase from 'firebase';
@@ -22,7 +22,7 @@ export class MyApp {
   username;
   email;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menuCtrl: MenuController, private authService: AuthService, private loadingCtrl: LoadingController) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menuCtrl: MenuController, private authService: AuthService, private loadingCtrl: LoadingController, public events: Events) {
     firebase.initializeApp({
       apiKey: "AIzaSyB69ECSbnlRhzzjDWl9G1RkylwdP_r0oVI",
       authDomain: "marathon-app-database.firebaseapp.com",
@@ -37,6 +37,9 @@ export class MyApp {
         this.email = user.email;
         this.isAuthenticated = true;
         this.rootPage = EventPage;
+        events.subscribe('user:updateName', (name) => {
+          this.username = name;
+        });
       } else {
         this.isAuthenticated = false;
         this.rootPage = LoginPage;
