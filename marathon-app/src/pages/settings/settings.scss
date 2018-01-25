@@ -1,2 +1,8 @@
 page-settings {
+  ion-list:first-child {
+    margin-bottom: 12%;
+    ion-list-header {
+      margin-bottom: 0;
+    }
+  }
 }

@@ -28,9 +28,6 @@ export class EditUserPage implements OnInit {
         this.rootPage = LoginPage;
       }
     });
-    this.authService.getUserDetails();
-    this.username = this.authService.username;
-    this.email = this.authService.email;
   }
 
   ngOnInit() {
@@ -42,6 +39,12 @@ export class EditUserPage implements OnInit {
     } else if (this.toEdit === 'editPass') {
       this.mode = 'Change Password';
     }
+  }
+
+  ionViewDidLoad() {
+    this.authService.getUserDetails();
+    this.username = this.authService.username;
+    this.email = this.authService.email;
   }
 
   onEditName(form: NgForm) {
