@@ -1,9 +1,10 @@
 import {Component} from '@angular/core';
 import {AlertController, LoadingController, MenuController, NavController} from 'ionic-angular';
+import {NgForm} from '@angular/forms';
+
 import {RegisterPage} from '../register/register';
 import {AuthService} from "../../services/auth";
-import {NgForm} from "@angular/forms";
-import {EventsPage} from '../events/events';
+import { EventPage } from '../event/event';
 
 @Component({
   selector: 'page-login',
@@ -11,7 +12,7 @@ import {EventsPage} from '../events/events';
 })
 export class LoginPage {
   registerPage = RegisterPage;
-  eventsPage = EventsPage;
+  eventPage = EventPage;
 
   constructor(private navCtrl: NavController, private authService: AuthService, private loadingCtrl: LoadingController, private alertCtrl: AlertController, private menuCtrl: MenuController) {
   }

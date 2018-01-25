@@ -4,11 +4,11 @@ import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import firebase from 'firebase';
 
-import {EventsPage} from "../pages/events/events";
 import {ProfilePage} from "../pages/profile/profile";
 import {SettingsPage} from "../pages/settings/settings";
 import {AuthService} from "../services/auth";
 import {LoginPage} from "../pages/login/login";
+import { EventPage } from '../pages/event/event';
 
 @Component({
   templateUrl: 'app.html'
@@ -36,7 +36,7 @@ export class MyApp {
         this.username = user.displayName;
         this.email = user.email;
         this.isAuthenticated = true;
-        this.rootPage = EventsPage;
+        this.rootPage = EventPage;
         events.subscribe('user:updateName', (name) => {
           this.username = name;
         });
