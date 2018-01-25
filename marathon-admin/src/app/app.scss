@@ -14,3 +14,28 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+.menu {
+  background-color: map-get($colors, menu-bg);
+  color: #fff;
+}
+
+.menu-header {
+  background-color: map-get($colors, menu-bg-light);
+  color: #fff;
+  margin-bottom: 30px;
+  h1 {
+    margin-left: 15px;
+  }
+}
+
+.menu-item {
+  // padding: 8px;
+  margin: 15px 0;
+  font-size: 130%;
+  ion-icon {
+    margin-left: 10px;
+    margin-right: 20px;
+    color: rgb(204, 204, 204);
+  }
+}
