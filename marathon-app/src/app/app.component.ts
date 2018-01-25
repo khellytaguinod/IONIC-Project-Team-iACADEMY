@@ -48,6 +48,12 @@ export class MyApp {
     });
   }
 
+  onGetUserDetails() {
+    this.authService.getUserDetails();
+    this.username = this.authService.username;
+    this.email = this.authService.email;
+  }
+
   onLoad(page: any) {
     this.nav.setRoot(page);
     this.menuCtrl.close();

@@ -14,7 +14,7 @@
     <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg" alt="Photo">
     <ion-fab bottom right edge>
       <button ion-fab color="danger" (click)="onJoinEvent()">
-        <ion-icon name="play"></ion-icon>
+        <ion-icon name="add"></ion-icon>
       </button>
     </ion-fab>
   </div>
@@ -39,23 +39,16 @@
     </ion-row>
   </ion-grid>
 
-  <ion-grid padding>
+  <ion-grid class="description">
     <ion-row>
       <ion-col>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vehicula est dolor, non feugiat odio cursus ac. Cras erat nisi, cursus non aliquet eget, lacinia sit amet nulla. Aliquam a blandit elit, vel auctor ipsum. Suspendisse ut pretium massa, eget euismod nunc. Duis et massa sed erat tincidunt sodales.</p>
       </ion-col>
     </ion-row>
-
-    <ion-row>
-      <ion-col>
-        <button ion-button clear icon-left (click)="onViewRoute()">
-          <ion-icon name="map"></ion-icon>
-          VIEW ROUTE
-        </button>
-      </ion-col>
-      <!-- <ion-col text-right>
-        <button ion-button (click)="onJoinEvent()">JOIN</button>
-      </ion-col> -->
-    </ion-row>
   </ion-grid>
+
+  <button ion-button clear icon-left (click)="onViewRoute()">
+    <ion-icon name="map"></ion-icon>
+    VIEW ROUTE
+  </button>
 </ion-content>
