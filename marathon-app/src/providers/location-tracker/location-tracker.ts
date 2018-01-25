@@ -33,6 +33,7 @@ import { Storage } from '@ionic/storage';
 export class LocationTrackerProvider {
 
   public list: any[] = [];  // james eto yung array na dapat isaved / push sa db natin
+  // public list: any[] = [];  // james eto yung array na dapat isaved / push sa db natin
   public watch: any;
   public lat: number = 0;
   public lng: number = 0;
@@ -83,17 +84,17 @@ export class LocationTrackerProvider {
 
     this.watch = this.geolocation.watchPosition(options).filter((p: any) => p.code === undefined).subscribe((position: Geoposition) => {
       console.log(position);
-      // let myKey = firebase.database().ref('/users/P9Ny6kCN13aVockO1qr7hXYLUsN2/').child('coordinates').push().key;
 
-      // let savedCoordinates = new LatLng(position.coords.latitude, position.coords.longitude)
-      // firebase.database().ref('/users/P9Ny6kCN13aVockO1qr7hXYLUsN2/coordinates/' + myKey).update({
-      //   lat: position.coords.latitude,
-      //   lng: position.coords.longitude
-      // });
+      let myKey = firebase.database().ref('/users/P9Ny6kCN13aVockO1qr7hXYLUsN2/').child('coordinates').push().key;
+      let savedCoordinates = new LatLng(position.coords.latitude, position.coords.longitude)
+      firebase.database().ref('/users/P9Ny6kCN13aVockO1qr7hXYLUsN2/coordinates/' + myKey).update({
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      });
 
       // firebase.database().ref('/users/P9Ny6kCN13aVockO1qr7hXYLUsN2/coordinates/' + myKey).update(savedCoordinates);
-      let savedCoordinates = new LatLng(position.coords.latitude, position.coords.longitude)
-      this.list.push(savedCoordinates); // james eto yung array na dapat isaved / push sa db natin
+      // let savedCoordinates = new LatLng(position.coords.latitude, position.coords.longitude)
+      // this.list.push(savedCoordinates); // james eto yung array na dapat isaved / push sa db natin
 
 
       // Run update inside of Angular's zone
@@ -112,11 +113,12 @@ export class LocationTrackerProvider {
 
 
     this.storage.set('coordinates', this.list);
-
+    console.log(' coordinates array saved ');
+    
   }
 
   showRecord() {
-    this.storage.get('coordinates').then((val) => {
+      this.storage.get('coordinates').then((val) => {
 
       this.name = val;
       console.log('coordinates are', val);
