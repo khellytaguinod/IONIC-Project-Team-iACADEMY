@@ -11,7 +11,6 @@ import {IonicStorageModule} from '@ionic/storage';
 import {MyApp} from './app.component';
 import {LoginPage} from "../pages/login/login";
 import {EventPage} from "../pages/event/event";
-import {EventsPage} from "../pages/events/events";
 import {ProfilePage} from "../pages/profile/profile";
 import {SettingsPage} from "../pages/settings/settings";
 import {MapPage} from "../pages/map/map";
@@ -28,7 +27,6 @@ import {LocationTrackerProvider} from '../providers/location-tracker/location-tr
     MapPage,
     LoginPage,
     EventPage,
-    EventsPage,
     ProfilePage,
     SettingsPage,
     RegisterPage,
@@ -47,7 +45,6 @@ import {LocationTrackerProvider} from '../providers/location-tracker/location-tr
     MapPage,
     LoginPage,
     EventPage,
-    EventsPage,
     ProfilePage,
     SettingsPage,
     RegisterPage,

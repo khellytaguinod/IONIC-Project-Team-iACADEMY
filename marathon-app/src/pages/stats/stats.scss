@@ -1,3 +1,23 @@
 page-stats {
-  
+  .bg {
+    background-color: transparent;
+  }
+  .modal {
+    background-color: #fff;
+    // padding: 30px 5px;
+    padding: 5%;
+    border-radius: 5px;
+  }
+  .close {
+    opacity: 0.7;
+  }
+  h1 {
+    font-size: 250%;
+    margin: 0;
+  }
+  h5 {
+    ion-icon {
+      margin-right: 10px;
+    }
+  }
 }

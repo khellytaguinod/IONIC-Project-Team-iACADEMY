@@ -10,55 +10,53 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item class="profile-header bg">
-      <ion-avatar item-start>
-        <img style="width: 80px; height: 90px; margin: auto ;" src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
-      </ion-avatar>
-      <h2>{{ username }}</h2>
-      <p>{{ email }}</p>
-      <button ion-button clear item-end (click)="onLoad(settingsPage)">EDIT</button>
-    </ion-item>
-  </ion-list>
+  <div id="header">
+    <ion-grid class="profile-header" text-center>
+      <ion-row no-padding>
+        <ion-col>
+          <img style="width: 80px; height: 90px; margin: auto ;" src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
+          <h5>{{ username }}</h5>
+          <p>{{ email }}</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-fab bottom right edge>
+      <button ion-fab mini color="danger" (click)="onLoad(settingsPage)">
+        <ion-icon name="create"></ion-icon>
+      </button>
+    </ion-fab>
+  </div>
 
-  <ion-list>
+  <ion-list class="list1">
     <ion-list-header><b>Incoming Events</b></ion-list-header>
-    <button ion-item>
-        <ion-thumbnail item-end>
-          <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg" alt="Photos">
-        </ion-thumbnail>
-        <h2>Marathon 1</h2>
-        <h3>Longest race you've ever seen</h3>
-        <p>10m</p>
-    </button>
-    <button ion-item>
-      <ion-thumbnail item-end>
+    <button ion-item detail-none>
+      <ion-thumbnail item-start>
         <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg" alt="Photos">
       </ion-thumbnail>
-      <h2>Marathon 1</h2>
-      <h3>Longest race you've ever seen</h3>
-      <p>10m</p>
+      <h2 class="title">Marathon Run 5</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam at aliquam ipsum. Sed pulvinar ex quis accumsan mattis. Vestibulum quis lacus at erat bibendum vulputate.</p>
+      <ion-note item-end>Jan 24</ion-note>
     </button>
   </ion-list>
 
-  <ion-list>
-      <ion-list-header><b>Past Events</b></ion-list-header>
-      <button ion-item>
-          <ion-thumbnail item-end>
-            <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg" alt="Photos">
-          </ion-thumbnail>
-          <h2>Marathon 2</h2>
-          <h3>Longest race you've ever seen</h3>
-          <p>10m</p>
-      </button>
-      <button ion-item>
-          <ion-thumbnail item-end>
-            <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg" alt="Photos">
-          </ion-thumbnail>
-          <h2>Marathon 3</h2>
-          <h3>Longest race you've ever seen</h3>
-          <p>10m</p>
-      </button>
-    </ion-list>
+  <ion-list class="list2">
+    <ion-list-header><b>Past Events</b></ion-list-header>
+    <button ion-item detail-none>
+      <ion-thumbnail item-start>
+        <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg" alt="Photos">
+      </ion-thumbnail>
+      <h2 class="title">Marathon Run 4</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam at aliquam ipsum. Sed pulvinar ex quis accumsan mattis. Vestibulum quis lacus at erat bibendum vulputate.</p>
+      <ion-note item-end>Jan 24</ion-note>
+    </button>
+    <button ion-item detail-none>
+      <ion-thumbnail item-start>
+        <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg" alt="Photos">
+      </ion-thumbnail>
+      <h2 class="title">Marathon Run 3</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam at aliquam ipsum. Sed pulvinar ex quis accumsan mattis. Vestibulum quis lacus at erat bibendum vulputate.</p>
+      <ion-note item-end>Jan 24</ion-note>
+    </button>
+  </ion-list>
 
 </ion-content>

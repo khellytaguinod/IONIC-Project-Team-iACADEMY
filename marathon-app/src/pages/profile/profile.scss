@@ -1,2 +1,25 @@
 page-profile {
+  ion-note {
+    font-size: 13px;
+    align-self: flex-start;
+    margin-top: 14px;
+  }
+  .title {
+    font-size: 115%;
+  }
+  #header {
+    position: relative;
+  }
+  .list1 {
+    margin-top: 0;
+    ion-list-header {
+      margin-bottom: 0;
+    }
+  }
+  .list2 {
+    margin-top: 30px;
+    ion-list-header {
+      margin-bottom: 0;
+    }
+  }
 }

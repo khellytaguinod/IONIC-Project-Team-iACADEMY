@@ -1,43 +1,49 @@
 <ion-header no-border>
   <ion-navbar>
     <ion-buttons right>
-      <button ion-button color="white" type="submit" form="editName" *ngIf="toEdit === 'editName'">Done</button>
-      <button ion-button color="white" type="submit" form="editEmail" *ngIf="toEdit === 'editEmail'">Done</button>
-      <button ion-button color="white" type="submit" form="editPass" *ngIf="toEdit === 'editPass'">Done</button>
+      <button ion-button icon-only color="white" type="submit" form="editName" *ngIf="toEdit === 'editName'">
+        <ion-icon name="checkmark"></ion-icon>
+      </button>
+      <button ion-button icon-only color="white" type="submit" form="editEmail" *ngIf="toEdit === 'editEmail'">
+        <ion-icon name="checkmark"></ion-icon>
+      </button>
+      <button ion-button icon-only color="white" type="submit" form="editPass" *ngIf="toEdit === 'editPass'">
+        <ion-icon name="checkmark"></ion-icon>
+      </button>
     </ion-buttons>
-    <ion-title>{{ toEdit }}</ion-title>
+    <ion-title>{{ mode | uppercase }}</ion-title>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content no-padding>
   <form #f="ngForm" id="editName" (ngSubmit)="onEditName(f)" *ngIf="toEdit === 'editName'">
-    <ion-list>
+    <ion-list inset>
       <ion-item>
-        <ion-label color="primary" fixed>Name</ion-label>
-        <ion-input type="text" name="name" ngModel [(value)]="username"></ion-input>
+        <ion-label floating>Name</ion-label>
+        <ion-input type="text" name="name" ngModel [(value)]="username" required></ion-input>
       </ion-item>
     </ion-list>
   </form>
 
   <form #f="ngForm" id="editEmail" (ngSubmit)="onEditEmail(f)" *ngIf="toEdit === 'editEmail'">
-    <ion-list>
+    <ion-list inset>
       <ion-item>
-        <ion-label color="primary" stacked>Email</ion-label>
-        <ion-input type="email" name="email" ngModel required></ion-input>
+        <ion-label floating>Email</ion-label>
+        <ion-input type="email" name="email" ngModel [(value)]="email" required></ion-input>
       </ion-item>
     </ion-list>
   </form>
 
   <form #f="ngForm" id="editPass" (ngSubmit)="onChangePassword(f)" *ngIf="toEdit === 'editPass'">
-    <ion-list>
+    <ion-list inset>
       <ion-item>
-        <ion-label color="primary" stacked>Old Password</ion-label>
+        <ion-label floating>Old Password</ion-label>
         <ion-input type="password" name="password" ngModel required></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label color="primary" stacked>New Password</ion-label>
+        <ion-label floating>New Password</ion-label>
         <ion-input type="password" name="password" ngModel required [minlength]="6"></ion-input>
       </ion-item>
     </ion-list>

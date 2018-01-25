@@ -15,6 +15,31 @@ page-map {
   }
 
   .stats {
-    border-top: 1px solid map-get($colors, divider);
+    // color: #fff;
+    // background-color: #333;
+    padding-right: 0;
+    padding-left: 0;
+    border-bottom-width: 0px;
+  }
+  
+  .stats-open {
+    width: 10%;
+    height: 3px;
+    margin: auto;
+    background-color: rgba(83, 83, 83, 0.5);
+    border-radius: 5px;
+  }
+
+  .details {
+    font-size: 150%;
+    color: #333;
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+
+  h5 {
+    margin-top: 0;
   }
 }

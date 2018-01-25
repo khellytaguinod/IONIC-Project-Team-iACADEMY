@@ -1,14 +1,14 @@
 import {Component, ViewChild} from '@angular/core';
-import {LoadingController, MenuController, NavController, Platform} from 'ionic-angular';
+import {Events, LoadingController, MenuController, NavController, Platform} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import firebase from 'firebase';
 
-import {EventsPage} from "../pages/events/events";
 import {ProfilePage} from "../pages/profile/profile";
 import {SettingsPage} from "../pages/settings/settings";
 import {AuthService} from "../services/auth";
 import {LoginPage} from "../pages/login/login";
+import { EventPage } from '../pages/event/event';
 
 @Component({
   templateUrl: 'app.html'
@@ -22,7 +22,7 @@ export class MyApp {
   username;
   email;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menuCtrl: MenuController, private authService: AuthService, private loadingCtrl: LoadingController) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menuCtrl: MenuController, private authService: AuthService, private loadingCtrl: LoadingController, public events: Events) {
     firebase.initializeApp({
       apiKey: "AIzaSyB69ECSbnlRhzzjDWl9G1RkylwdP_r0oVI",
       authDomain: "marathon-app-database.firebaseapp.com",
@@ -36,7 +36,10 @@ export class MyApp {
         this.username = user.displayName;
         this.email = user.email;
         this.isAuthenticated = true;
-        this.rootPage = EventsPage;
+        this.rootPage = EventPage;
+        events.subscribe('user:updateName', (name) => {
+          this.username = name;
+        });
       } else {
         this.isAuthenticated = false;
         this.rootPage = LoginPage;
@@ -46,6 +49,12 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
     });
+  }
+
+  onGetUserDetails() {
+    this.authService.getUserDetails();
+    this.username = this.authService.username;
+    this.email = this.authService.email;
   }
 
   onLoad(page: any) {

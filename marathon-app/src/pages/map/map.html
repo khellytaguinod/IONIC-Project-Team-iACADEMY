@@ -14,36 +14,76 @@
     {{ lat }}, {{ lng }}
   </div>
   <div id="map_canvas"></div>
+  <ion-fab right bottom *ngIf="mode === 'join'">
+    <button ion-fab (click)="onStart()" color="secondary">
+      <ion-icon name="play"></ion-icon>
+    </button>
+  </ion-fab>
 </ion-content>
 
 <ion-footer>
-  <ion-list no-lines *ngIf="mode === 'view'">
-    <ion-item>
-      <ion-title item-start>EVENT TITLE</ion-title>
-      <div item-end>
+  <ion-grid *ngIf="mode === 'view'">
+    <ion-row>
+      <ion-col col-8>
+        <h1>EVENT TITLE</h1>
+      </ion-col>
+      <ion-col text-center>
         <p>Event starts in</p>
-        10 days
-      </div>
-    </ion-item>
-  </ion-list>
+        <h5>10 days</h5>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
-  <button ion-button block *ngIf="mode === 'join'" (click)="onStart()">START</button>
+  <!-- <ion-grid *ngIf="mode === 'join'">
+    <ion-row>
+      <button ion-button block (click)="onStart()">START</button>
+    </ion-row>
+  </ion-grid> -->
 
-  <ion-list no-lines *ngIf="mode === 'start'" no-padding class="stats">
-    <button ion-item (click)="onOpenStats()">
-      <ion-grid text-center>
+  <!-- <ion-list no-lines *ngIf="mode === 'start'" no-padding>
+    <button detail-none ion-item (click)="onOpenStats()" class="stats">
+      <div class="stats-open"></div>
+      <ion-grid no-padding text-center>
         <ion-row>
           <ion-col>
-            <h1>10km</h1>
-            <small>DISTANCE LEFT</small> 
+            <ion-icon item-left name="navigate"></ion-icon>
+            10 km
           </ion-col>
+
           <ion-col>
-            <h1>00:01:22</h1>
-            <small>TOTAL TIME</small>
+            <ion-icon item-left name="time"></ion-icon>
+            00:01:00
           </ion-col>
         </ion-row>
       </ion-grid>
     </button>
-  </ion-list>
+  </ion-list> -->
+
+  <ion-grid no-padding *ngIf="mode === 'start'">
+    <ion-row>
+      <ion-col>
+        <button ion-item (click)="onOpenStats()" class="stats">
+            <div class="stats-open"></div>
+            <ion-grid no-padding text-center>
+              <ion-row>
+                <ion-col>
+                  <div class="details">
+                    <ion-icon item-left name="navigate"></ion-icon>
+                    10 km
+                  </div>
+                </ion-col>
+      
+                <ion-col>
+                  <div class="details">
+                    <ion-icon item-left name="time"></ion-icon>
+                    00:01:00
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
 </ion-footer>
