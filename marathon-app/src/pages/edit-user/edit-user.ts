@@ -14,11 +14,7 @@ export class EditUserPage implements OnInit {
   mode;
   toEdit;
 
-  constructor(private viewCtrl: ViewController, private authService: AuthService, private navParams: NavParams, private toastCtrl: ToastController) {
-    this.authService.getUserDetails();
-    this.username = this.authService.username;
-    this.email = this.authService.email;
-  }
+  constructor(private viewCtrl: ViewController, private authService: AuthService, private navParams: NavParams, private toastCtrl: ToastController) {}
 
   ngOnInit() {
     this.toEdit = this.navParams.get('editType');
@@ -29,6 +25,12 @@ export class EditUserPage implements OnInit {
     } else if(this.toEdit === 'editPass') {
       this.mode = 'Change Password';
     }
+  }
+
+  ionViewDidLoad() {
+    this.authService.getUserDetails();
+    this.username = this.authService.username;
+    this.email = this.authService.email;
   }
 
   onEditName(form: NgForm) {
