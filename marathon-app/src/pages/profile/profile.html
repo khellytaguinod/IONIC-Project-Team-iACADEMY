@@ -5,11 +5,6 @@
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
-    <!-- <ion-buttons right>
-      <button ion-button icon-only color="white" (click)="onLoad(settingsPage)">
-        <ion-icon name="create"></ion-icon>
-      </button>
-    </ion-buttons> -->
     <ion-title>PROFILE</ion-title>
   </ion-navbar>
 </ion-header>
@@ -26,13 +21,13 @@
       </ion-row>
     </ion-grid>
     <ion-fab bottom right edge>
-      <button ion-fab color="danger" (click)="onLoad(settingsPage)">
+      <button ion-fab mini color="danger" (click)="onLoad(settingsPage)">
         <ion-icon name="create"></ion-icon>
       </button>
     </ion-fab>
   </div>
 
-  <ion-list>
+  <ion-list class="list1">
     <ion-list-header><b>Incoming Events</b></ion-list-header>
     <button ion-item detail-none>
       <ion-thumbnail item-start>
@@ -44,7 +39,7 @@
     </button>
   </ion-list>
 
-  <ion-list>
+  <ion-list class="list2">
     <ion-list-header><b>Past Events</b></ion-list-header>
     <button ion-item detail-none>
       <ion-thumbnail item-start>
