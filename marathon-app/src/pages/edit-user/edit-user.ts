@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {ViewController, NavParams, ToastController} from 'ionic-angular';
+import {ViewController, NavParams, ToastController, Events} from 'ionic-angular';
 import {NgForm} from '@angular/forms';
 
 import {AuthService} from '../../services/auth';
+import firebase from "firebase";
+import {LoginPage} from "../login/login";
 
 @Component({
   selector: 'page-edit-user',
@@ -11,10 +13,21 @@ import {AuthService} from '../../services/auth';
 export class EditUserPage implements OnInit {
   username;
   email;
+  name;
   mode;
   toEdit;
+  rootPage: any;
 
-  constructor(private viewCtrl: ViewController, private authService: AuthService, private navParams: NavParams, private toastCtrl: ToastController) {
+  constructor(private viewCtrl: ViewController, private authService: AuthService, private navParams: NavParams, private toastCtrl: ToastController, private events: Events) {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.name = user.displayName;
+        this.email = user.email;
+        console.log(this.name);
+      } else {
+        this.rootPage = LoginPage;
+      }
+    });
     this.authService.getUserDetails();
     this.username = this.authService.username;
     this.email = this.authService.email;
@@ -22,18 +35,19 @@ export class EditUserPage implements OnInit {
 
   ngOnInit() {
     this.toEdit = this.navParams.get('editType');
-    if(this.toEdit === 'editName') {
+    if (this.toEdit === 'editName') {
       this.mode = 'Edit Name';
-    } else if(this.toEdit === 'editEmail') {
+    } else if (this.toEdit === 'editEmail') {
       this.mode = 'Change Email';
-    } else if(this.toEdit === 'editPass') {
+    } else if (this.toEdit === 'editPass') {
       this.mode = 'Change Password';
     }
   }
 
   onEditName(form: NgForm) {
-    if(form.valid) {
+    if (form.valid) {
       this.authService.editUser(form.value.name, '');
+      this.events.publish('user:updateName', form.value.name);
       this.viewCtrl.dismiss();
     } else {
       let toast = this.toastCtrl.create({
@@ -45,7 +59,7 @@ export class EditUserPage implements OnInit {
   }
 
   onEditEmail(form: NgForm) {
-    if(form.valid) {
+    if (form.valid) {
       this.authService.updateUserEmail(form.value.email);
       this.viewCtrl.dismiss();
     } else {
