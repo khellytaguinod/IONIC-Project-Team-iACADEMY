@@ -5,7 +5,7 @@
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-buttons right>
+    <!-- <ion-buttons right>
       <button ion-button color="white">
         <ion-icon name="search"></ion-icon>
       </button>
@@ -14,13 +14,25 @@
       <button ion-button color="white" (click)="openSortBy()">
         <ion-icon name="options"></ion-icon>
       </button>
-    </ion-buttons>
+    </ion-buttons> -->
     <ion-title>EVENTS</ion-title>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content>
+  <ion-list>
+    <ion-item class="search">
+      <ion-label>
+        <ion-icon item-start name="search"></ion-icon>
+      </ion-label>
+      <ion-input type="text" placeholder="Search" class="input"></ion-input>
+      <button ion-button clear icon-only item-end id="sort" (click)="openSortBy()">
+        <ion-icon name="options" item-right (click)="openSortBy()"></ion-icon>
+      </button>
+    </ion-item>
+  </ion-list>
+
   <!-- Loop through events -->
   <ion-list no-lines>
     <button ion-item detail-none (click)="onOpenEvent($event)">

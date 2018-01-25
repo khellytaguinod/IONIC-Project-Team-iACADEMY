@@ -7,4 +7,11 @@ page-events {
   .title {
     font-size: 115%;
   }
+  .search {
+    background-color: map-get($colors, bg);
+    color: #333;
+  }
+  #sort {
+    color: map-get($colors, secondary);
+  }
 }
