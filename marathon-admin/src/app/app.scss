@@ -30,12 +30,26 @@
 }
 
 .menu-item {
-  // padding: 8px;
   margin: 15px 0;
   font-size: 130%;
   ion-icon {
     margin-left: 10px;
     margin-right: 20px;
     color: rgb(204, 204, 204);
+  }
+}
+
+page-home, page-events, page-event, page-edit-event {
+  ion-header {
+    .toolbar-background {
+      background: map-get($colors, primary);
+    }
+    .toolbar-title, .toolbar-button-default {
+      color: white;
+      font-weight: normal;
+    }
+    ion-navbar ion-icon {
+      color: white;
+    }
   }
 }

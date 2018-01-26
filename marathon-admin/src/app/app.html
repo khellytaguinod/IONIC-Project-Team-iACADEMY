@@ -8,15 +8,19 @@
     </ion-list>
 
     <ion-list no-lines>
-      <button ion-item icon-left detail-none class="menu menu-item">
+      <button ion-item icon-left detail-none class="menu menu-item" (click)="onLoadPage(homePage)">
         <ion-icon name="home"></ion-icon>
         Dashboard
       </button>
-      <button ion-item icon-left detail-none class="menu menu-item">
+      <button ion-item icon-left detail-none class="menu menu-item" (click)="onLoadPage(eventsPage)">
         <ion-icon name="calendar"></ion-icon>
-        Event
+        Events
       </button>
-      <button ion-item icon-left detail-none class="menu menu-item">
+      <button ion-item icon-left detail-none class="menu menu-item" (click)="onLoadPage(profilePage)">
+        <ion-icon name="person"></ion-icon>
+        Admin Profile
+      </button>
+      <button ion-item icon-left detail-none class="menu menu-item" (click)="onLogout()">
         <ion-icon name="log-out"></ion-icon>
         Logout
       </button>
