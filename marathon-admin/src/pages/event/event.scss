@@ -5,9 +5,6 @@ page-event {
   .segment-button.segment-activated {
     border-bottom-color: #fff !important;
   }
-  #header {
-    position: relative;
-  }
   h4 {
     margin-bottom: 0;
   }
@@ -56,5 +53,11 @@ page-event {
         color: rgb(102, 102, 102);
       }
     }
+  }
+  ion-list-header {
+    margin-bottom: 0 !important;
+  }
+  .runners {
+    margin-top: 25px;
   }
 }

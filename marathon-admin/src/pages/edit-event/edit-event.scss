@@ -1,3 +1,12 @@
 page-edit-event {
-
+  .segment-button {
+    color: #fff !important;
+  }
+  .segment-button.segment-activated {
+    border-bottom-color: #fff !important;
+  }
+  #map {
+    height: 380px;
+    background-color: map-get($colors, bg);
+  }
 }

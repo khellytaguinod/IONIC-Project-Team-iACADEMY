@@ -1,25 +1,39 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ActionSheetController } from 'ionic-angular';
 
-/**
- * Generated class for the EditEventPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
-@IonicPage()
 @Component({
   selector: 'page-edit-event',
   templateUrl: 'edit-event.html',
 })
 export class EditEventPage {
+  mode: string;
+  event: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private actionSheetCtrl: ActionSheetController) {
+    this.mode = this.navParams.get('mode');
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad EditEventPage');
+  ionViewWillEnter() {
+    this.event = 'details';
+  }
+
+  onNext(next: string) {
+    this.event = next;
+  }
+
+  onUploadImg() {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'Upload Photo',
+      buttons: [{
+        text: 'Take Photo'
+      }, {
+        text: 'Choose Photo'
+      }, {
+        text: 'Cancel',
+        role: 'cancel'
+      }]
+    });
+    actionSheet.present();
   }
 
 }
