@@ -1,0 +1,28 @@
+<ion-content padding class="container">
+  <form #f="ngForm" (ngSubmit)="onSignin(f)">
+    <ion-list inset no-lines>
+      <ion-avatar>
+        <img width="40%" style="margin: auto;" src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
+      </ion-avatar>
+
+      <ion-item text-center>
+        <h1>Welcome, Admin</h1>
+      </ion-item>
+
+      <ion-item no-padding>
+        <ion-label floating>Email</ion-label>
+        <ion-input type="email" ngModel name="email" required></ion-input>
+      </ion-item>
+
+      <ion-item no-padding>
+        <ion-label floating>Password</ion-label>
+        <ion-input type="password" ngModel name="password" required></ion-input>
+      </ion-item>
+
+      <a float-start padding-vertical>Forgot Password?</a>
+
+      <button type="submit" ion-button block full [disabled]="!f.valid">LOG IN</button>
+
+    </ion-list>
+  </form>
+</ion-content>
