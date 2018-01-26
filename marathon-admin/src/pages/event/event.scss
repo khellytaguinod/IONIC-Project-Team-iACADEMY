@@ -1,0 +1,63 @@
+page-event {
+  .segment-button {
+    color: #fff !important;
+  }
+  .segment-button.segment-activated {
+    border-bottom-color: #fff !important;
+  }
+  h4 {
+    margin-bottom: 0;
+  }
+  .details {
+    margin-left: 20px;
+  }
+  .sec-details {
+    color: map-get($colors, secondarytext);
+  }
+  .description {
+    padding: 20px 16px 5px 16px;
+    p {
+      margin: 0;
+    }
+  }
+  #map {
+    height: 380px;
+    background-color: map-get($colors, bg);
+  }
+  .checkpoints {
+    margin-bottom: 0;
+    font-size: 140%;
+    .item-inner {
+      margin-left: 0 !important;
+    }
+    ion-icon {
+      padding: 0 !important;
+      margin-right: 0 !important;
+      margin-top: 15px !important;
+      font-size: 100%;
+      color: map-get($colors, danger);
+    }
+  }
+  .content-middle {
+    margin-top: 10%;
+    padding: 0 40px;
+    p {
+      color: map-get($colors, secondarytext);
+      margin: 0;
+    }
+  }
+  .search {
+    ion-item {
+      background-color: map-get($colors, bg);
+      ion-icon {
+        color: rgb(102, 102, 102);
+      }
+    }
+  }
+  ion-list-header {
+    margin-bottom: 0 !important;
+  }
+  .runners {
+    margin-top: 25px;
+  }
+}
