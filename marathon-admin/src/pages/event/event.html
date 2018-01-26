@@ -30,7 +30,7 @@
 
 <ion-content>
   <div [ngSwitch]="event">
-    <div *ngSwitchCase="'details'" ngSelected="selected">
+    <div *ngSwitchCase="'details'">
       <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg" alt="Photo">
       <ion-grid no-padding class="details">
         <ion-row>
@@ -112,7 +112,7 @@
           </ion-item>
         </ion-list>
 
-        <ion-list>
+        <ion-list class="runners">
           <ion-list-header>10 KM (4)</ion-list-header>
           <ion-item>
             Participant Name
