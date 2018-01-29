@@ -5,7 +5,7 @@
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title>EVENT TITLE</ion-title>
+    <ion-title>{{name}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -22,19 +22,19 @@
   <ion-grid no-padding class="details">
     <ion-row>
       <ion-col>
-        <h4>January 23</h4>
+        <h4>{{date}}</h4>
       </ion-col>
     </ion-row>
     <ion-row class="sec-details">
       <ion-col>
         <ion-icon name="time" item-left></ion-icon>
-        1:00 PM
+        {{time}}
       </ion-col>
     </ion-row>
     <ion-row class="sec-details">
       <ion-col>
         <ion-icon name="pin" item-left></ion-icon>
-        Cebu, Philippines
+        {{location}}
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -42,7 +42,7 @@
   <ion-grid class="description">
     <ion-row>
       <ion-col>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vehicula est dolor, non feugiat odio cursus ac. Cras erat nisi, cursus non aliquet eget, lacinia sit amet nulla. Aliquam a blandit elit, vel auctor ipsum. Suspendisse ut pretium massa, eget euismod nunc. Duis et massa sed erat tincidunt sodales.</p>
+        <p>{{description}}</p>
       </ion-col>
     </ion-row>
   </ion-grid>

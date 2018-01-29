@@ -3,6 +3,7 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/.tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/marathon-admin/www" />
       <excludeFolder url="file://$MODULE_DIR$/marathon-app/platforms" />
       <excludeFolder url="file://$MODULE_DIR$/marathon-app/www" />
       <excludeFolder url="file://$MODULE_DIR$/temp" />
