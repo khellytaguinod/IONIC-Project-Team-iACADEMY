@@ -23,35 +23,48 @@
   </ion-list>
 
   <ion-list no-lines>
+    <ion-list-header><b>Current Events</b></ion-list-header>
+    <div *ngFor="let event of events">
+      <button ion-item detail-none (click)="onOpenEvent(event)" *ngIf="event.status === 'started'">
+        <ion-thumbnail item-start>
+          <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg"
+               alt="Photo">
+        </ion-thumbnail>
+        <h2 class="title">{{event.name}}</h2>
+        <p>{{event.description}}</p>
+        <ion-note item-end>{{event.date}}</ion-note>
+      </button>
+    </div>
+  </ion-list>
+
+  <ion-list no-lines>
     <ion-list-header><b>Incoming Events</b></ion-list-header>
-    <button ion-item detail-none (click)="onOpenEvent()">
-      <ion-thumbnail item-start>
-        <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg" alt="Photo">
-      </ion-thumbnail>
-      <h2 class="title">Marathon Run 3</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam at aliquam ipsum. Sed pulvinar ex quis accumsan mattis. Vestibulum quis lacus at erat bibendum vulputate.</p>
-      <ion-note item-end>Jan 24</ion-note>
-    </button>
+    <div *ngFor="let event of events">
+      <button ion-item detail-none (click)="onOpenEvent(event)" *ngIf="event.status === 'incoming'">
+        <ion-thumbnail item-start>
+          <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg"
+               alt="Photo">
+        </ion-thumbnail>
+        <h2 class="title">{{event.name}}</h2>
+        <p>{{event.description}}</p>
+        <ion-note item-end>{{event.date}}</ion-note>
+      </button>
+    </div>
   </ion-list>
 
   <ion-list no-lines>
     <ion-list-header><b>Past Events</b></ion-list-header>
-    <button ion-item detail-none>
-      <ion-thumbnail item-start>
-        <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg" alt="Photo">
-      </ion-thumbnail>
-      <h2 class="title">Marathon Run 2</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam at aliquam ipsum. Sed pulvinar ex quis accumsan mattis. Vestibulum quis lacus at erat bibendum vulputate.</p>
-      <ion-note item-end>Jan 24</ion-note>
-    </button>
-    <button ion-item detail-none>
-      <ion-thumbnail item-start>
-        <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg" alt="Photo">
-      </ion-thumbnail>
-      <h2 class="title">Marathon Run 1</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam at aliquam ipsum. Sed pulvinar ex quis accumsan mattis. Vestibulum quis lacus at erat bibendum vulputate.</p>
-      <ion-note item-end>Jan 24</ion-note>
-    </button>
+    <div *ngFor="let event of events">
+      <button ion-item detail-none *ngIf="event.status === 'ended'">
+        <ion-thumbnail item-start>
+          <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg"
+               alt="Photo">
+        </ion-thumbnail>
+        <h2 class="title">{{event.name}}</h2>
+        <p>{{event.description}}</p>
+        <ion-note item-end>{{event.date}}</ion-note>
+      </button>
+    </div>
   </ion-list>
 
   <ion-fab right bottom>

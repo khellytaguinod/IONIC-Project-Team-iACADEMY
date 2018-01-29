@@ -1,16 +1,24 @@
 import { Component } from '@angular/core';
-import { AlertController } from 'ionic-angular';
+import {AlertController, NavParams} from 'ionic-angular';
+import firebase from 'firebase';
 
 @Component({
   selector: 'page-event',
   templateUrl: 'event.html',
 })
 export class EventPage {
+  eventData: any = {};
   event: string;
+  participants: any = [];
   checkpoint = 'All';
   joined = [1];
 
-  constructor(private alertCtrl: AlertController) {}
+  constructor(private alertCtrl: AlertController, public navParams: NavParams) {
+    this.eventData = this.navParams.get('event')
+    firebase.database().ref('participants/' + this.eventData.id).on('child_added', snapshot => {
+      this.participants.push(snapshot.val());
+    });
+  }
 
   ionViewWillEnter() {
     this.event = 'details';
