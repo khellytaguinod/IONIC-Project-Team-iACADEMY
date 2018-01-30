@@ -31,7 +31,7 @@ export class MyApp {
       storageBucket: "marathon-app-database.appspot.com",
       messagingSenderId: "941647442438"
     });
-    firebase.auth().onAuthStateChanged(user => {
+     .auth().onAuthStateChanged(user => {
       if (user) {
         this.username = user.displayName;
         this.email = user.email;

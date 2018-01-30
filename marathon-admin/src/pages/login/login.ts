@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import {MenuController, NavController} from 'ionic-angular';
 import { NgForm } from '@angular/forms';
 import { HomePage } from '../home/home';
 
@@ -9,7 +9,16 @@ import { HomePage } from '../home/home';
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController) {}
+  constructor(public navCtrl: NavController, private menuCtrl: MenuController) {}
+
+  ionViewWillEnter() {
+    this.menuCtrl.enable(false);
+  }
+
+  ionViewWillLeave() {
+    this.menuCtrl.enable(true);
+  }
+
 
   onSignin(form: NgForm) {
     this.navCtrl.setRoot(HomePage);
