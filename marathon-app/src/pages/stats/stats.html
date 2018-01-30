@@ -1,38 +1,50 @@
-<ion-content class="bg">
-  <div text-right class="close">
-    <button ion-button clear large icon-only color="white" (click)="onClose()">
-      <ion-icon name="close-circle"></ion-icon>
-    </button>
-  </div>
+<ion-header>
+  <ion-navbar>
+    <ion-buttons left>
+      <button ion-button icon-only color="dark" (click)="onClose()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
 
-  <ion-grid class="modal">
+<ion-content>
+  <ion-grid no-padding>
     <ion-row text-center>
       <ion-col>
-        <h1>0.2 km</h1>
-        DISTANCE
+        <h1>00:01:00</h1>
+        TOTAL TIME
       </ion-col>
     </ion-row>
 
-    <ion-row>
+    <ion-row text-center>
       <ion-col>
-        <h6>
-          <ion-icon name="time" item-left></ion-icon>
-          00:01:00
-        </h6>
+        <ion-icon name="navigate"></ion-icon>
+        <h2>0.2 km</h2>
+        TOTAL DISTANCE
       </ion-col>
-
-      <ion-col text-right>
-        <h6>
-          <ion-icon name="pin" item-left></ion-icon>
-          CHECKPOINT 1
-        </h6>
+      <ion-col>
+        <ion-icon name="speedometer"></ion-icon>
+        <h2>5.2 kph</h2>
+        AVG. SPEED
+      </ion-col>
+      <ion-col>
+        <ion-icon name="walk"></ion-icon>
+        <h2>5'2"</h2>
+        AVG. PACE
       </ion-col>
     </ion-row>
 
-    <ion-row>
+    <ion-row text-center>
       <ion-col>
-        <button ion-button block color="danger" (click)="stop()">Stop Tracking</button>
+        <ion-icon item-left name="pin"></ion-icon>
+        <h2>Checkpoint 1</h2>
+        NEXT CHECKPOINT (0.8 km away)
       </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>
+
+<!-- <ion-footer>
+  <button ion-button full block color="danger" (click)="stop()">pause</button>
+</ion-footer> -->

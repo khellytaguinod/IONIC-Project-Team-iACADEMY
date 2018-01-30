@@ -7,6 +7,7 @@ import firebase from 'firebase';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { EventsPage } from '../pages/events/events';
+import { ProfilePage } from '../pages/profile/profile';
 @Component({
   templateUrl: 'app.html'
 })
@@ -15,6 +16,7 @@ export class MyApp {
   rootPage:any = LoginPage;
   homePage = HomePage;
   eventsPage = EventsPage;
+  profilePage = ProfilePage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menuCtrl: MenuController) {
     firebase.initializeApp({

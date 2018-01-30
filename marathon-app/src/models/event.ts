@@ -1,5 +1,3 @@
-import { Location } from './location';
-
 export class Event {
 
   constructor(public name: string,
@@ -7,8 +5,7 @@ export class Event {
               public date: string,
               public time: string,
               public imageUrls: string,
-              public location: string,
-              public route: Location
+              public location: string
   ) {}
 
 }

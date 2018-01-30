@@ -10,56 +10,14 @@
 
 
 <ion-content no-padding>
-  <div class="location" *ngIf="mode === 'start'">
+  <div class="location">
     {{ lat }}, {{ lng }}
   </div>
   <div id="map_canvas"></div>
-  <ion-fab right bottom *ngIf="mode === 'join'">
-    <button ion-fab (click)="onStart()" color="secondary">
-      <ion-icon name="play"></ion-icon>
-    </button>
-  </ion-fab>
 </ion-content>
 
 <ion-footer>
-  <ion-grid *ngIf="mode === 'view'">
-    <ion-row>
-      <ion-col col-8>
-        <h1>EVENT TITLE</h1>
-      </ion-col>
-      <ion-col text-center>
-        <p>Event starts in</p>
-        <h5>10 days</h5>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-  <!-- <ion-grid *ngIf="mode === 'join'">
-    <ion-row>
-      <button ion-button block (click)="onStart()">START</button>
-    </ion-row>
-  </ion-grid> -->
-
-  <!-- <ion-list no-lines *ngIf="mode === 'start'" no-padding>
-    <button detail-none ion-item (click)="onOpenStats()" class="stats">
-      <div class="stats-open"></div>
-      <ion-grid no-padding text-center>
-        <ion-row>
-          <ion-col>
-            <ion-icon item-left name="navigate"></ion-icon>
-            10 km
-          </ion-col>
-
-          <ion-col>
-            <ion-icon item-left name="time"></ion-icon>
-            00:01:00
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </button>
-  </ion-list> -->
-
-  <ion-grid no-padding *ngIf="mode === 'start'">
+  <ion-grid no-padding>
     <ion-row>
       <ion-col>
         <button ion-item (click)="onOpenStats()" class="stats">
@@ -79,11 +37,21 @@
                     00:01:00
                   </div>
                 </ion-col>
+
+                <ion-col>
+                  <div class="details"> <!--pace-->
+                    <ion-icon item-left name="speedometer"></ion-icon>
+                    5'28"
+                  </div>
+                </ion-col>
               </ion-row>
             </ion-grid>
         </button>
       </ion-col>
     </ion-row>
   </ion-grid>
-
+  <!-- <button ion-button full block icon-left color="danger" (click)="onPause()">
+    <ion-icon name="pause"></ion-icon>
+    PAUSE
+  </button> -->
 </ion-footer>
