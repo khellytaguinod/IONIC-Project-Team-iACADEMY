@@ -13,20 +13,17 @@
       <ion-segment-button value="details">
         Details
       </ion-segment-button>
-      <ion-segment-button value="route">
+      <ion-segment-button value="route" [disabled]="isActive">
         Route
-      </ion-segment-button>
-      <ion-segment-button value="categories">
-        Categories
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <form #f="ngForm" (ngSubmit)="onAddEvent(f)">
-    <div [ngSwitch]="event">
-      <div *ngSwitchCase="'details'">
+  <div [ngSwitch]="event">
+    <div *ngSwitchCase="'details'">
+      <form #f="ngForm" (ngSubmit)="onAddEventDetails(f)">
         <ion-grid>
           <ion-row>
             <ion-col>
@@ -40,29 +37,14 @@
           <ion-row>
             <ion-col>
               <ion-item>
-                <ion-label floating>Start Date</ion-label>
-                <ion-datetime displayFormat="MMM DD YYYY" ngModel name="startDate" required></ion-datetime>
+                <ion-label floating>Date</ion-label>
+                <ion-datetime displayFormat="MMM DD YYYY" ngModel name="date" [min]="minDate" max="2020" required></ion-datetime>
               </ion-item>
             </ion-col>
             <ion-col>
               <ion-item>
-                <ion-label floating>Start Time</ion-label>
-                <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" ngModel name="startTime" required></ion-datetime>
-              </ion-item>
-            </ion-col>
-          </ion-row>
-
-          <ion-row>
-            <ion-col>
-              <ion-item>
-                <ion-label floating>End Date</ion-label>
-                <ion-datetime displayFormat="MMM DD YYYY" ngModel name="endDate" required></ion-datetime>
-              </ion-item>
-            </ion-col>
-            <ion-col>
-              <ion-item>
-                <ion-label floating>End Time</ion-label>
-                <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" ngModel name="endTime" required></ion-datetime>
+                <ion-label floating>Time</ion-label>
+                <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" ngModel name="time" required></ion-datetime>
               </ion-item>
             </ion-col>
           </ion-row>
@@ -96,55 +78,43 @@
 
           <ion-row>
             <ion-col>
-              <button type="button" ion-button block icon-right (click)="onNext('route')">
+              <button type="submit" ion-button block icon-right [disabled]="!f.valid">
                 Next
                 <ion-icon name="arrow-forward"></ion-icon>
               </button>
             </ion-col>
           </ion-row>
         </ion-grid>
-      </div>
-
-      <div *ngSwitchCase="'route'">
-        <div id="map"></div>
-        <ion-grid>
-          <ion-row>
-            <ion-col>
-              <button type="button" ion-button block icon-right (click)="onNext('categories')">
-                Next
-                <ion-icon name="arrow-forward"></ion-icon>
-              </button>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </div>
-
-      <div *ngSwitchCase="'categories'">
-        <ion-grid>
-          <ion-row>
-            <ion-col>
-              Add Categories
-            </ion-col>
-          </ion-row>
-
-          <ion-row>
-            <ion-col>
-              <ion-item>
-                <ion-input type="text" placeholder="Category Name" ngModel name="category"></ion-input>
-              </ion-item>
-            </ion-col>
-          </ion-row>
-
-          <ion-row>
-            <ion-col>
-              <button type="submit" ion-button block icon-right color="secondary">
-                Save
-                <ion-icon name="checkmark"></ion-icon>
-              </button>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </div>
+      </form>
     </div>
-  </form>
+
+    <div *ngSwitchCase="'route'">
+      <div id="map"></div>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <button type="button" ion-button block icon-left>
+              <ion-icon name="add"></ion-icon>
+              Add Checkpoint
+            </button>
+          </ion-col>
+        </ion-row>
+
+        <ion-row text-center>
+          <ion-col>
+            <h5>No checkpoints added.</h5> <!--if checkpoints is empty -->
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <button type="button" ion-button block icon-right color="secondary">
+              Save
+              <ion-icon name="checkmark"></ion-icon>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
 </ion-content>

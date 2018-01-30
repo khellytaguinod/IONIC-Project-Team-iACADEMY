@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ActionSheetController } from 'ionic-angular';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'page-edit-event',
@@ -8,9 +9,15 @@ import { NavController, NavParams, ActionSheetController } from 'ionic-angular';
 export class EditEventPage {
   mode: string;
   event: string;
+  isActive: boolean = true;
+  eventData;
+  minDate = new Date().toISOString();
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private actionSheetCtrl: ActionSheetController) {
     this.mode = this.navParams.get('mode');
+    if(this.mode === 'edit') {
+      this.eventData = this.navParams.get('data');
+    }
   }
 
   ionViewWillEnter() {
@@ -23,7 +30,6 @@ export class EditEventPage {
 
   onUploadImg() {
     let actionSheet = this.actionSheetCtrl.create({
-      title: 'Upload Photo',
       buttons: [{
         text: 'Take Photo'
       }, {
@@ -34,6 +40,14 @@ export class EditEventPage {
       }]
     });
     actionSheet.present();
+  }
+
+  onAddEventDetails(form: NgForm) {
+    console.log(form);
+    this.isActive = false;
+    this.event = 'route';
+    // add Spinner before rerouting this.event to route; present spinner on syncing event to firebase
+    // create EventsService using Event model to add, edit, delete event
   }
 
 }

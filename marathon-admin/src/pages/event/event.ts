@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import {AlertController, NavParams} from 'ionic-angular';
+import {AlertController, NavParams, NavController} from 'ionic-angular';
 import firebase from 'firebase';
+import { EditEventPage } from '../edit-event/edit-event';
 
 @Component({
   selector: 'page-event',
@@ -13,7 +14,7 @@ export class EventPage {
   checkpoint = 'All';
   joined = [1];
 
-  constructor(private alertCtrl: AlertController, public navParams: NavParams) {
+  constructor(private alertCtrl: AlertController, public navParams: NavParams, private navCtrl: NavController) {
     this.eventData = this.navParams.get('event')
     firebase.database().ref('participants/' + this.eventData.id).on('child_added', snapshot => {
       this.participants.push(snapshot.val());
@@ -22,6 +23,10 @@ export class EventPage {
 
   ionViewWillEnter() {
     this.event = 'details';
+  }
+
+  onEditEvent() {
+    this.navCtrl.push(EditEventPage, {mode: 'edit', data: this.eventData});
   }
 
   onSelect() {

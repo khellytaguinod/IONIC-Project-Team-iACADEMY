@@ -10,6 +10,7 @@ import { LoginPage } from '../pages/login/login';
 import { EventsPage } from '../pages/events/events';
 import { EventPage } from '../pages/event/event';
 import { EditEventPage } from '../pages/edit-event/edit-event';
+import { EventsService } from '../services/events';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { EditEventPage } from '../pages/edit-event/edit-event';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    EventsService
   ]
 })
 export class AppModule {}
