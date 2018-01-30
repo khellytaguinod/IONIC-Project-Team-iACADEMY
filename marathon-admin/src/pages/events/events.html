@@ -55,7 +55,7 @@
   <ion-list no-lines>
     <ion-list-header><b>Past Events</b></ion-list-header>
     <div *ngFor="let event of events">
-      <button ion-item detail-none *ngIf="event.status === 'ended'">
+      <button ion-item detail-none *ngIf="event.status === 'ended'" (click)="onOpenEvent(event)">
         <ion-thumbnail item-start>
           <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg"
                alt="Photo">
