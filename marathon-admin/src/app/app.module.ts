@@ -11,6 +11,7 @@ import {EventsPage} from '../pages/events/events';
 import {EventPage} from '../pages/event/event';
 import {EditEventPage} from '../pages/edit-event/edit-event';
 import {AuthService} from "../services/auth";
+import { EventsService } from '../services/events';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import {AuthService} from "../services/auth";
     StatusBar,
     SplashScreen,
     AuthService,
+    EventsService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
   ]
 })
