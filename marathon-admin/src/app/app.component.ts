@@ -1,22 +1,28 @@
-import { Component, ViewChild } from '@angular/core';
-import { Platform, NavController, MenuController } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
+import {Component, ViewChild} from '@angular/core';
+import {Platform, NavController, MenuController, LoadingController, AlertController} from 'ionic-angular';
+import {StatusBar} from '@ionic-native/status-bar';
+import {SplashScreen} from '@ionic-native/splash-screen';
 import firebase from 'firebase';
 
-import { HomePage } from '../pages/home/home';
-import { LoginPage } from '../pages/login/login';
-import { EventsPage } from '../pages/events/events';
+import {HomePage} from '../pages/home/home';
+import {LoginPage} from '../pages/login/login';
+import {EventsPage} from '../pages/events/events';
+import {AuthService} from "../services/auth";
+import {EventPage} from "../../../marathon-app/src/pages/event/event";
+
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild('content') nav: NavController;
-  rootPage:any = LoginPage;
+  rootPage: any;
   homePage = HomePage;
   eventsPage = EventsPage;
+  username;
+  email;
+  isAuthenticated: boolean = false;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menuCtrl: MenuController) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menuCtrl: MenuController, private loadCtrl: LoadingController, private authService: AuthService, private alertCtrl: AlertController) {
     firebase.initializeApp({
       apiKey: "AIzaSyB69ECSbnlRhzzjDWl9G1RkylwdP_r0oVI",
       authDomain: "marathon-app-database.firebaseapp.com",
@@ -24,6 +30,27 @@ export class MyApp {
       projectId: "marathon-app-database",
       storageBucket: "marathon-app-database.appspot.com",
       messagingSenderId: "941647442438"
+    });
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        firebase.database().ref('users/' + user.uid).once('value').then(snapshot => {
+          if (snapshot.val().userType === 'user') {
+            let message = 'Account not authorized';
+            const alert = this.alertCtrl.create({
+              title: 'Signin failed',
+              message: message,
+              buttons: ['Ok']
+            });
+            alert.present();
+            this.authService.logout();
+          } else {
+            this.rootPage = HomePage;
+          }
+        });
+      } else {
+        this.isAuthenticated = false;
+        this.rootPage = LoginPage;
+      }
     });
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -36,6 +63,19 @@ export class MyApp {
   onLoadPage(page: any) {
     this.nav.setRoot(page);
     this.menuCtrl.close();
+  }
+
+  onLogout() {
+    const loading = this.loadCtrl.create({
+      content: 'Signing you out...',
+    });
+    loading.present();
+    this.menuCtrl.close();
+    setTimeout(() => {
+      this.authService.logout();
+      this.nav.setRoot(LoginPage);
+      loading.dismiss();
+    }, 800);
   }
 }
 

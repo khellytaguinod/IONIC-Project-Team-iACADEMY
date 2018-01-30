@@ -3,6 +3,7 @@ import {AlertController, NavController} from 'ionic-angular';
 import {EventPage} from '../event/event';
 import {EditEventPage} from '../edit-event/edit-event';
 import firebase from 'firebase';
+
 @Component({
   selector: 'page-events',
   templateUrl: 'events.html',

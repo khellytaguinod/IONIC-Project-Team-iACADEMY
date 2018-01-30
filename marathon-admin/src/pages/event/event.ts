@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {AlertController, NavParams, NavController} from 'ionic-angular';
 import firebase from 'firebase';
-import { EditEventPage } from '../edit-event/edit-event';
+import {EditEventPage} from '../edit-event/edit-event';
 
 @Component({
   selector: 'page-event',
