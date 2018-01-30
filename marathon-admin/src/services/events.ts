@@ -2,11 +2,14 @@
 
 export class EventsService {
 
-  onLoadEvents() {}
+  onLoadEvents() {
+  }
 
-  onAddEvent() {}
+  onAddEvent() {
+  }
 
-  onEditEvent(id: number) {}
+  onEditEvent(id: number) {
+  }
 
   // onDeleteEvent(id: number) {}
 }

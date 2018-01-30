@@ -1,9 +1,7 @@
 import {Component} from '@angular/core';
-import {LoadingController, MenuController, NavController} from 'ionic-angular';
+import {AlertController, LoadingController, MenuController, NavController} from 'ionic-angular';
 import {NgForm} from '@angular/forms';
-import {HomePage} from '../home/home';
 import {AuthService} from "../../services/auth";
-import firebase from 'firebase';
 
 @Component({
   selector: 'page-login',
@@ -11,7 +9,7 @@ import firebase from 'firebase';
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController, private menuCtrl: MenuController, private authService: AuthService, private loadCtrl: LoadingController) {
+  constructor(public navCtrl: NavController, private menuCtrl: MenuController, private authService: AuthService, private loadCtrl: LoadingController, private alertCtrl: AlertController) {
   }
 
   ionViewWillEnter() {
@@ -24,7 +22,22 @@ export class LoginPage {
 
 
   onSignin(form: NgForm) {
-    this.authService.signin(form.value.email, form.value.password);
-    this.navCtrl.setRoot(HomePage);
+    let loading = this.loadCtrl.create({
+      content: 'Signing you in...'
+    });
+    loading.present();
+    this.authService.signin(form.value.email, form.value.password)
+      .then(data => {
+        loading.dismiss();
+      })
+      .catch(error => {
+        loading.dismiss();
+        const alert = this.alertCtrl.create({
+          title: 'Signin failed',
+          message: error.message,
+          buttons: ['Ok']
+        });
+        alert.present();
+      })
   }
 }
