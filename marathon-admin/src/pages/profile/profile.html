@@ -1,0 +1,33 @@
+<ion-header no-border>
+  <ion-navbar>
+    <ion-buttons left>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>ADMIN PROFILE</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div id="header">
+    <ion-grid text-center>
+      <ion-row>
+        <ion-col>
+          <img style="width: 80px; height: 90px; margin: auto ;" src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
+          <h5>Admin Name</h5>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-fab bottom right edge>
+      <button ion-fab mini color="danger" (click)="onChangeName()">
+        <ion-icon name="create"></ion-icon>
+      </button>
+    </ion-fab>
+  </div>
+
+  <ion-list>
+    <button ion-item detail-none (click)="onChangeEmail()">Change Email</button>
+    <button ion-item detail-none (click)="onChangePassword()">Change Password</button>
+  </ion-list>
+</ion-content>

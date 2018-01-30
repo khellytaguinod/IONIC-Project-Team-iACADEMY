@@ -31,12 +31,11 @@ page-map {
   }
 
   .details {
-    font-size: 150%;
+    font-size: 130%;
     color: #333;
-  }
-
-  p {
-    margin-bottom: 0;
+    ion-icon {
+      color: #2979ff;
+    }
   }
 
   h5 {

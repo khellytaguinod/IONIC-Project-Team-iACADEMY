@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { NavParams, ModalController } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { ModalController } from 'ionic-angular';
 import {
   GoogleMaps,
   GoogleMap,
@@ -18,23 +18,18 @@ import { LocationTrackerProvider } from '../../providers/location-tracker/locati
   selector: 'page-map',
   templateUrl: 'map.html',
 })
-export class MapPage implements OnInit {
-  mode;
+export class MapPage {
   lat;
   lng;
   map: GoogleMap;
 
-  constructor(private geolocation: Geolocation, 
-              private navParams: NavParams, 
+  constructor(private geolocation: Geolocation,
               public locationTracker: LocationTrackerProvider,
               private modalCtrl: ModalController) {}
 
-  ngOnInit() {
-    this.mode = this.navParams.get('mode');
-  }
-
   ionViewDidLoad() {
     this.loadMap();
+    this.onStart();
   }
 
   loadMap() {
@@ -69,12 +64,16 @@ export class MapPage implements OnInit {
   }
 
   onStart() {
-    this.mode = 'start';
     this.locationTracker.startTracking();
   }
 
+  // onPause() {
+  //   this.locationTracker.stopTracking();
+  // }
+
   onOpenStats() {
-    let modal = this.modalCtrl.create(StatsPage, {}, {cssClass: 'statsModal'});
+    // let modal = this.modalCtrl.create(StatsPage, {}, {cssClass: 'statsModal'});
+    let modal = this.modalCtrl.create(StatsPage);
     modal.present();
   }
 

@@ -1,23 +1,46 @@
 page-stats {
-  .bg {
-    background-color: transparent;
+  ion-header {
+    .toolbar-background {
+      background: #fff;
+    }
   }
-  .modal {
-    background-color: #fff;
-    // padding: 30px 5px;
-    padding: 5%;
-    border-radius: 5px;
+  .header-md::after {
+    background-image: none;
   }
-  .close {
-    opacity: 0.7;
+  ion-row {
+    margin: 20px 0;
   }
-  h1 {
-    font-size: 250%;
-    margin: 0;
+  ion-row:first-child {
+    margin-top: 0;
+    color: #333;
+    h1 {
+      font-size: 400%;
+      margin-bottom: 0;
+      color: map-get($colors, primary);
+    }
   }
-  h5 {
+  ion-row:nth-child(2) {
+    color: map-get($colors, secondarytext);
+    h2 {
+      font-size: 200%;
+      margin: 0;
+      color: #333;
+    }
     ion-icon {
-      margin-right: 10px;
+      font-size: 200%;
+      color: map-get($colors, primary);
+    }
+  }
+  ion-row:nth-child(3) {
+    color: map-get($colors, secondarytext);
+    h2 {
+      font-size: 200%;
+      margin: 0px;
+      color: #333;
+    }
+    ion-icon {
+      font-size: 200%;
+      color: map-get($colors, primary);
     }
   }
 }
