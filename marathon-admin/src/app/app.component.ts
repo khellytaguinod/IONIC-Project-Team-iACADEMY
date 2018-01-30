@@ -1,22 +1,24 @@
-import { Component, ViewChild } from '@angular/core';
-import { Platform, NavController, MenuController } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
+import {Component, ViewChild} from '@angular/core';
+import {Platform, NavController, MenuController, LoadingController} from 'ionic-angular';
+import {StatusBar} from '@ionic-native/status-bar';
+import {SplashScreen} from '@ionic-native/splash-screen';
 import firebase from 'firebase';
 
-import { HomePage } from '../pages/home/home';
-import { LoginPage } from '../pages/login/login';
-import { EventsPage } from '../pages/events/events';
+import {HomePage} from '../pages/home/home';
+import {LoginPage} from '../pages/login/login';
+import {EventsPage} from '../pages/events/events';
+import {AuthService} from "../services/auth";
+
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild('content') nav: NavController;
-  rootPage:any = LoginPage;
+  rootPage: any = LoginPage;
   homePage = HomePage;
   eventsPage = EventsPage;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menuCtrl: MenuController) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menuCtrl: MenuController, private loadCtrl: LoadingController, private authService: AuthService) {
     firebase.initializeApp({
       apiKey: "AIzaSyB69ECSbnlRhzzjDWl9G1RkylwdP_r0oVI",
       authDomain: "marathon-app-database.firebaseapp.com",
@@ -36,6 +38,19 @@ export class MyApp {
   onLoadPage(page: any) {
     this.nav.setRoot(page);
     this.menuCtrl.close();
+  }
+
+  onLogout() {
+    const loading = this.loadCtrl.create({
+      content: 'Signing you out...',
+    });
+    loading.present();
+    this.menuCtrl.close();
+    setTimeout(() => {
+      this.authService.logout();
+      this.nav.setRoot(LoginPage);
+      loading.dismiss();
+    }, 800);
   }
 }
 

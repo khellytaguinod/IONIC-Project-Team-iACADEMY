@@ -8,7 +8,7 @@ import {ProfilePage} from "../pages/profile/profile";
 import {SettingsPage} from "../pages/settings/settings";
 import {AuthService} from "../services/auth";
 import {LoginPage} from "../pages/login/login";
-import { EventPage } from '../pages/event/event';
+import {EventPage} from '../pages/event/event';
 
 @Component({
   templateUrl: 'app.html'
@@ -31,7 +31,7 @@ export class MyApp {
       storageBucket: "marathon-app-database.appspot.com",
       messagingSenderId: "941647442438"
     });
-     .auth().onAuthStateChanged(user => {
+    firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.username = user.displayName;
         this.email = user.email;

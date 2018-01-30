@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
-import {MenuController, NavController} from 'ionic-angular';
-import { NgForm } from '@angular/forms';
-import { HomePage } from '../home/home';
+import {Component} from '@angular/core';
+import {LoadingController, MenuController, NavController} from 'ionic-angular';
+import {NgForm} from '@angular/forms';
+import {HomePage} from '../home/home';
+import {AuthService} from "../../services/auth";
+import firebase from 'firebase';
 
 @Component({
   selector: 'page-login',
@@ -9,7 +11,8 @@ import { HomePage } from '../home/home';
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController, private menuCtrl: MenuController) {}
+  constructor(public navCtrl: NavController, private menuCtrl: MenuController, private authService: AuthService, private loadCtrl: LoadingController) {
+  }
 
   ionViewWillEnter() {
     this.menuCtrl.enable(false);
@@ -21,7 +24,7 @@ export class LoginPage {
 
 
   onSignin(form: NgForm) {
+    this.authService.signin(form.value.email, form.value.password);
     this.navCtrl.setRoot(HomePage);
   }
-
 }
