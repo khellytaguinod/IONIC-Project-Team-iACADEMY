@@ -8,7 +8,7 @@ import {ProfilePage} from "../pages/profile/profile";
 import {SettingsPage} from "../pages/settings/settings";
 import {AuthService} from "../services/auth";
 import {LoginPage} from "../pages/login/login";
-import { EventPage } from '../pages/event/event';
+import {EventPage} from '../pages/event/event';
 
 @Component({
   templateUrl: 'app.html'

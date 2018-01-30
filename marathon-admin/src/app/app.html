@@ -2,26 +2,27 @@
   <ion-content class="menu">
     <ion-list>
       <ion-item padding class="menu-header">
-        <img item-start style="width: 60px; height: 70px; margin: auto ;" src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
+        <img item-start style="width: 60px; height: 70px; margin: auto ;"
+             src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
         <h1>Logo</h1>
       </ion-item>
     </ion-list>
 
     <ion-list no-lines>
-      <button ion-item icon-left detail-none class="menu menu-item" (click)="onLoadPage(homePage)">
-        <ion-icon name="home"></ion-icon>
+      <button ion-item detail-none class="menu menu-item" (click)="onLoadPage(homePage)">
+        <ion-icon icon-left name="home"></ion-icon>
         Dashboard
       </button>
-      <button ion-item icon-left detail-none class="menu menu-item" (click)="onLoadPage(eventsPage)">
-        <ion-icon name="calendar"></ion-icon>
+      <button ion-item detail-none class="menu menu-item" (click)="onLoadPage(eventsPage)">
+        <ion-icon icon-left name="calendar"></ion-icon>
         Events
       </button>
-      <button ion-item icon-left detail-none class="menu menu-item" (click)="onLoadPage(profilePage)">
-        <ion-icon name="person"></ion-icon>
+      <button ion-item detail-none class="menu menu-item" (click)="onLoadPage(profilePage)">
+        <ion-icon icon-left name="person"></ion-icon>
         Admin Profile
       </button>
-      <button ion-item icon-left detail-none class="menu menu-item" (click)="onLogout()">
-        <ion-icon name="log-out"></ion-icon>
+      <button ion-item detail-none class="menu menu-item" (click)="onLogout()">
+        <ion-icon icon-left name="log-out"></ion-icon>
         Logout
       </button>
     </ion-list>

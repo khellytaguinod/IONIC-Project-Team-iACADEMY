@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams, ActionSheetController } from 'ionic-angular';
-import { NgForm } from '@angular/forms';
+import {Component} from '@angular/core';
+import {NavController, NavParams, ActionSheetController} from 'ionic-angular';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'page-edit-event',
@@ -15,7 +15,7 @@ export class EditEventPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private actionSheetCtrl: ActionSheetController) {
     this.mode = this.navParams.get('mode');
-    if(this.mode === 'edit') {
+    if (this.mode === 'edit') {
       this.eventData = this.navParams.get('data');
     }
   }

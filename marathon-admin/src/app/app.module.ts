@@ -1,15 +1,16 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { StatusBar } from '@ionic-native/status-bar';
+import {BrowserModule} from '@angular/platform-browser';
+import {ErrorHandler, NgModule} from '@angular/core';
+import {IonicApp, IonicErrorHandler, IonicModule} from 'ionic-angular';
+import {SplashScreen} from '@ionic-native/splash-screen';
+import {StatusBar} from '@ionic-native/status-bar';
 
-import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
-import { LoginPage } from '../pages/login/login';
-import { EventsPage } from '../pages/events/events';
-import { EventPage } from '../pages/event/event';
-import { EditEventPage } from '../pages/edit-event/edit-event';
+import {MyApp} from './app.component';
+import {HomePage} from '../pages/home/home';
+import {LoginPage} from '../pages/login/login';
+import {EventsPage} from '../pages/events/events';
+import {EventPage} from '../pages/event/event';
+import {EditEventPage} from '../pages/edit-event/edit-event';
+import {AuthService} from "../services/auth";
 import { EventsService } from '../services/events';
 import { ProfilePage } from '../pages/profile/profile';
 
@@ -40,8 +41,10 @@ import { ProfilePage } from '../pages/profile/profile';
   providers: [
     StatusBar,
     SplashScreen,
+    AuthService,
+    EventsService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    EventsService
   ]
 })
-export class AppModule {}
+export class AppModule {
+}
