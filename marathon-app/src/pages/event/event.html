@@ -23,7 +23,14 @@
 <ion-content>
   <div [ngSwitch]="item">
     <div *ngSwitchCase="'details'">
-      <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg" alt="Photo">
+      <div id="header">
+        <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg" alt="Photo">
+        <ion-fab right bottom edge>
+          <button ion-fab [color]="buttonColor" (click)="onUserEventStatus()">
+            <ion-icon [name]="buttonIcon"></ion-icon>
+          </button>
+        </ion-fab>
+      </div>
       <ion-grid no-padding class="details">
         <ion-row>
           <ion-col>
@@ -71,6 +78,6 @@
   </div>
 </ion-content>
 
-<ion-footer>
+<ion-footer *ngIf="joined">
   <button ion-button full color="secondary" (click)="onStartRun()">START RUN</button>
 </ion-footer>
