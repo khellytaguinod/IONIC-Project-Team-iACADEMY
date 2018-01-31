@@ -17,9 +17,9 @@ import {MapPage} from '../map/map';
   templateUrl: 'event.html',
 })
 export class EventPage {
-  buttonIcon: string;
-  buttonColor: string;
-  joined: boolean;
+  buttonIcon: string = 'add';
+  buttonColor: string = 'danger';
+  joined: boolean = false;
   event: any = {};
   id;
   item: string;
@@ -124,7 +124,8 @@ export class EventPage {
     let user = firebase.auth().currentUser;
     if (this.buttonIcon === 'add') {
       this.buttonIcon = "checkmark";
-      this.buttonColor = 'default';
+      this.buttonColor = 'secondary';
+      this.joined = true;
       firebase.database().ref('/participants').child(this.id + '/' + user.uid).set({
         joined: true,
         name: user.displayName
@@ -132,6 +133,7 @@ export class EventPage {
     } else if (this.buttonIcon === 'checkmark') {
       this.buttonIcon = "add";
       this.buttonColor = 'danger';
+      this.joined = false;
       firebase.database().ref('/participants').child(this.id + '/' + user.uid).update({
         joined: false,
       }).catch(error => console.log(error));
