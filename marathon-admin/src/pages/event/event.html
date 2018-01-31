@@ -78,18 +78,6 @@
     </div>
 
     <div *ngSwitchCase="'participants'">
-      <ion-list no-lines class="search">
-        <ion-item>
-          <ion-label>
-            <ion-icon name="search"></ion-icon>
-          </ion-label>
-          <ion-input type="text" placeholder="e.g. Name, Runner #..."></ion-input>
-          <button ion-button clear item-end icon-only (click)="onSort()">
-            <ion-icon name="options"></ion-icon>
-          </button>
-        </ion-item>
-      </ion-list>
-
       <ion-grid text-center class="content-middle" *ngIf="joined.length == 0">
         <ion-row>
           <ion-col>
@@ -99,15 +87,13 @@
         </ion-row>
       </ion-grid>
 
-      <div *ngIf="joined.length != 0">
-        <ion-list class="runners">
-          <ion-list-header>Runners</ion-list-header>
-          <ion-item *ngFor="let participant of participants">
-            {{participant.name}}
-            <ion-note item-end></ion-note>
-          </ion-item>
-        </ion-list>
-      </div>
+      <ion-list class="runners" *ngIf="joined.length != 0">
+        <ion-list-header>Runners</ion-list-header>
+        <ion-item *ngFor="let participant of participants">
+          {{participant.name}}
+          <ion-note item-end>Runner #</ion-note>
+        </ion-item>
+      </ion-list>
     </div>
 
   </div>

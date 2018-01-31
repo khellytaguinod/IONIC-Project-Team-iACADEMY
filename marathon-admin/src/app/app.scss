@@ -39,7 +39,7 @@
   }
 }
 
-page-home, page-events, page-event, page-edit-event, page-profile, page-live-event, page-no-connection, page-participants, page-participant {
+page-events, page-event, page-edit-event, page-profile, page-live-event, page-no-connection, page-participants, page-participant {
   ion-header {
     .toolbar-background {
       background: map-get($colors, primary);
@@ -51,5 +51,15 @@ page-home, page-events, page-event, page-edit-event, page-profile, page-live-eve
     ion-navbar ion-icon {
       color: white;
     }
+  }
+}
+
+.content-middle {
+  margin-top: 10%;
+  padding: 0 40px;
+  p {
+    font-size: 110%;
+    color: map-get($colors, secondarytext);
+    margin: 0;
   }
 }

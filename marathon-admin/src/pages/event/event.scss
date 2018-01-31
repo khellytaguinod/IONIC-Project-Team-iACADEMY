@@ -38,22 +38,6 @@ page-event {
       color: map-get($colors, danger);
     }
   }
-  .content-middle {
-    margin-top: 10%;
-    padding: 0 40px;
-    p {
-      color: map-get($colors, secondarytext);
-      margin: 0;
-    }
-  }
-  .search {
-    ion-item {
-      background-color: map-get($colors, bg);
-      ion-icon {
-        color: rgb(102, 102, 102);
-      }
-    }
-  }
   ion-list-header {
     margin-bottom: 0 !important;
   }
