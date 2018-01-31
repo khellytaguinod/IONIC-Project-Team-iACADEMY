@@ -1,9 +1,10 @@
 import {Component} from '@angular/core';
 import {AlertController, NavController} from 'ionic-angular';
-import firebase from 'firebase';
 
 import {EventPage} from '../event/event';
 import {EditEventPage} from '../edit-event/edit-event';
+import firebase from 'firebase';
+
 
 @Component({
   selector: 'page-events',
