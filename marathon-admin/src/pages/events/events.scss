@@ -1,24 +1,8 @@
 page-events {
   ion-list:first-child {
-    ion-item {
-      background-color: map-get($colors, bg);
-      padding: 0;
-      ion-icon {
-        color: rgb(102, 102, 102);
-      }
-      ion-searchbar {
-        padding: 0;
-        input {
-          background-color: map-get($colors, bg) !important;
-          box-shadow: none !important;
-        }
-      }
-    }
+    margin-top: 15px !important;
   }
   ion-list:nth-child(2) {
-    margin-top: 25px !important;
-  }
-  ion-list:nth-child(3) {
     margin-top: 20px !important;
   }
   ion-list-header {

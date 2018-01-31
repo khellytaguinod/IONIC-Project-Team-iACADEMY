@@ -14,6 +14,9 @@ import {AuthService} from '../services/auth';
 import {EventsService} from '../services/events';
 import {ProfilePage} from '../pages/profile/profile';
 import { LiveEventPage } from '../pages/live-event/live-event';
+import { NoConnectionPage } from '../pages/no-connection/no-connection';
+import { ParticipantPage } from '../pages/participant/participant';
+import { ParticipantsPage } from '../pages/participants/participants';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,10 @@ import { LiveEventPage } from '../pages/live-event/live-event';
     EventPage,
     EditEventPage,
     ProfilePage,
-    LiveEventPage
+    LiveEventPage,
+    NoConnectionPage,
+    ParticipantPage,
+    ParticipantsPage
   ],
   imports: [
     BrowserModule,
@@ -39,7 +45,10 @@ import { LiveEventPage } from '../pages/live-event/live-event';
     EventPage,
     EditEventPage,
     ProfilePage,
-    LiveEventPage
+    LiveEventPage,
+    NoConnectionPage,
+    ParticipantPage,
+    ParticipantsPage
   ],
   providers: [
     StatusBar,
