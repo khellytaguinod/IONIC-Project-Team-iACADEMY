@@ -13,6 +13,7 @@ import {EditEventPage} from '../pages/edit-event/edit-event';
 import {AuthService} from '../services/auth';
 import {EventsService} from '../services/events';
 import {ProfilePage} from '../pages/profile/profile';
+import { LiveEventPage } from '../pages/live-event/live-event';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {ProfilePage} from '../pages/profile/profile';
     EventsPage,
     EventPage,
     EditEventPage,
-    ProfilePage
+    ProfilePage,
+    LiveEventPage
   ],
   imports: [
     BrowserModule,
@@ -36,7 +38,8 @@ import {ProfilePage} from '../pages/profile/profile';
     EventsPage,
     EventPage,
     EditEventPage,
-    ProfilePage
+    ProfilePage,
+    LiveEventPage
   ],
   providers: [
     StatusBar,
