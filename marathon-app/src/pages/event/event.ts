@@ -42,36 +42,36 @@ export class EventPage {
         this.description = this.event.description;
       }
     });
-    let userId = firebase.auth().currentUser.uid;
-    firebase.database().ref('participants/').child(this.id).once('value', snapshot=> {
-      console.log(snapshot.val())
-    })
-    // firebase.database().ref('participants/' + this.id).once('value').then(snapshot => {
-    //   if (snapshot.hasChild(userId)) {
-    //     console.log(snapshot.val());
-    //     // this.joined = false;
-    //     // this.buttonIcon = "add";
-    //     // this.buttonColor = 'danger';
-    //   } else {
-    //     firebase.database().ref('participants/' + this.id).child(userId).once('value', dataSnapshot => {
-    //       console.log(dataSnapshot.val());
-    //       // this.joined = dataSnapshot.val().joined;
-    //       // if (this.joined) {
-    //       //   this.buttonIcon = "checkmark";
-    //       //   this.buttonColor = 'default';
-    //       // } else {
-    //       //   this.buttonIcon = "add";
-    //       //   this.buttonColor = 'danger';
-    //       // }
-    //     });
-    //   }
-    // })
   }
 
   onViewRoute() {
     this.navCtrl.push(MapPage, {mode: 'view'}).catch(error => {
       console.log(error);
     });
+  }
+
+  verifyJoinStatus(id: string) {
+    let userId = firebase.auth().currentUser.uid;
+    firebase.database().ref('participants/' + id).once('value').then(snapshot => {
+      if (snapshot.hasChild(userId)) {
+        console.log(snapshot.val());
+        // this.joined = false;
+        // this.buttonIcon = "add";
+        // this.buttonColor = 'danger';
+      } else {
+        firebase.database().ref('participants/' + id).child(userId).once('value', dataSnapshot => {
+          console.log(dataSnapshot.val());
+          // this.joined = dataSnapshot.val().joined;
+          // if (this.joined) {
+          //   this.buttonIcon = "checkmark";
+          //   this.buttonColor = 'default';
+          // } else {
+          //   this.buttonIcon = "add";
+          //   this.buttonColor = 'danger';
+          // }
+        });
+      }
+    })
   }
 
   onUserEventStatus() {
