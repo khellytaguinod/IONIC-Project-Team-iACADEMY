@@ -11,19 +11,6 @@
 
 <ion-content>
   <ion-list no-lines>
-    <ion-item>
-      <!-- <ion-label>
-        <ion-icon name="search"></ion-icon>
-      </ion-label>
-      <ion-input type="text" placeholder="Search"></ion-input> -->
-      <ion-searchbar></ion-searchbar>
-      <button ion-button clear item-end icon-only (click)="onSort()">
-        <ion-icon name="options"></ion-icon>
-      </button>
-    </ion-item>
-  </ion-list>
-
-  <ion-list no-lines>
     <ion-list-header><b>Current Events</b></ion-list-header>
     <div *ngFor="let event of events">
       <button ion-item detail-none (click)="onOpenEvent(event)" *ngIf="event.status === 'started'">

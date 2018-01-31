@@ -1,0 +1,22 @@
+<ion-header no-border>
+  <ion-navbar>
+    <ion-buttons left>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>{{ eventData.name | uppercase }} LIVE</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <div id="map"></div>
+</ion-content>
+
+<ion-footer>
+  <button ion-button icon-left full block (click)="onOpenParticipants()">
+    <ion-icon name="person"></ion-icon>
+    Participants
+  </button>
+</ion-footer>
