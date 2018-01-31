@@ -7,48 +7,70 @@
     </ion-buttons>
     <ion-title>{{name}}</ion-title>
   </ion-navbar>
+
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="item">
+      <ion-segment-button value="details">
+        Details
+      </ion-segment-button>
+      <ion-segment-button value="route">
+        Route
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div id="header">
-    <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg" alt="Photo">
-    <ion-fab bottom right edge>
-      <button ion-fab [color]="buttonColor" (click)="onUserEventStatus()">
-        <ion-icon [name]="buttonIcon"></ion-icon>
-      </button>
-    </ion-fab>
+  <div [ngSwitch]="item">
+    <div *ngSwitchCase="'details'">
+      <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg" alt="Photo">
+      <ion-grid no-padding class="details">
+        <ion-row>
+          <ion-col>
+            <h4>{{date}}</h4>
+          </ion-col>
+        </ion-row>
+        <ion-row class="sec-details">
+          <ion-col>
+            <ion-icon name="time" item-left></ion-icon>
+            {{time}}
+          </ion-col>
+        </ion-row>
+        <ion-row class="sec-details">
+          <ion-col>
+            <ion-icon name="pin" item-left></ion-icon>
+            {{location}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid class="description">
+        <ion-row>
+          <ion-col>
+            <p>{{description}}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+
+    <div *ngSwitchCase="'route'">
+      <ion-grid no-padding>
+        <ion-row>
+          <ion-col>
+            <ion-list class="checkpoints">
+              <button ion-item>
+                <ion-icon item-start name="pin"></ion-icon>
+                Checkpoints
+                <div item-end>{{ checkpoint }}</div>
+              </button>
+            </ion-list>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <div id="map_canvas"></div>
+    </div>
   </div>
-
-  <ion-grid no-padding class="details">
-    <ion-row>
-      <ion-col>
-        <h4>{{date}}</h4>
-      </ion-col>
-    </ion-row>
-    <ion-row class="sec-details">
-      <ion-col>
-        <ion-icon name="time" item-left></ion-icon>
-        {{time}}
-      </ion-col>
-    </ion-row>
-    <ion-row class="sec-details">
-      <ion-col>
-        <ion-icon name="pin" item-left></ion-icon>
-        {{location}}
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-  <ion-grid class="description">
-    <ion-row>
-      <ion-col>
-        <p>{{description}}</p>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-  <button ion-button clear icon-left (click)="onViewRoute()">
-    <ion-icon name="map"></ion-icon>
-    VIEW ROUTE
-  </button>
 </ion-content>
+
+<ion-footer>
+  <button ion-button full color="secondary" (click)="onStartRun()">START RUN</button>
+</ion-footer>

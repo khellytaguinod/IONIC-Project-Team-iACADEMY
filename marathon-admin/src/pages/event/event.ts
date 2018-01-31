@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {AlertController, NavParams, NavController} from 'ionic-angular';
 import {EditEventPage} from '../edit-event/edit-event';
 import firebase from 'firebase';
+import { LiveEventPage } from '../live-event/live-event';
 
 @Component({
   selector: 'page-event',
@@ -88,6 +89,10 @@ export class EventPage {
       ]
     });
     alert.present();
+  }
+
+  onStartEvent() {
+    this.navCtrl.push(LiveEventPage, {event: this.eventData, participants: this.participants});
   }
 
 }

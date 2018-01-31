@@ -7,8 +7,9 @@ import firebase from 'firebase';
 import {HomePage} from '../pages/home/home';
 import {LoginPage} from '../pages/login/login';
 import {EventsPage} from '../pages/events/events';
-import {AuthService} from "../services/auth";
-import {EventPage} from "../../../marathon-app/src/pages/event/event";
+import {AuthService} from '../services/auth';
+import {EventPage} from '../../../marathon-app/src/pages/event/event';
+import {ProfilePage} from '../pages/profile/profile';
 
 @Component({
   templateUrl: 'app.html'
@@ -18,6 +19,7 @@ export class MyApp {
   rootPage: any;
   homePage = HomePage;
   eventsPage = EventsPage;
+  profilePage = ProfilePage;
   username;
   email;
   isAuthenticated: boolean = false;

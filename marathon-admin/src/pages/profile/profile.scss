@@ -1,0 +1,13 @@
+page-profile {
+  #header {
+    position: relative;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: map-get($colors, primary);
+    margin-bottom: 20px;
+    color: #fff;
+    h5 {
+      margin-top: 0;
+    }
+  }
+}

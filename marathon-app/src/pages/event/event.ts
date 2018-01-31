@@ -1,6 +1,14 @@
 import {Component} from '@angular/core';
 import {NavController} from 'ionic-angular';
 import firebase from 'firebase';
+import {
+  GoogleMaps,
+  GoogleMap,
+  GoogleMapsEvent,
+  GoogleMapOptions,
+  LatLng
+} from '@ionic-native/google-maps';
+import {Geolocation} from '@ionic-native/geolocation';
 
 import {MapPage} from '../map/map';
 
@@ -14,14 +22,16 @@ export class EventPage {
   joined: boolean;
   event: any = {};
   id;
+  item: string;
   date;
   name;
   time;
   status;
   location;
   description;
+  map: GoogleMap;
 
-  constructor(private navCtrl: NavController) {
+  constructor(private navCtrl: NavController, private geolocation: Geolocation) {
     firebase.database().ref('events/').on('child_added', snapshot => {
       this.event = snapshot.val();
       if (this.event.eventStatus === 'started') {
@@ -56,7 +66,7 @@ export class EventPage {
       if (snapshot.hasChild(userId)) {
         console.log(snapshot.val());
         // this.joined = false;
-        // this.buttonIcon = "add";
+        // this.butt  onIcon = "add";
         // this.buttonColor = 'danger';
       } else {
         firebase.database().ref('participants/' + id).child(userId).once('value', dataSnapshot => {
@@ -71,7 +81,43 @@ export class EventPage {
           // }
         });
       }
-    })
+    });
+  }
+
+  ionViewWillEnter() {
+    this.item = 'details';
+  }
+
+  loadMap() {
+    this.geolocation.getCurrentPosition().then((resp) => {
+      let location = new LatLng(resp.coords.latitude, resp.coords.longitude);
+
+      let mapOptions: GoogleMapOptions = {
+        camera: {
+          target: location,
+          zoom: 16
+          // tilt: 30
+        },
+        controls: {
+          compass: true,
+          myLocationButton: true,
+          indoorPicker: true,
+          zoom: true
+        }
+      };
+
+      this.map = GoogleMaps.create('map_canvas', mapOptions);
+      this.map.one(GoogleMapsEvent.MAP_READY)
+        .then(() => {
+          console.log('Map is ready!');
+        });
+    }).catch((error) => {
+      console.log('Error getting location', error);
+    });
+  }
+
+  onStartRun() {
+    this.navCtrl.push(MapPage);
   }
 
   onUserEventStatus() {
@@ -88,7 +134,7 @@ export class EventPage {
       this.buttonColor = 'danger';
       firebase.database().ref('/participants').child(this.id + '/' + user.uid).update({
         joined: false,
-      });
+      }).catch(error => console.log(error));
     } else if (this.buttonIcon === 'checkmark' && this.status === 'started') {
       this.buttonIcon = "play";
       this.buttonColor = 'secondary';
