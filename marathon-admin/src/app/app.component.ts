@@ -4,11 +4,9 @@ import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import firebase from 'firebase';
 
-import {HomePage} from '../pages/home/home';
 import {LoginPage} from '../pages/login/login';
 import {EventsPage} from '../pages/events/events';
 import {AuthService} from '../services/auth';
-import {EventPage} from '../../../marathon-app/src/pages/event/event';
 import {ProfilePage} from '../pages/profile/profile';
 
 @Component({
@@ -17,7 +15,6 @@ import {ProfilePage} from '../pages/profile/profile';
 export class MyApp {
   @ViewChild('content') nav: NavController;
   rootPage: any;
-  homePage = HomePage;
   eventsPage = EventsPage;
   profilePage = ProfilePage;
   username;
@@ -46,7 +43,7 @@ export class MyApp {
             alert.present();
             this.authService.logout();
           } else {
-            this.rootPage = HomePage;
+            this.rootPage = EventsPage;
           }
         });
       } else {

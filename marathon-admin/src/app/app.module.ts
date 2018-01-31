@@ -5,7 +5,6 @@ import {SplashScreen} from '@ionic-native/splash-screen';
 import {StatusBar} from '@ionic-native/status-bar';
 
 import {MyApp} from './app.component';
-import {HomePage} from '../pages/home/home';
 import {LoginPage} from '../pages/login/login';
 import {EventsPage} from '../pages/events/events';
 import {EventPage} from '../pages/event/event';
@@ -21,7 +20,6 @@ import { ParticipantsPage } from '../pages/participants/participants';
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
     LoginPage,
     EventsPage,
     EventPage,
@@ -39,7 +37,6 @@ import { ParticipantsPage } from '../pages/participants/participants';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
     LoginPage,
     EventsPage,
     EventPage,

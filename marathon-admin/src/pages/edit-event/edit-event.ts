@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {NavController, NavParams, ActionSheetController} from 'ionic-angular';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { EventsService } from '../../services/events';
 
 @Component({
   selector: 'page-edit-event',
@@ -14,7 +15,7 @@ export class EditEventPage {
   eventForm: FormGroup;
   minDate = new Date().toISOString();
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private actionSheetCtrl: ActionSheetController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private actionSheetCtrl: ActionSheetController, private eventsService: EventsService) {
     this.mode = this.navParams.get('mode');
     if (this.mode === 'edit') {
       this.eventData = this.navParams.get('data');
@@ -42,11 +43,12 @@ export class EditEventPage {
   }
 
   onAddEventDetails() {
-    console.log(this.eventForm);
+    // this.eventsService.onAddEvent(this.eventForm.value.name, this.eventForm.value.description, this.eventForm.value.date, this.eventForm.value.time, this.eventForm.value.location);
+    console.log(this.eventForm.value);
     this.isActive = false;
     this.event = 'route';
     // add Spinner before rerouting this.event to route; present spinner on syncing event to firebase
-    // create EventsService using Event model to add, edit, delete event
+    // create EventsService using Event model to add, edit event
   }
 
   private initializeForm() {

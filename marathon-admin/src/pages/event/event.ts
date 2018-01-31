@@ -67,31 +67,6 @@ export class EventPage {
     alert.present();
   }
 
-  onSort() {
-    let alert = this.alertCtrl.create({
-      title: 'Sort By',
-      inputs: [{
-        type: 'radio',
-        label: 'Category',
-        value: 'category',
-        checked: true
-      }, {
-        type: 'radio',
-        label: 'Name',
-        value: 'name'
-      }, {
-        type: 'radio',
-        label: 'Runner Number',
-        value: 'runnerNum'
-      }],
-      buttons: [
-        {text: 'Ok'},
-        {text: 'Cancel'}
-      ]
-    });
-    alert.present();
-  }
-
   onStartEvent() {
     this.navCtrl.push(LiveEventPage, {event: this.eventData, participants: this.participants});
   }

@@ -7,19 +7,15 @@
     </ion-buttons>
     <ion-title>{{ eventData.name | uppercase }} PARTICIPANTS</ion-title>
   </ion-navbar>
-
-  <ion-toolbar>
-    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
-  </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
-    <button ion-item *ngFor="let participant of participantsList">
+    <button ion-item *ngFor="let participant of participants">
       <ion-grid no-padding>
         <ion-row>
           <ion-col col-2>#001</ion-col>
-          <ion-col>{{ participant }}</ion-col>
+          <ion-col>{{ participant.name }}</ion-col>
           <ion-col>Distance Left</ion-col>
           <ion-col>Checkpoint</ion-col>
         </ion-row>

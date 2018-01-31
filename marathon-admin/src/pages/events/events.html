@@ -10,50 +10,61 @@
 </ion-header>
 
 <ion-content>
-  <ion-list no-lines>
-    <ion-list-header><b>Current Events</b></ion-list-header>
-    <div *ngFor="let event of events">
-      <button ion-item detail-none (click)="onOpenEvent(event)" *ngIf="event.status === 'started'">
-        <ion-thumbnail item-start>
-          <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg"
-               alt="Photo">
-        </ion-thumbnail>
-        <h2 class="title">{{event.name}}</h2>
-        <p>{{event.description}}</p>
-        <ion-note item-end>{{event.date}}</ion-note>
-      </button>
-    </div>
-  </ion-list>
+  <!-- <ion-grid text-center class="content-middle" *ngIf="events.length == 0">
+    <ion-row>
+      <ion-col>
+        <h1>You have no events yet!</h1>
+        <p>Create an event now to start using the app.</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
 
-  <ion-list no-lines>
-    <ion-list-header><b>Incoming Events</b></ion-list-header>
-    <div *ngFor="let event of events">
-      <button ion-item detail-none (click)="onOpenEvent(event)" *ngIf="event.status === 'incoming'">
-        <ion-thumbnail item-start>
-          <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg"
-               alt="Photo">
-        </ion-thumbnail>
-        <h2 class="title">{{event.name}}</h2>
-        <p>{{event.description}}</p>
-        <ion-note item-end>{{event.date}}</ion-note>
-      </button>
-    </div>
-  </ion-list>
-
-  <ion-list no-lines>
-    <ion-list-header><b>Past Events</b></ion-list-header>
-    <div *ngFor="let event of events">
-      <button ion-item detail-none *ngIf="event.status === 'ended'" (click)="onOpenEvent(event)">
-        <ion-thumbnail item-start>
-          <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg"
-               alt="Photo">
-        </ion-thumbnail>
-        <h2 class="title">{{event.name}}</h2>
-        <p>{{event.description}}</p>
-        <ion-note item-end>{{event.date}}</ion-note>
-      </button>
-    </div>
-  </ion-list>
+  <div *ngIf="events.length != 0">
+    <ion-list no-lines>
+      <ion-list-header><b>Current Events</b></ion-list-header>
+      <div *ngFor="let event of events">
+        <button ion-item detail-none (click)="onOpenEvent(event)" *ngIf="event.status === 'started'">
+          <ion-thumbnail item-start>
+            <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg"
+                  alt="Photo">
+          </ion-thumbnail>
+          <h2 class="title">{{event.name}}</h2>
+          <p>{{event.description}}</p>
+          <ion-note item-end>{{event.date}}</ion-note>
+        </button>
+      </div>
+    </ion-list>
+  
+    <ion-list no-lines>
+      <ion-list-header><b>Incoming Events</b></ion-list-header>
+      <div *ngFor="let event of events">
+        <button ion-item detail-none (click)="onOpenEvent(event)" *ngIf="event.status === 'incoming'">
+          <ion-thumbnail item-start>
+            <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg"
+                  alt="Photo">
+          </ion-thumbnail>
+          <h2 class="title">{{event.name}}</h2>
+          <p>{{event.description}}</p>
+          <ion-note item-end>{{event.date}}</ion-note>
+        </button>
+      </div>
+    </ion-list>
+  
+    <ion-list no-lines>
+      <ion-list-header><b>Past Events</b></ion-list-header>
+      <div *ngFor="let event of events">
+        <button ion-item detail-none *ngIf="event.status === 'ended'" (click)="onOpenEvent(event)">
+          <ion-thumbnail item-start>
+            <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg"
+                  alt="Photo">
+          </ion-thumbnail>
+          <h2 class="title">{{event.name}}</h2>
+          <p>{{event.description}}</p>
+          <ion-note item-end>{{event.date}}</ion-note>
+        </button>
+      </div>
+    </ion-list>
+  </div>
 
   <ion-fab right bottom>
     <button ion-fab color="danger" (click)="onAddEvent()">
