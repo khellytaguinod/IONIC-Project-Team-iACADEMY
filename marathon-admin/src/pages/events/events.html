@@ -21,7 +21,7 @@
 
   <div *ngIf="events.length != 0">
     <ion-list no-lines>
-      <ion-list-header><b>Current Events</b></ion-list-header>
+      <ion-list-header no-lines><b>Current Events</b></ion-list-header>
       <div *ngFor="let event of events">
         <button ion-item detail-none (click)="onOpenEvent(event)" *ngIf="event.status === 'started'">
           <ion-thumbnail item-start>
@@ -30,13 +30,13 @@
           </ion-thumbnail>
           <h2 class="title">{{event.name}}</h2>
           <p>{{event.description}}</p>
-          <ion-note item-end>{{event.date}}</ion-note>
+          <p>{{displayDate}}</p>
         </button>
       </div>
     </ion-list>
   
     <ion-list no-lines>
-      <ion-list-header><b>Incoming Events</b></ion-list-header>
+      <ion-list-header no-lines><b>Incoming Events</b></ion-list-header>
       <div *ngFor="let event of events">
         <button ion-item detail-none (click)="onOpenEvent(event)" *ngIf="event.status === 'incoming'">
           <ion-thumbnail item-start>
@@ -45,13 +45,13 @@
           </ion-thumbnail>
           <h2 class="title">{{event.name}}</h2>
           <p>{{event.description}}</p>
-          <ion-note item-end>{{event.date}}</ion-note>
+          <p>{{displayDate}}</p>
         </button>
       </div>
     </ion-list>
   
     <ion-list no-lines>
-      <ion-list-header><b>Past Events</b></ion-list-header>
+      <ion-list-header no-lines><b>Past Events</b></ion-list-header>
       <div *ngFor="let event of events">
         <button ion-item detail-none *ngIf="event.status === 'ended'" (click)="onOpenEvent(event)">
           <ion-thumbnail item-start>
@@ -60,7 +60,7 @@
           </ion-thumbnail>
           <h2 class="title">{{event.name}}</h2>
           <p>{{event.description}}</p>
-          <ion-note item-end>{{event.date}}</ion-note>
+          <p>{{displayDate}}</p>
         </button>
       </div>
     </ion-list>

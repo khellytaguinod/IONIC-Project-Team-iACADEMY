@@ -6,8 +6,19 @@ page-profile {
     background-color: map-get($colors, primary);
     margin-bottom: 20px;
     color: #fff;
-    h5 {
+    h2 {
       margin-top: 0;
+      font-weight: normal;
+    }
+  }
+  ion-list {
+    .item-md {
+      padding: 0px 25px;
+      color: map-get($colors, primary);
+      font-size: 130%;
+      ion-icon {
+        color: map-get($colors, secondarytext);
+      }
     }
   }
 }

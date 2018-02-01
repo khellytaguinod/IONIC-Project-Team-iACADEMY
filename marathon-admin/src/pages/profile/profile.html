@@ -11,23 +11,33 @@
 
 <ion-content>
   <div id="header">
-    <ion-grid text-center>
+    <ion-grid text-center no-padding>
       <ion-row>
         <ion-col>
-          <img style="width: 80px; height: 90px; margin: auto ;" src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
-          <h5>Admin Name</h5>
+          <img style="width: 100px; height: 115px; margin: auto ;" src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
+          <!-- <h2>Admin Name</h2> -->
         </ion-col>
       </ion-row>
     </ion-grid>
-    <ion-fab bottom right edge>
+    <!-- <ion-fab bottom right edge>
       <button ion-fab mini color="danger" (click)="onChangeName()">
         <ion-icon name="create"></ion-icon>
       </button>
-    </ion-fab>
+    </ion-fab> -->
   </div>
 
-  <ion-list>
-    <button ion-item detail-none (click)="onChangeEmail()">Change Email</button>
-    <button ion-item detail-none (click)="onChangePassword()">Change Password</button>
+  <ion-list no-lines>
+    <button ion-item detail-none (click)="onChangeName()">
+      <ion-icon item-start name="person"></ion-icon>
+      Admin Name
+    </button>
+    <button ion-item detail-none (click)="onChangeEmail()">
+      <ion-icon item-start name="mail"></ion-icon>
+      Admin email address
+    </button>
+    <button ion-item detail-none (click)="onChangePassword()">
+      <ion-icon item-start name="cog"></ion-icon>
+      Change Password
+    </button>
   </ion-list>
 </ion-content>

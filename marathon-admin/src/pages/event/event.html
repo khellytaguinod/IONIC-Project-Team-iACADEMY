@@ -10,7 +10,7 @@
         <ion-icon name="create"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title>{{eventData.name}}</ion-title>
+    <ion-title>{{eventData.name | uppercase}}</ion-title>
   </ion-navbar>
 
   <ion-toolbar>
@@ -35,13 +35,13 @@
       <ion-grid no-padding class="details">
         <ion-row>
           <ion-col>
-            <h4>{{eventData.date}}</h4>
+            <h4>{{displayDate}}</h4>
           </ion-col>
         </ion-row>
         <ion-row class="sec-details">
           <ion-col>
             <ion-icon name="time" item-left></ion-icon>
-            {{eventData.time}}
+            {{displayTime}}
           </ion-col>
         </ion-row>
         <ion-row class="sec-details">

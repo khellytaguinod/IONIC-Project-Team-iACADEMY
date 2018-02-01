@@ -1,25 +1,23 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, OnInit } from '@angular/core';
+import { NavParams, ViewController } from 'ionic-angular';
 
-/**
- * Generated class for the ParticipantPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
-@IonicPage()
 @Component({
   selector: 'page-participant',
   templateUrl: 'participant.html',
 })
-export class ParticipantPage {
+export class ParticipantPage implements OnInit {
+  eventData;
+  participant;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navParams: NavParams, public viewCtrl: ViewController) {}
+
+  ngOnInit() {
+    this.eventData = this.navParams.get('event');
+    this.participant = this.navParams.get('participant');
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ParticipantPage');
+  onClose() {
+    this.viewCtrl.dismiss();
   }
 
 }

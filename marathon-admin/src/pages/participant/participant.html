@@ -1,18 +1,60 @@
-<!--
-  Generated template for the ParticipantPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-
+<ion-header no-border>
   <ion-navbar>
-    <ion-title>participant</ion-title>
+    <ion-buttons left>
+      <button ion-button icon-only (click)="onClose()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+    <!-- <ion-title>{{participant.name | uppercase}}</ion-title> -->
   </ion-navbar>
-
 </ion-header>
 
-
-<ion-content padding>
-
+<ion-content>
+  <ion-grid no-padding text-center>
+    <ion-row>
+      <ion-col>
+        <img style="width: 80px; height: 95px; margin: auto ;" src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
+        <h2>{{participant.name | uppercase}}</h2>
+        <p>
+          <ion-icon item-start name="pin"></ion-icon>
+          001
+        </p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid no-padding>
+    <ion-row>
+      <ion-col>
+        <p>
+          <ion-icon item-start name="flag"></ion-icon>
+          Last Track:
+          <span>Start <ion-icon name="time"></ion-icon> 00:01:00</span>
+        </p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid no-padding>
+    <ion-row>
+      <ion-col>
+        <p>
+          <ion-icon item-start name="speedometer"></ion-icon>
+          Average Speed:
+          <span>3 kph</span>
+        </p>
+      </ion-col>
+      <ion-col text-right>
+        <p>
+          <ion-icon item-start name="walk"></ion-icon>
+          Average Pace:
+          <span>3'00"</span>
+        </p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid>
+    <ion-row>
+      <ion-col>KILOMETER</ion-col>
+      <ion-col>SPEED</ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

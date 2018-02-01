@@ -14,9 +14,13 @@ export class EventPage {
   participants: any = [];
   checkpoint = 'All';
   joined = [1];
+  displayTime;
+  displayDate
 
   constructor(private alertCtrl: AlertController, public navParams: NavParams, private navCtrl: NavController) {
-    this.eventData = this.navParams.get('event')
+    this.eventData = this.navParams.get('event');
+    this.displayDate = new Date(this.eventData.date).toDateString();
+    this.displayTime = this.convertTime(this.eventData.time);
     firebase.database().ref('participants/' + this.eventData.id).on('child_added', snapshot => {
       this.participants.push(snapshot.val());
     });
@@ -68,6 +72,13 @@ export class EventPage {
 
   onStartEvent() {
     this.navCtrl.push(LiveEventPage, {event: this.eventData, participants: this.participants});
+  }
+
+  private convertTime(time: string) {
+    let H = +time.substr(0, 2);
+    let h = (H % 12) || 12;
+    let ampm = H < 12 ? "AM" : "PM";
+    return h + time.substr(2, 3) + ' ' + ampm;
   }
 
 }

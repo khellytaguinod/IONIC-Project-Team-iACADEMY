@@ -38,14 +38,10 @@ export class EditEventPage {
     let actionSheet = this.actionSheetCtrl.create({
       buttons: [{
         text: 'Take Photo',
-        handler: () => {
-          this.onTakePhoto();
-        }
+        handler: () => this.onTakePhoto()
       }, {
         text: 'Choose Photo',
-        handler: () => {
-          this.onOpenGallery();
-        }
+        handler: () => this.onOpenGallery()
       }, {
         text: 'Cancel',
         role: 'cancel'

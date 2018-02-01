@@ -8,6 +8,12 @@ page-events {
   ion-list-header {
     margin-bottom: 0 !important;
   }
+  ion-list {
+    p:nth-child(3) {
+      color: map-get($colors, secondarytext);
+      font-size: 80%;
+    }
+  }
   ion-note {
     font-size: 15px;
     align-self: flex-start;
