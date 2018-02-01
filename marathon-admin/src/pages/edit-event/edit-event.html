@@ -76,6 +76,18 @@
             </ion-col>
           </ion-row>
 
+          <ion-row *ngIf="photoTaken">
+            <ion-col>
+              <img [src]="cameraData" alt="photo">
+            </ion-col>
+          </ion-row>
+
+          <ion-row *ngIf="photoSelected">
+            <ion-col>
+              <img [src]="cameraUrl" alt="photo">
+            </ion-col>
+          </ion-row>
+
           <ion-row>
             <ion-col>
               <button type="submit" ion-button block icon-right [disabled]="!eventForm.valid">
