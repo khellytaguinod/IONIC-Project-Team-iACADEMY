@@ -1,6 +1,8 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams, ActionSheetController} from 'ionic-angular';
+import {NavController, NavParams, ActionSheetController, ToastController} from 'ionic-angular';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Camera, CameraOptions } from '@ionic-native/camera';
+
 import { EventsService } from '../../services/events';
 
 @Component({
@@ -14,8 +16,12 @@ export class EditEventPage {
   eventData;
   eventForm: FormGroup;
   minDate = new Date().toISOString();
+  cameraData: string;
+  photoTaken: boolean;
+  cameraUrl: string;
+  photoSelected: boolean;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private actionSheetCtrl: ActionSheetController, private eventsService: EventsService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private actionSheetCtrl: ActionSheetController, private camera: Camera, private toastCtrl: ToastController,private eventsService: EventsService) {
     this.mode = this.navParams.get('mode');
     if (this.mode === 'edit') {
       this.eventData = this.navParams.get('data');
@@ -31,15 +37,61 @@ export class EditEventPage {
   onUploadImg() {
     let actionSheet = this.actionSheetCtrl.create({
       buttons: [{
-        text: 'Take Photo'
+        text: 'Take Photo',
+        handler: () => {
+          this.onTakePhoto();
+        }
       }, {
-        text: 'Choose Photo'
+        text: 'Choose Photo',
+        handler: () => {
+          this.onOpenGallery();
+        }
       }, {
         text: 'Cancel',
         role: 'cancel'
       }]
     });
     actionSheet.present();
+  }
+
+  onTakePhoto() {
+    const options: CameraOptions = {
+      sourceType: this.camera.PictureSourceType.CAMERA,
+      encodingType: this.camera.EncodingType.JPEG,
+      correctOrientation: true,
+      mediaType: this.camera.MediaType.PICTURE,
+      destinationType: this.camera.DestinationType.DATA_URL
+    }
+    this.camera.getPicture(options).then(imgData => {
+      this.cameraData = 'data:image/jpeg;base64,' + imgData;
+      this.photoTaken = true;
+      this.photoSelected = false;
+    }).catch(err => {
+      let toast = this.toastCtrl.create({
+        message: 'Could not take the image. Please try again.',
+        duration: 2500
+      });
+      toast.present();
+    })
+  }
+
+  onOpenGallery() {
+    const options: CameraOptions = {
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      mediaType: this.camera.MediaType.PICTURE,
+      destinationType: this.camera.DestinationType.DATA_URL
+    }
+    this.camera.getPicture(options).then(imgData => {
+      this.cameraUrl = 'data:image/jpeg;base64,' + imgData;
+      this.photoSelected = true;
+      this.photoTaken = false;
+    }).catch(err => {
+      let toast = this.toastCtrl.create({
+        message: 'Could not take the image. Please try again.',
+        duration: 2500
+      });
+      toast.present();
+    })
   }
 
   onAddEventDetails() {
