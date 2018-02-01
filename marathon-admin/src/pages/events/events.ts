@@ -11,10 +11,12 @@ import firebase from 'firebase';
   templateUrl: 'events.html',
 })
 export class EventsPage {
+  displayDate;
   events: any = [];
 
   constructor(private alertCtrl: AlertController, private navCtrl: NavController) {
     firebase.database().ref('events').on('child_added', snapshot => {
+      this.displayDate = new Date(snapshot.val().date).toDateString();
       this.events.push({
         id: snapshot.ref.key,
         name: snapshot.val().name,
@@ -56,5 +58,4 @@ export class EventsPage {
   onAddEvent() {
     this.navCtrl.push(EditEventPage, {mode: 'add'});
   }
-
 }

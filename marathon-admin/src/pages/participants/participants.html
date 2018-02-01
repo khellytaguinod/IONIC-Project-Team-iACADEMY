@@ -11,7 +11,7 @@
 
 <ion-content>
   <ion-list>
-    <button ion-item *ngFor="let participant of participants">
+    <button ion-item *ngFor="let participant of participants" (click)="onOpenParticipant(participant)">
       <ion-grid no-padding>
         <ion-row>
           <ion-col col-2>#001</ion-col>
