@@ -26,6 +26,7 @@ export class EventsPage {
         location: snapshot.val().location,
         status: snapshot.val().eventStatus
       });
+      console.log(this.events);
     })
   }
 
