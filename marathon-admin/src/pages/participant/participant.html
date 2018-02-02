@@ -36,25 +36,50 @@
   <ion-grid no-padding>
     <ion-row>
       <ion-col>
+        <div>Graph</div>
+      </ion-col>
+    </ion-row>
+    <ion-row text-center>
+      <ion-col>
         <p>
           <ion-icon item-start name="speedometer"></ion-icon>
-          Average Speed:
-          <span>3 kph</span>
+          3 kpm
         </p>
+        Avg Speed
       </ion-col>
-      <ion-col text-right>
+      <ion-col>
         <p>
           <ion-icon item-start name="walk"></ion-icon>
-          Average Pace:
-          <span>3'00"</span>
+          3'00"
         </p>
+        Avg Pace
+      </ion-col>
+      <ion-col>
+        <p>
+          <ion-icon item-start name="time"></ion-icon>
+          10:05
+        </p>
+        Avg min/km
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-grid>
-    <ion-row>
-      <ion-col>KILOMETER</ion-col>
-      <ion-col>SPEED</ion-col>
-    </ion-row>
-  </ion-grid>
+  <ion-list>
+    <ion-list-header no-lines>Speed Per Kilometer</ion-list-header>
+    <ion-item>
+      <ion-grid no-padding>
+        <ion-row>
+          <ion-col>KM 1</ion-col>
+          <ion-col>3 kph</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item>
+      <ion-grid no-padding>
+        <ion-row>
+          <ion-col>KM 2</ion-col>
+          <ion-col>3 kph</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
 </ion-content>

@@ -24,7 +24,7 @@ page-event {
     }
   }
   #map_canvas {
-    height: 400px;
+    height: 100vh;
     background-color: map-get($colors, bg);
   }
   .checkpoints {
@@ -39,6 +39,12 @@ page-event {
       margin-top: 15px !important;
       font-size: 100%;
       color: map-get($colors, danger);
+    }
+  }
+  ion-footer {
+    button {
+      margin: 0 !important;
+      padding: 4px 0 !important;
     }
   }
 }

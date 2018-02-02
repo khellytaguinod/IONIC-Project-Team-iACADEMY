@@ -36,17 +36,17 @@ export class EventPage {
       this.event = snapshot.val();
       if (this.event.eventStatus === 'started') {
         this.id = snapshot.ref.key;
-        this.date = this.event.date;
+        this.date = new Date(this.event.date).toDateString();
         this.name = this.event.name;
-        this.time = this.event.time;
+        this.time = this.convertTime(this.event.time);
         this.location = this.event.location;
         this.status = this.event.eventStatus;
         this.description = this.event.description;
       } else if (this.event.eventStatus === 'incoming') {
         this.id = snapshot.ref.key;
-        this.date = this.event.date;
+        this.date = new Date(this.event.date).toDateString();
         this.name = this.event.name;
-        this.time = this.event.time;
+        this.time = this.convertTime(this.event.time);
         this.location = this.event.location;
         this.status = this.event.eventStatus;
         this.description = this.event.description;
@@ -142,5 +142,12 @@ export class EventPage {
       this.buttonColor = 'secondary';
       this.navCtrl.push(MapPage, {mode: 'join'}).catch(error => console.log(error));
     }
+  }
+
+  private convertTime(time: string) {
+    let H = +time.substr(0, 2);
+    let h = (H % 12) || 12;
+    let ampm = H < 12 ? "AM" : "PM";
+    return h + time.substr(2, 3) + ' ' + ampm;
   }
 }

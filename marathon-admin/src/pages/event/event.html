@@ -61,19 +61,6 @@
     </div>
 
     <div *ngSwitchCase="'route'">
-      <ion-grid no-padding>
-        <ion-row>
-          <ion-col>
-            <ion-list class="checkpoints">
-              <button ion-item (click)="onSelect()">
-                <ion-icon item-start name="pin"></ion-icon>
-                Checkpoints
-                <div item-end>{{ checkpoint }}</div>
-              </button>
-            </ion-list>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
       <div id="map"></div>
     </div>
 
@@ -88,7 +75,7 @@
       </ion-grid>
 
       <ion-list class="runners" *ngIf="joined.length != 0">
-        <ion-list-header>Runners</ion-list-header>
+        <ion-list-header no-lines>Runners ({{participants.length}})</ion-list-header>
         <ion-item *ngFor="let participant of participants">
           {{participant.name}}
           <ion-note item-end>Runner #</ion-note>

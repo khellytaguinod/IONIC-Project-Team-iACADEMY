@@ -34,20 +34,35 @@ page-participant {
   }
   ion-grid:nth-child(3) {
     background-color: map-get($colors, bg);
-    p {
-      color: #333;
-      margin-left: 20px;
-      ion-icon {
-        margin-right: 5px;
-      }
-      span {
-        margin-left: 5px;
+    ion-row:first-child {
+      div {
+        height: 180px;
       }
     }
-    ion-col:nth-child(2) {
-      p {
-        margin-left: 0;
-        margin-right: 20px;
+    ion-row:nth-child(2) {
+      margin: 14px 0;
+      color: map-get($colors, secondarytext);
+    }
+    p {
+      color: #333;
+      margin: 0;
+      font-size: 110%;
+      font-weight: bold;
+      ion-icon {
+        font-size: 100%;
+        margin-right: 3px;
+        color: map-get($colors, secondarytext);
+      }
+    }
+  }
+  ion-list {
+    ion-list-header {
+      margin: 0 !important;
+    }
+    ion-item {
+      ion-grid {
+        background-color: #fff !important;
+        color: #333 !important;
       }
     }
   }
