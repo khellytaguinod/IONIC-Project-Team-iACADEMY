@@ -1,7 +1,8 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams, ActionSheetController, ToastController} from 'ionic-angular';
+import {NavController, NavParams, ActionSheetController, ToastController, LoadingController} from 'ionic-angular';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import firebase from 'firebase';
 
 import { EventsService } from '../../services/events';
 
@@ -21,7 +22,7 @@ export class EditEventPage {
   cameraUrl: string;
   photoSelected: boolean;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private actionSheetCtrl: ActionSheetController, private camera: Camera, private toastCtrl: ToastController,private eventsService: EventsService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private actionSheetCtrl: ActionSheetController, private camera: Camera, private toastCtrl: ToastController,private eventsService: EventsService, private loadCtrl: LoadingController) {
     this.mode = this.navParams.get('mode');
     if (this.mode === 'edit') {
       this.eventData = this.navParams.get('data');
@@ -93,8 +94,22 @@ export class EditEventPage {
   onAddEventDetails() {
     // this.eventsService.onAddEvent(this.eventForm.value.name, this.eventForm.value.description, this.eventForm.value.date, this.eventForm.value.time, this.eventForm.value.location);
     console.log(this.eventForm.value);
-    this.isActive = false;
-    this.event = 'route';
+    firebase.database().ref('events').push({
+      name: this.eventForm.value.name,
+      description: this.eventForm.value.description,
+      date: this.eventForm.value.date,
+      time: this.eventForm.value.time,
+      location: this.eventForm.value.location,
+      eventStatus: 'incoming',
+    }).then(data => {
+      let loading = this.loadCtrl.create({
+        content: 'Event is being added'
+      });
+      loading.present();
+      this.isActive = false;
+      this.event = 'route';
+      loading.dismiss();
+    });
     // add Spinner before rerouting this.event to route; present spinner on syncing event to firebase
     // create EventsService using Event model to add, edit event
   }
