@@ -27,7 +27,6 @@ export class ProfilePage {
     this.authService.getUserDetails();
     this.username = this.authService.username;
     this.email = this.authService.email;
-
   }
 
 }

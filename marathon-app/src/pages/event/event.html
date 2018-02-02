@@ -24,7 +24,8 @@
   <div [ngSwitch]="item">
     <div *ngSwitchCase="'details'">
       <div id="header">
-        <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg" alt="Photo">
+        <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg"
+             alt="Photo">
         <ion-fab right bottom edge>
           <button ion-fab [color]="buttonColor" (click)="onUserEventStatus()">
             <ion-icon [name]="buttonIcon"></ion-icon>
@@ -79,5 +80,7 @@
 </ion-content>
 
 <ion-footer *ngIf="joined">
-  <button ion-button full color="secondary" (click)="onStartRun()">START RUN</button>
+  <ion-toolbar>
+    <button ion-button full color="secondary" (click)="onStartRun()">START RUN</button>
+  </ion-toolbar>
 </ion-footer>
