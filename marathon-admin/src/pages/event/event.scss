@@ -15,13 +15,13 @@ page-event {
     color: map-get($colors, secondarytext);
   }
   .description {
-    padding: 20px 16px 5px 16px;
+    padding: 20px 16px;
     p {
       margin: 0;
     }
   }
   #map {
-    height: 380px;
+    height: 100vh;
     background-color: map-get($colors, bg);
   }
   .checkpoints {
@@ -43,5 +43,11 @@ page-event {
   }
   .runners {
     margin-top: 25px;
+  }
+  ion-footer {
+    button {
+      margin: 0 !important;
+      padding: 4px 0 !important;
+    }
   }
 }
