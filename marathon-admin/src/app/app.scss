@@ -57,9 +57,13 @@ page-events, page-event, page-edit-event, page-profile, page-live-event, page-no
 .content-middle {
   margin-top: 10%;
   padding: 0 40px;
-  p {
-    font-size: 110%;
-    color: map-get($colors, secondarytext);
-    margin: 0;
-  }
+  color: #333;
+    h1 {
+      font-size: 200%;
+    }
+    p {
+      font-size: 130%;
+      color: map-get($colors, secondarytext);
+      margin: 0;
+    }
 }

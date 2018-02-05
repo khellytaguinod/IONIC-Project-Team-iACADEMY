@@ -13,6 +13,10 @@
         <ion-icon icon-left name="calendar"></ion-icon>
         Events
       </button>
+      <button ion-item detail-none class="menu menu-item" (click)="onLoadPage(livePrev)">
+        <ion-icon icon-left name="flash"></ion-icon>
+        Live Event
+      </button>
       <button ion-item detail-none class="menu menu-item" (click)="onLoadPage(profilePage)">
         <ion-icon icon-left name="person"></ion-icon>
         Admin Profile
@@ -20,6 +24,10 @@
       <button ion-item detail-none class="menu menu-item" (click)="onLogout()">
         <ion-icon icon-left name="log-out"></ion-icon>
         Logout
+      </button>
+      <button ion-item detail-none class="menu menu-item" (click)="onLoadPage(noConnect)">
+        <ion-icon icon-left name="wifi"></ion-icon>
+        No Internet
       </button>
     </ion-list>
   </ion-content>

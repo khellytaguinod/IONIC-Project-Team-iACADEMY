@@ -6,8 +6,8 @@
       </button>
     </ion-buttons>
     <ion-buttons right>
-      <button ion-button icon-only (click)="onEditEvent()">
-        <ion-icon name="create"></ion-icon>
+      <button ion-button icon-only (click)="onShowMore()">
+        <ion-icon name="more"></ion-icon>
       </button>
     </ion-buttons>
     <ion-title>{{eventData.name | uppercase}}</ion-title>
@@ -65,7 +65,7 @@
     </div>
 
     <div *ngSwitchCase="'participants'">
-      <ion-grid text-center class="content-middle" *ngIf="joined.length == 0">
+      <ion-grid text-center class="content-middle" *ngIf="participants.length == 0">
         <ion-row>
           <ion-col>
             <h1>This event has no partcipants</h1>
@@ -74,7 +74,7 @@
         </ion-row>
       </ion-grid>
 
-      <ion-list class="runners" *ngIf="joined.length != 0">
+      <ion-list class="runners" *ngIf="participants.length != 0">
         <ion-list-header no-lines>Runners ({{participants.length}})</ion-list-header>
         <ion-item *ngFor="let participant of participants">
           {{participant.name}}
@@ -87,5 +87,6 @@
 </ion-content>
 
 <ion-footer>
-  <button ion-button full color="secondary" (click)="onStartEvent()">START EVENT</button>
+  <!-- <button ion-button full color="secondary" (click)="onStartEvent()" *ngIf="eventData.status != 'started'">START EVENT</button> -->
+  <button ion-button full (click)="onLivePreview()" [color]="this.eventData.status != 'started' ? 'secondary' : 'primary'">{{buttonTitle | uppercase}}</button>
 </ion-footer>

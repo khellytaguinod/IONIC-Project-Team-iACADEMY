@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {AlertController, NavController} from 'ionic-angular';
+import {NavController} from 'ionic-angular';
 
 import {EventPage} from '../event/event';
 import {EditEventPage} from '../edit-event/edit-event';
@@ -12,43 +12,25 @@ import firebase from 'firebase';
 })
 export class EventsPage {
   events: any = [];
+  isListed: boolean = false;
 
-  constructor(private alertCtrl: AlertController, private navCtrl: NavController) {
-    firebase.database().ref('events').on('child_added', snapshot => {
-      this.events.push({
-        id: snapshot.ref.key,
-        name: snapshot.val().name,
-        time: snapshot.val().time,
-        displayTime: this.convertTime(snapshot.val().time),
-        date: snapshot.val().date,
-        displayDate: new Date(snapshot.val().date).toDateString(),
-        description: snapshot.val().description,
-        location: snapshot.val().location,
-        status: snapshot.val().eventStatus
-      });
-    })
-  }
-
-  onSort() {
-    let alert = this.alertCtrl.create({
-      title: 'Sort By',
-      inputs: [{
-        type: 'radio',
-        label: 'Latest',
-        value: 'latest',
-        checked: true
-      }, {
-        type: 'radio',
-        label: 'Name',
-        value: 'name'
-      }],
-      buttons: [{
-        text: 'Ok'
-      }, {
-        text: 'Cancel'
-      }]
+  constructor(private navCtrl: NavController) {
+    firebase.database().ref('events').orderByChild('date').on('child_added', snapshot => {
+      if(snapshot.val() != null) {
+        this.isListed = true;
+        this.events.push({
+          id: snapshot.ref.key,
+          name: snapshot.val().name,
+          time: snapshot.val().time,
+          displayTime: this.convertTime(snapshot.val().time),
+          date: snapshot.val().date,
+          displayDate: new Date(snapshot.val().date).toDateString(),
+          description: snapshot.val().description,
+          location: snapshot.val().location,
+          status: snapshot.val().eventStatus
+        });
+      }
     });
-    alert.present();
   }
 
   onOpenEvent(event) {

@@ -5,16 +5,24 @@
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title>{{ eventData.name | uppercase }} LIVE</ion-title>
+    <ion-title *ngIf="isListed">{{ eventData.name | uppercase }} LIVE</ion-title>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content>
-  <div id="map"></div>
+  <ion-grid text-center class="content-middle" *ngIf="!isListed">
+    <ion-row>
+      <ion-col>
+        <h1>No Live Event!</h1>
+        <p>When you start an event, you can view it here.</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div id="map" *ngIf="isListed"></div>
 </ion-content>
 
-<ion-footer>
+<ion-footer *ngIf="isListed">
   <button ion-button icon-left full block (click)="onOpenParticipants()">
     <ion-icon name="person"></ion-icon>
     Participants

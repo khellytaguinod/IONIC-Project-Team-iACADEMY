@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content>
-  <!-- <ion-grid text-center class="content-middle" *ngIf="events.length == 0">
+  <!-- <ion-grid text-center class="content-middle" *ngIf="!isListed">
     <ion-row>
       <ion-col>
         <h1>You have no events yet!</h1>
@@ -19,7 +19,7 @@
     </ion-row>
   </ion-grid> -->
 
-  <div *ngIf="events.length != 0">
+  <div *ngIf="isListed">
     <ion-list no-lines>
       <ion-list-header no-lines><b>Current Events</b></ion-list-header>
       <div *ngFor="let event of events">
