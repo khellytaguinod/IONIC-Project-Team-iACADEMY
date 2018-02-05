@@ -11,22 +11,21 @@ import firebase from 'firebase';
   templateUrl: 'events.html',
 })
 export class EventsPage {
-  displayDate;
   events: any = [];
 
   constructor(private alertCtrl: AlertController, private navCtrl: NavController) {
     firebase.database().ref('events').on('child_added', snapshot => {
-      this.displayDate = new Date(snapshot.val().date).toDateString();
       this.events.push({
         id: snapshot.ref.key,
         name: snapshot.val().name,
         time: snapshot.val().time,
+        displayTime: this.convertTime(snapshot.val().time),
         date: snapshot.val().date,
+        displayDate: new Date(snapshot.val().date).toDateString(),
         description: snapshot.val().description,
         location: snapshot.val().location,
         status: snapshot.val().eventStatus
       });
-      console.log(this.events);
     })
   }
 
@@ -58,5 +57,12 @@ export class EventsPage {
 
   onAddEvent() {
     this.navCtrl.push(EditEventPage, {mode: 'add'});
+  }
+
+  private convertTime(time: string) {
+    let H = +time.substr(0, 2);
+    let h = (H % 12) || 12;
+    let ampm = H < 12 ? "AM" : "PM";
+    return h + time.substr(2, 3) + ' ' + ampm;
   }
 }
