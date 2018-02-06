@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
 import {NavController} from 'ionic-angular';
+import firebase from 'firebase';
 
 import {EventPage} from '../event/event';
 import {EditEventPage} from '../edit-event/edit-event';
-import firebase from 'firebase';
 
 
 @Component({
@@ -13,11 +13,13 @@ import firebase from 'firebase';
 export class EventsPage {
   events: any = [];
   isListed: boolean = false;
+  noPhoto: boolean;
 
   constructor(private navCtrl: NavController) {
     firebase.database().ref('events').orderByChild('date').on('child_added', snapshot => {
       if(snapshot.val() != null) {
         this.isListed = true;
+        this.noPhoto = snapshot.val().imgPath ? true : false;
         this.events.push({
           id: snapshot.ref.key,
           name: snapshot.val().name,
@@ -27,6 +29,7 @@ export class EventsPage {
           displayDate: new Date(snapshot.val().date).toDateString(),
           description: snapshot.val().description,
           location: snapshot.val().location,
+          imgPath: snapshot.val().imgPath,
           status: snapshot.val().eventStatus
         });
       }

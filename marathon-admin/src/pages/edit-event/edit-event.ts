@@ -2,7 +2,6 @@ import {Component} from '@angular/core';
 import {NavController, NavParams, ActionSheetController, ToastController, LoadingController} from 'ionic-angular';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-// import firebase from 'firebase';
 
 import { EventsService } from '../../services/events';
 
@@ -89,17 +88,7 @@ export class EditEventPage {
 
   onAddEventDetails() {
     if(this.mode === 'edit') {
-      this.imgPath = `img/events/${this.eventData.id}.jpg`;
-      let eventSubmitted = {
-        name: this.eventForm.value.name,
-        description: this.eventForm.value.description,
-        date: this.eventForm.value.date,
-        time: this.eventForm.value.time,
-        location: this.eventForm.value.location,
-        imgPath: this.imgPath,
-        eventStatus: 'incoming',
-      };
-      this.eventsService.onEditEvent(this.eventData.id, eventSubmitted, this.imgPath, this.cameraUrl)
+      this.eventsService.onEditEvent(this.eventData.id, this.eventForm.value.name, this.eventForm.value.description, this.eventForm.value.date, this.eventForm.value.time, this.eventForm.value.location, this.cameraUrl, this.photoTaken)
       .then(data => {
         let loading = this.loadCtrl.create({
           content: 'Updating event...'
