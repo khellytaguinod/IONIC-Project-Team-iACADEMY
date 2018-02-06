@@ -31,8 +31,8 @@
 <ion-content>
   <div [ngSwitch]="event">
     <div *ngSwitchCase="'details'">
-      <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg"
-           alt="Photo">
+      <img [src]="eventData.imgPath" alt="Photo" *ngIf="noPhoto">
+      <img src="https://cdn.barnimages.com/wp-content/uploads/2017/03/2017-03-27-roman-drits-barnimages-009-768x512.jpg" alt="Photo" *ngIf="!noPhoto">
       <ion-grid no-padding class="details">
         <ion-row>
           <ion-col>

@@ -16,9 +16,11 @@ export class EventPage {
   participants: any = [];
   buttonTitle: string;
   anEventStarted: boolean = false;
+  noPhoto: boolean;
 
   constructor(public navParams: NavParams, public navCtrl: NavController, private actionSheetCtrl: ActionSheetController, private eventsService: EventsService, public alertCtrl: AlertController) {
     this.eventData = this.navParams.get('event');
+    this.noPhoto = this.eventData.imgPath ? true : false;
     firebase.database().ref('participants/' + this.eventData.id).on('child_added', snapshot => {
       if(snapshot) {
         this.participants.push(snapshot.val());
