@@ -31,7 +31,8 @@
 <ion-content>
   <div [ngSwitch]="event">
     <div *ngSwitchCase="'details'">
-      <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg" alt="Photo">
+      <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg"
+           alt="Photo">
       <ion-grid no-padding class="details">
         <ion-row>
           <ion-col>
@@ -86,7 +87,10 @@
   </div>
 </ion-content>
 
-<ion-footer>
+<ion-footer *ngIf="this.eventData.status !== 'ended'">
   <!-- <button ion-button full color="secondary" (click)="onStartEvent()" *ngIf="eventData.status != 'started'">START EVENT</button> -->
-  <button ion-button full (click)="onLivePreview()" [color]="this.eventData.status != 'started' ? 'secondary' : 'primary'">{{buttonTitle | uppercase}}</button>
+  <button ion-button full (click)="onLivePreview()"
+          [disabled]="this.eventData.status != 'started' ? anEventStarted == true : anEventStarted == false"
+          [color]="this.eventData.status != 'started' ? 'secondary' : 'primary'">{{buttonTitle | uppercase}}
+  </button>
 </ion-footer>
