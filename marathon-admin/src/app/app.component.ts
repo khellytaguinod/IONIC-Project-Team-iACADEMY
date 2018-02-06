@@ -9,7 +9,6 @@ import {EventsPage} from '../pages/events/events';
 import {AuthService} from '../services/auth';
 import {ProfilePage} from '../pages/profile/profile';
 import { LiveEventPage } from '../pages/live-event/live-event';
-import { NoConnectionPage } from '../pages/no-connection/no-connection';
 
 @Component({
   templateUrl: 'app.html'
@@ -20,7 +19,6 @@ export class MyApp {
   eventsPage = EventsPage;
   profilePage = ProfilePage;
   livePrev = LiveEventPage;
-  noConnect = NoConnectionPage;
   username;
   email;
   isAuthenticated: boolean = false;

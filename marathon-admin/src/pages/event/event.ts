@@ -52,7 +52,6 @@ export class EventPage {
         icon: 'trash',
         handler: () => {
           this.onDelete();
-          this.navCtrl.popToRoot();
         }
       }]
     });
@@ -67,11 +66,13 @@ export class EventPage {
         text: 'Yes',
         handler: () => {
           this.eventsService.onDeleteEvent(this.eventData.id);
+          this.navCtrl.popToRoot();
         }
       }, {
         text: 'No'
       }]
-    })
+    });
+    alert.present();
   }
 
   onLivePreview() {
