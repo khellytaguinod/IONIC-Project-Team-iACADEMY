@@ -1,8 +1,10 @@
 import {Component} from '@angular/core';
-import {AlertController, NavParams, NavController} from 'ionic-angular';
-import {EditEventPage} from '../edit-event/edit-event';
+import {NavParams, NavController, AlertController, ActionSheetController} from 'ionic-angular';
 import firebase from 'firebase';
+
+import {EditEventPage} from '../edit-event/edit-event';
 import { LiveEventPage } from '../live-event/live-event';
+import { EventsService } from '../../services/events';
 
 @Component({
   selector: 'page-event',
@@ -12,73 +14,66 @@ export class EventPage {
   eventData: any = {};
   event: string;
   participants: any = [];
-  checkpoint = 'All';
-  joined = [1];
-  displayTime;
-  displayDate
+  buttonTitle: string;
 
-  constructor(private alertCtrl: AlertController, public navParams: NavParams, private navCtrl: NavController) {
+  constructor(public navParams: NavParams, public navCtrl: NavController, private actionSheetCtrl: ActionSheetController, private eventsService: EventsService, public alertCtrl: AlertController) {
     this.eventData = this.navParams.get('event');
-    this.displayDate = new Date(this.eventData.date).toDateString();
-    this.displayTime = this.convertTime(this.eventData.time);
     firebase.database().ref('participants/' + this.eventData.id).on('child_added', snapshot => {
-      this.participants.push(snapshot.val());
+      if(snapshot) {
+        this.participants.push(snapshot.val());
+      } else {
+        this.participants = [];
+      }
     });
+    this.buttonTitle = (this.eventData.status === 'started') ? 'live preview' : 'start event';
   }
 
   ionViewWillEnter() {
     this.event = 'details';
   }
 
-  onEditEvent() {
-    this.navCtrl.push(EditEventPage, {mode: 'edit', data: this.eventData});
-  }
-
-  onSelect() {
-    let alert = this.alertCtrl.create({
-      title: 'Checkpoints',
-      inputs: [{
-        type: 'radio',
-        label: 'All',
-        value: 'All',
-        checked: true
-      }, {
-        type: 'radio',
-        label: 'Checkpoint 1',
-        value: 'Checkpoint 1'
-      }, {
-        type: 'radio',
-        label: 'Checkpoint 2',
-        value: 'Checkpoint 2'
-      }, {
-        type: 'radio',
-        label: 'Checkpoint 3',
-        value: 'Checkpoint 3'
-      }, {
-        type: 'radio',
-        label: 'Checkpoint 4',
-        value: 'Checkpoint 4'
-      }],
+  onShowMore() {
+    let action = this.actionSheetCtrl.create({
       buttons: [{
-        text: 'Ok',
-        handler: data => {
-          this.checkpoint = data;
-          console.log(this.checkpoint);
+        text: 'Edit',
+        icon: 'create',
+        handler: () => {
+          this.navCtrl.push(EditEventPage, {mode: 'edit', data: this.eventData});
+        }
+      }, {
+        text: 'Delete',
+        role: 'destructive',
+        icon: 'trash',
+        handler: () => {
+          this.onDelete();
+          this.navCtrl.popToRoot();
         }
       }]
     });
-    alert.present();
+    action.present();
   }
 
-  onStartEvent() {
-    this.navCtrl.push(LiveEventPage, {event: this.eventData, participants: this.participants});
+  onDelete() {
+    let alert = this.alertCtrl.create({
+      title: 'Delete Event',
+      message: 'Are you sure you want to delete this event?',
+      buttons: [{
+        text: 'Yes',
+        handler: () => {
+          this.eventsService.onDeleteEvent(this.eventData.id);
+        }
+      }, {
+        text: 'No'
+      }]
+    })
   }
 
-  private convertTime(time: string) {
-    let H = +time.substr(0, 2);
-    let h = (H % 12) || 12;
-    let ampm = H < 12 ? "AM" : "PM";
-    return h + time.substr(2, 3) + ' ' + ampm;
+  onLivePreview() {
+    //Check database first if there is a currently live event
+    if(this.eventData.status != 'started') {
+      //update database of event status = 'started'
+    }
+    this.navCtrl.setRoot(LiveEventPage);
   }
 
 }

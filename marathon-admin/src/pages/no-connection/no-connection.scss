@@ -1,3 +1,18 @@
 page-no-connection {
-
+  ion-grid {
+    margin-top: 7%;
+    color: #333;
+    ion-icon:first-child {
+      font-size: 950%;
+      color: map-get($colors, secondarytext);
+    }
+    h1 {
+      font-size: 300%;
+    }
+    p {
+      font-size: 130%;
+      color: map-get($colors, secondarytext);
+      margin: 0;
+    }
+  }
 }

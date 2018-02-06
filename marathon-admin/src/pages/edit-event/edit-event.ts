@@ -2,7 +2,6 @@ import {Component} from '@angular/core';
 import {NavController, NavParams, ActionSheetController, ToastController, LoadingController} from 'ionic-angular';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import firebase from 'firebase';
 
 import { EventsService } from '../../services/events';
 
@@ -39,13 +38,12 @@ export class EditEventPage {
     let actionSheet = this.actionSheetCtrl.create({
       buttons: [{
         text: 'Take Photo',
+        icon: 'camera',
         handler: () => this.onTakePhoto()
       }, {
         text: 'Choose Photo',
+        icon: 'albums',
         handler: () => this.onOpenGallery()
-      }, {
-        text: 'Cancel',
-        role: 'cancel'
       }]
     });
     actionSheet.present();
@@ -92,26 +90,52 @@ export class EditEventPage {
   }
 
   onAddEventDetails() {
-    // this.eventsService.onAddEvent(this.eventForm.value.name, this.eventForm.value.description, this.eventForm.value.date, this.eventForm.value.time, this.eventForm.value.location);
-    console.log(this.eventForm.value);
-    firebase.database().ref('events').push({
+    // console.log(this.eventForm.value);
+    let eventSubmitted = {
       name: this.eventForm.value.name,
       description: this.eventForm.value.description,
       date: this.eventForm.value.date,
       time: this.eventForm.value.time,
       location: this.eventForm.value.location,
       eventStatus: 'incoming',
-    }).then(data => {
-      let loading = this.loadCtrl.create({
-        content: 'Event is being added'
+    };
+    if(this.mode === 'edit') {
+      this.eventsService.onEditEvent(this.eventData.id, eventSubmitted)
+      .then(data => {
+        let loading = this.loadCtrl.create({
+          content: 'Updating event...'
+        });
+        loading.present();
+        this.isActive = false;
+        this.event = 'route';
+        loading.dismiss();
+      })
+      .catch(err => {
+        let toast = this.toastCtrl.create({
+          message: 'Could not update event. Please try again.',
+          duration: 3000
+        });
+        toast.present();
       });
-      loading.present();
-      this.isActive = false;
-      this.event = 'route';
-      loading.dismiss();
-    });
-    // add Spinner before rerouting this.event to route; present spinner on syncing event to firebase
-    // create EventsService using Event model to add, edit event
+    } else {
+      this.eventsService.onAddEvent(eventSubmitted)
+      .then(data => {
+        let loading = this.loadCtrl.create({
+          content: 'Saving event...'
+        });
+        loading.present();
+        this.isActive = false;
+        this.event = 'route';
+        loading.dismiss();
+      })
+      .catch(err => {
+        let toast = this.toastCtrl.create({
+          message: 'Could not save event. Please try again.',
+          duration: 3000
+        });
+        toast.present();
+      });
+    }
   }
 
   private initializeForm() {
