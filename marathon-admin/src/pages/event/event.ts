@@ -15,6 +15,7 @@ export class EventPage {
   event: string;
   participants: any = [];
   buttonTitle: string;
+  anEventStarted: boolean = false;
 
   constructor(public navParams: NavParams, public navCtrl: NavController, private actionSheetCtrl: ActionSheetController, private eventsService: EventsService, public alertCtrl: AlertController) {
     this.eventData = this.navParams.get('event');
@@ -23,6 +24,11 @@ export class EventPage {
         this.participants.push(snapshot.val());
       } else {
         this.participants = [];
+      }
+    });
+    firebase.database().ref('events').on('child_added', snapshot => {
+      if (snapshot.val().eventStatus === 'started') {
+        this.anEventStarted = true;
       }
     });
     this.buttonTitle = (this.eventData.status === 'started') ? 'live preview' : 'start event';
