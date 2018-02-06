@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {NavController, NavParams, ActionSheetController, ToastController, LoadingController} from 'ionic-angular';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+// import firebase from 'firebase';
 
 import { EventsService } from '../../services/events';
 
@@ -16,10 +17,9 @@ export class EditEventPage {
   eventData;
   eventForm: FormGroup;
   minDate = new Date().toISOString();
-  cameraData: string;
-  photoTaken: boolean;
+  photoTaken: boolean = false;
   cameraUrl: string;
-  photoSelected: boolean;
+  imgPath: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private actionSheetCtrl: ActionSheetController, private camera: Camera, private toastCtrl: ToastController,private eventsService: EventsService, private loadCtrl: LoadingController) {
     this.mode = this.navParams.get('mode');
@@ -58,9 +58,8 @@ export class EditEventPage {
       destinationType: this.camera.DestinationType.DATA_URL
     }
     this.camera.getPicture(options).then(imgData => {
-      this.cameraData = 'data:image/jpeg;base64,' + imgData;
+      this.cameraUrl = 'data:image/jpeg;base64,' + imgData;
       this.photoTaken = true;
-      this.photoSelected = false;
     }).catch(err => {
       let toast = this.toastCtrl.create({
         message: 'Could not take the image. Please try again.',
@@ -78,8 +77,7 @@ export class EditEventPage {
     }
     this.camera.getPicture(options).then(imgData => {
       this.cameraUrl = 'data:image/jpeg;base64,' + imgData;
-      this.photoSelected = true;
-      this.photoTaken = false;
+      this.photoTaken = true;
     }).catch(err => {
       let toast = this.toastCtrl.create({
         message: 'Could not take the image. Please try again.',
@@ -90,17 +88,18 @@ export class EditEventPage {
   }
 
   onAddEventDetails() {
-    // console.log(this.eventForm.value);
-    let eventSubmitted = {
-      name: this.eventForm.value.name,
-      description: this.eventForm.value.description,
-      date: this.eventForm.value.date,
-      time: this.eventForm.value.time,
-      location: this.eventForm.value.location,
-      eventStatus: 'incoming',
-    };
     if(this.mode === 'edit') {
-      this.eventsService.onEditEvent(this.eventData.id, eventSubmitted)
+      this.imgPath = `img/events/${this.eventData.id}.jpg`;
+      let eventSubmitted = {
+        name: this.eventForm.value.name,
+        description: this.eventForm.value.description,
+        date: this.eventForm.value.date,
+        time: this.eventForm.value.time,
+        location: this.eventForm.value.location,
+        imgPath: this.imgPath,
+        eventStatus: 'incoming',
+      };
+      this.eventsService.onEditEvent(this.eventData.id, eventSubmitted, this.imgPath, this.cameraUrl)
       .then(data => {
         let loading = this.loadCtrl.create({
           content: 'Updating event...'
@@ -118,7 +117,7 @@ export class EditEventPage {
         toast.present();
       });
     } else {
-      this.eventsService.onAddEvent(eventSubmitted)
+      this.eventsService.onAddEvent(this.eventForm.value.name, this.eventForm.value.description, this.eventForm.value.date, this.eventForm.value.time, this.eventForm.value.location, this.cameraUrl, this.photoTaken)
       .then(data => {
         let loading = this.loadCtrl.create({
           content: 'Saving event...'
@@ -150,7 +149,6 @@ export class EditEventPage {
       description = this.eventData.description;
       date = new Date(this.eventData.date).toISOString();
       time = this.eventData.time;
-      // time = new Date('1970-01-01T' + this.eventData.time + 'Z').toISOString();
       location = this.eventData.location;
     }
 

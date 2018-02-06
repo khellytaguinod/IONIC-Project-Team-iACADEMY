@@ -78,15 +78,15 @@
 
           <ion-row *ngIf="photoTaken">
             <ion-col>
-              <img [src]="cameraData" alt="photo">
-            </ion-col>
-          </ion-row>
-
-          <ion-row *ngIf="photoSelected">
-            <ion-col>
               <img [src]="cameraUrl" alt="photo">
             </ion-col>
           </ion-row>
+
+          <!-- <ion-row *ngIf="photoSelected">
+            <ion-col>
+              <img [src]="cameraUrl" alt="photo">
+            </ion-col>
+          </ion-row> -->
 
           <ion-row>
             <ion-col>
@@ -103,21 +103,6 @@
     <div *ngSwitchCase="'route'">
       <div id="map"></div>
       <ion-grid>
-        <ion-row>
-          <ion-col>
-            <button type="button" ion-button clear block icon-left>
-              <ion-icon name="add"></ion-icon>
-              Add Checkpoint
-            </button>
-          </ion-col>
-        </ion-row>
-
-        <ion-row text-center>
-          <ion-col>
-            <p>No checkpoints added.</p> <!--if checkpoints is empty -->
-          </ion-col>
-        </ion-row>
-
         <ion-row>
           <ion-col>
             <button type="button" ion-button block icon-right color="secondary">
