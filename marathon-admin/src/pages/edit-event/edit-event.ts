@@ -17,8 +17,7 @@ export class EditEventPage {
   eventForm: FormGroup;
   minDate = new Date().toISOString();
   photoTaken: boolean = false;
-  cameraUrl: string;
-  imgPath: string;
+  // cameraUrl: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private actionSheetCtrl: ActionSheetController, private camera: Camera, private toastCtrl: ToastController,private eventsService: EventsService, private loadCtrl: LoadingController) {
     this.mode = this.navParams.get('mode');
@@ -57,7 +56,7 @@ export class EditEventPage {
       destinationType: this.camera.DestinationType.DATA_URL
     }
     this.camera.getPicture(options).then(imgData => {
-      this.cameraUrl = 'data:image/jpeg;base64,' + imgData;
+      this.eventData.imgPath = 'data:image/jpeg;base64,' + imgData;
       this.photoTaken = true;
     }).catch(err => {
       let toast = this.toastCtrl.create({
@@ -75,7 +74,7 @@ export class EditEventPage {
       destinationType: this.camera.DestinationType.DATA_URL
     }
     this.camera.getPicture(options).then(imgData => {
-      this.cameraUrl = 'data:image/jpeg;base64,' + imgData;
+      this.eventData.imgPath = 'data:image/jpeg;base64,' + imgData;
       this.photoTaken = true;
     }).catch(err => {
       let toast = this.toastCtrl.create({
@@ -88,7 +87,7 @@ export class EditEventPage {
 
   onAddEventDetails() {
     if(this.mode === 'edit') {
-      this.eventsService.onEditEvent(this.eventData.id, this.eventForm.value.name, this.eventForm.value.description, this.eventForm.value.date, this.eventForm.value.time, this.eventForm.value.location, this.cameraUrl, this.photoTaken)
+      this.eventsService.onEditEvent(this.eventData.id, this.eventForm.value.name, this.eventForm.value.description, this.eventForm.value.date, this.eventForm.value.time, this.eventForm.value.location, this.eventData.imgPath, this.photoTaken)
       .then(data => {
         let loading = this.loadCtrl.create({
           content: 'Updating event...'
@@ -106,7 +105,7 @@ export class EditEventPage {
         toast.present();
       });
     } else {
-      this.eventsService.onAddEvent(this.eventForm.value.name, this.eventForm.value.description, this.eventForm.value.date, this.eventForm.value.time, this.eventForm.value.location, this.cameraUrl, this.photoTaken)
+      this.eventsService.onAddEvent(this.eventForm.value.name, this.eventForm.value.description, this.eventForm.value.date, this.eventForm.value.time, this.eventForm.value.location, this.eventData.imgPath, this.photoTaken)
       .then(data => {
         let loading = this.loadCtrl.create({
           content: 'Saving event...'

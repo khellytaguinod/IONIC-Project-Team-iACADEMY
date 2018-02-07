@@ -11,11 +11,7 @@ export class ProfilePage {
   adminEmail: string;
 
   constructor(private alertCtrl: AlertController, private toastCtrl: ToastController, private authService: AuthService) {
-    let admin = this.authService.getCurrentUser();
-    if(admin) {
-      this.adminName = admin.displayName;
-      this.adminEmail = admin.email;
-    }
+    this.getDetails();
   }
 
   onChangeName() {
@@ -32,10 +28,7 @@ export class ProfilePage {
           if(data.name) {
             this.authService.editUserName(data.name)
             .then(() => {
-              let admin = this.authService.getCurrentUser();
-              if(admin) {
-                this.adminName = admin.displayName;
-              }
+              this.getDetails();
               this.successToast();
             })
             .catch(err => this.errorToast('name'))
@@ -66,10 +59,7 @@ export class ProfilePage {
           if(data.email) {
             this.authService.editUserEmail(data.email)
             .then(() => {
-              let admin = this.authService.getCurrentUser();
-              if(admin) {
-                this.adminEmail = admin.email;
-              }
+              this.getDetails();
               this.successToast();
             })
             .catch(err => this.errorToast('email address'))
@@ -116,7 +106,7 @@ export class ProfilePage {
   onReauthenticate(type: string) {
     let alert = this.alertCtrl.create({
       title: 'Sign In',
-      subTitle: 'Enter your current email and password before changing your email',
+      subTitle: 'Enter your current email and password before changing your ' + type,
       inputs: [{
         name: 'email',
         placeholder: 'Email Address',
@@ -155,6 +145,14 @@ export class ProfilePage {
       }]
     });
     alert.present();
+  }
+
+  private getDetails() {
+    let admin = this.authService.getCurrentUser();
+    if(admin) {
+      this.adminName = admin.displayName;
+      this.adminEmail = admin.email;
+    }
   }
 
   private successToast() {
