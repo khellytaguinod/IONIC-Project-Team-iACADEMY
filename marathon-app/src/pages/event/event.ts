@@ -119,7 +119,7 @@ export class EventPage {
   }
 
   onStartRun() {
-    this.navCtrl.push(MapPage);
+    this.navCtrl.push(MapPage, {id: this.id});
   }
 
   onUserEventStatus() {
