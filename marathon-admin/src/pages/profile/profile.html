@@ -23,13 +23,13 @@
   <ion-list no-lines>
     <button ion-item detail-none (click)="onChangeName()">
       <ion-icon item-start name="person"></ion-icon>
-      Admin Name
+      {{adminName}}
     </button>
-    <button ion-item detail-none (click)="onChangeEmail()">
+    <button ion-item detail-none (click)="onReauthenticate('email')">
       <ion-icon item-start name="mail"></ion-icon>
-      Admin email address
+      {{adminEmail}}
     </button>
-    <button ion-item detail-none (click)="onChangePassword()">
+    <button ion-item detail-none (click)="onReauthenticate('password')">
       <ion-icon item-start name="cog"></ion-icon>
       Change Password
     </button>

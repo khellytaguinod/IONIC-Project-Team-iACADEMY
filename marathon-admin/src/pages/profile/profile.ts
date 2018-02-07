@@ -1,13 +1,22 @@
 import { Component } from '@angular/core';
 import { AlertController, ToastController } from 'ionic-angular';
+import { AuthService } from '../../services/auth';
 
 @Component({
   selector: 'page-profile',
   templateUrl: 'profile.html',
 })
 export class ProfilePage {
+  adminName: string;
+  adminEmail: string;
 
-  constructor(private alertCtrl: AlertController, private toastCtrl: ToastController) {}
+  constructor(private alertCtrl: AlertController, private toastCtrl: ToastController, private authService: AuthService) {
+    let admin = this.authService.getCurrentUser();
+    if(admin) {
+      this.adminName = admin.displayName;
+      this.adminEmail = admin.email;
+    }
+  }
 
   onChangeName() {
     let alert = this.alertCtrl.create({
@@ -15,19 +24,23 @@ export class ProfilePage {
       inputs: [{
         name: 'name',
         placeholder: 'Full Name',
-        value: 'Admin Name'
+        value: this.adminName
       }],
       buttons: [{
         text: 'Save',
         handler: data => {
           if(data.name) {
-            console.log(data);
+            this.authService.editUserName(data.name)
+            .then(() => {
+              let admin = this.authService.getCurrentUser();
+              if(admin) {
+                this.adminName = admin.displayName;
+              }
+              this.successToast();
+            })
+            .catch(err => this.errorToast('name'))
           } else {
-            let toast = this.toastCtrl.create({
-              message: 'You did not enter a name.',
-              duration: 2500
-            });
-            toast.present();
+            this.noValueToast('name');
           }
         }
       }, {
@@ -40,25 +53,28 @@ export class ProfilePage {
 
   onChangeEmail() {
     let alert = this.alertCtrl.create({
-      title: 'Edit Email Address',
-      subTitle: 'Change Admin\'s Email Address',
+      title: 'Change Admin Email',
       inputs: [{
         name: 'email',
         placeholder: 'Email Address',
-        value: 'Admin email address',
+        value: this.adminEmail,
         type: 'email'
       }],
       buttons: [{
         text: 'Save',
         handler: data => {
           if(data.email) {
-            console.log(data);
+            this.authService.editUserEmail(data.email)
+            .then(() => {
+              let admin = this.authService.getCurrentUser();
+              if(admin) {
+                this.adminEmail = admin.email;
+              }
+              this.successToast();
+            })
+            .catch(err => this.errorToast('email address'))
           } else {
-            let toast = this.toastCtrl.create({
-              message: 'You did not enter a email address.',
-              duration: 2500
-            });
-            toast.present();
+            this.noValueToast('email address');
           }
         }
       }, {
@@ -74,26 +90,19 @@ export class ProfilePage {
       title: 'Change Admin Password',
       subTitle: 'Passwords require at least six characters.',
       inputs: [{
-        name: 'oldPassword',
-        placeholder: 'Old Password',
-        type: 'password'
-      }, {
         name: 'newPassword',
         placeholder: 'New Password',
-        type: 'password',
-        min: 6
+        type: 'password'
       }],
       buttons: [{
         text: 'Save',
         handler: data => {
-          if(data.oldPassword && data.newPassword && data.newPassword.length == 6) {
-            console.log('Changed password success.');
+          if(data.newPassword && data.newPassword.length >= 6) {
+            this.authService.changePassword(data.newPassword)
+            .then(() => this.successToast())
+            .catch(err => this.errorToast('password'))
           } else {
-            let toast = this.toastCtrl.create({
-              message: 'Please enter a valid password.',
-              duration: 2500
-            });
-            toast.present();
+            this.noValueToast('password');
           }
         }
       }, {
@@ -104,4 +113,71 @@ export class ProfilePage {
     alert.present();
   }
 
+  onReauthenticate(type: string) {
+    let alert = this.alertCtrl.create({
+      title: 'Sign In',
+      subTitle: 'Enter your current email and password before changing your email',
+      inputs: [{
+        name: 'email',
+        placeholder: 'Email Address',
+        type: 'email'
+      }, {
+        name: 'password',
+        placeholder: 'Password',
+        type: 'password'
+      }],
+      buttons: [{
+        text: 'Next',
+        handler: data => {
+          if(data.email && data.password) {
+            this.authService.reauthenticateUser(data.email, data.password)
+            .then(() => {
+              if(type === 'email') {
+                this.onChangeEmail();
+              } else {
+                this.onChangePassword();
+              }
+            })
+            .catch(err => {
+              let toast = this.toastCtrl.create({
+                message: 'Could not authenticate. Please try again.',
+                duration: 2500
+              });
+              toast.present();
+            })
+          } else {
+            this.noValueToast('email address and password');
+          }
+        }
+      }, {
+        text: 'Cancel',
+        role: 'cancel'
+      }]
+    });
+    alert.present();
+  }
+
+  private successToast() {
+    let toast = this.toastCtrl.create({
+      message: 'Update successfull',
+      duration: 2500
+    });
+    toast.present();
+  }
+
+  private errorToast(type: string) {
+    let toast = this.toastCtrl.create({
+      message: `Could not update ${type}. Please try again.`,
+      duration: 2500
+    });
+    toast.present();
+  }
+
+  private noValueToast(type: string) {
+    let toast = this.toastCtrl.create({
+      message: `Please enter a valid ${type}.`,
+      duration: 2500
+    });
+    toast.present();
+  }
 }
