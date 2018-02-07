@@ -76,9 +76,21 @@
             </ion-col>
           </ion-row>
 
-          <ion-row>
+          <ion-row *ngIf="mode === 'edit' && photoTaken">
+            <ion-col>
+              <img [src]="cameraUrl" alt="photo">
+            </ion-col>
+          </ion-row>
+
+          <ion-row *ngIf="mode === 'edit' && !photoTaken">
             <ion-col>
               <img [src]="eventData.imgPath" alt="photo">
+            </ion-col>
+          </ion-row>
+
+          <ion-row *ngIf="mode === 'add' && photoTaken">
+            <ion-col>
+              <img [src]="cameraUrl" alt="photo">
             </ion-col>
           </ion-row>
 
