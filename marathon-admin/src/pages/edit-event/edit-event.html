@@ -76,17 +76,11 @@
             </ion-col>
           </ion-row>
 
-          <ion-row *ngIf="photoTaken">
+          <ion-row>
             <ion-col>
-              <img [src]="cameraUrl" alt="photo">
+              <img [src]="eventData.imgPath" alt="photo">
             </ion-col>
           </ion-row>
-
-          <!-- <ion-row *ngIf="photoSelected">
-            <ion-col>
-              <img [src]="cameraUrl" alt="photo">
-            </ion-col>
-          </ion-row> -->
 
           <ion-row>
             <ion-col>

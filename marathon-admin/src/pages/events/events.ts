@@ -13,13 +13,12 @@ import {EditEventPage} from '../edit-event/edit-event';
 export class EventsPage {
   events: any = [];
   isListed: boolean = false;
-  noPhoto: boolean;
+  default = 'https://cdn.barnimages.com/wp-content/uploads/2017/03/2017-03-27-roman-drits-barnimages-009-768x512.jpg';
 
   constructor(private navCtrl: NavController) {
     firebase.database().ref('events').orderByChild('date').on('child_added', snapshot => {
       if(snapshot.val() != null) {
         this.isListed = true;
-        this.noPhoto = snapshot.val().imgPath ? true : false;
         this.events.push({
           id: snapshot.ref.key,
           name: snapshot.val().name,
@@ -29,7 +28,7 @@ export class EventsPage {
           displayDate: new Date(snapshot.val().date).toDateString(),
           description: snapshot.val().description,
           location: snapshot.val().location,
-          imgPath: snapshot.val().imgPath,
+          imgPath: (snapshot.val().imgPath) ? snapshot.val().imgPath : this.default,
           status: snapshot.val().eventStatus
         });
       }

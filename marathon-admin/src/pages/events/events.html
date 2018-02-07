@@ -25,8 +25,7 @@
       <div *ngFor="let event of events">
         <button ion-item detail-none (click)="onOpenEvent(event)" *ngIf="event.status === 'started'">
           <ion-thumbnail item-start>
-            <img [src]="event.imgPath" alt="Photo" *ngIf="noPhoto">
-            <img src="https://cdn.barnimages.com/wp-content/uploads/2017/03/2017-03-27-roman-drits-barnimages-009-768x512.jpg" alt="Photo" *ngIf="!noPhoto">
+            <img [src]="event.imgPath" alt="Photo">
           </ion-thumbnail>
           <h2 class="title">{{event.name}}</h2>
           <p>{{event.description}}</p>
@@ -40,8 +39,7 @@
       <div *ngFor="let event of events">
         <button ion-item detail-none (click)="onOpenEvent(event)" *ngIf="event.status === 'incoming'">
           <ion-thumbnail item-start>
-            <img [src]="event.imgPath" alt="Photo" *ngIf="noPhoto">
-            <img src="https://cdn.barnimages.com/wp-content/uploads/2017/03/2017-03-27-roman-drits-barnimages-009-768x512.jpg" alt="Photo" *ngIf="!noPhoto">
+            <img [src]="event.imgPath" alt="Photo">
           </ion-thumbnail>
           <h2 class="title">{{event.name}}</h2>
           <p>{{event.description}}</p>
@@ -55,8 +53,7 @@
       <div *ngFor="let event of events">
         <button ion-item detail-none *ngIf="event.status === 'ended'" (click)="onOpenEvent(event)">
           <ion-thumbnail item-start>
-            <img [src]="event.imgPath" alt="Photo" *ngIf="noPhoto">
-            <img src="https://cdn.barnimages.com/wp-content/uploads/2017/03/2017-03-27-roman-drits-barnimages-009-768x512.jpg" alt="Photo" *ngIf="!noPhoto">
+            <img [src]="event.imgPath" alt="Photo">
           </ion-thumbnail>
           <h2 class="title">{{event.name}}</h2>
           <p>{{event.description}}</p>
