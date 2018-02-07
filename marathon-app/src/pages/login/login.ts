@@ -4,7 +4,6 @@ import {NgForm} from '@angular/forms';
 
 import {RegisterPage} from '../register/register';
 import {AuthService} from "../../services/auth";
-import { EventPage } from '../event/event';
 
 @Component({
   selector: 'page-login',
@@ -12,7 +11,6 @@ import { EventPage } from '../event/event';
 })
 export class LoginPage {
   registerPage = RegisterPage;
-  eventPage = EventPage;
 
   constructor(private navCtrl: NavController, private authService: AuthService, private loadingCtrl: LoadingController, private alertCtrl: AlertController, private menuCtrl: MenuController) {
   }

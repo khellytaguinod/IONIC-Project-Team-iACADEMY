@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {Events, LoadingController, MenuController, NavController, Platform} from 'ionic-angular';
+import {AlertController, Events, LoadingController, MenuController, NavController, Platform} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import firebase from 'firebase';
@@ -9,6 +9,7 @@ import {SettingsPage} from "../pages/settings/settings";
 import {AuthService} from "../services/auth";
 import {LoginPage} from "../pages/login/login";
 import {EventPage} from '../pages/event/event';
+import {EventsPage} from "../../../marathon-admin/src/pages/events/events";
 
 @Component({
   templateUrl: 'app.html'
@@ -22,7 +23,7 @@ export class MyApp {
   username;
   email;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menuCtrl: MenuController, private authService: AuthService, private loadingCtrl: LoadingController, public events: Events) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menuCtrl: MenuController, private authService: AuthService, private loadingCtrl: LoadingController, public events: Events, private alertCtrl: AlertController) {
     firebase.initializeApp({
       apiKey: "AIzaSyB69ECSbnlRhzzjDWl9G1RkylwdP_r0oVI",
       authDomain: "marathon-app-database.firebaseapp.com",
@@ -33,12 +34,19 @@ export class MyApp {
     });
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        this.username = user.displayName;
-        this.email = user.email;
-        this.isAuthenticated = true;
-        this.rootPage = EventPage;
-        events.subscribe('user:updateName', (name) => {
-          this.username = name;
+        firebase.database().ref('users/' + user.uid).once('value').then(snapshot => {
+          if (snapshot.val().userType === 'admin') {
+            let message = 'Only accessible by users. Please create a different account';
+            const alert = this.alertCtrl.create({
+              title: 'Signin failed',
+              message: message,
+              buttons: ['Ok']
+            });
+            alert.present();
+            this.authService.logout();
+          } else {
+            this.rootPage = EventPage;
+          }
         });
       } else {
         this.isAuthenticated = false;
