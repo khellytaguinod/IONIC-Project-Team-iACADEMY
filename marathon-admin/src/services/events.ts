@@ -39,7 +39,7 @@ export class EventsService {
         imgPath: imgData.downloadURL,
         eventStatus: 'incoming',
       };
-      firebase.database().ref('events').push(eventSubmitted);
+      firebase.database().ref('events/' + id).update(eventSubmitted);
     });
   }
 
