@@ -4,19 +4,7 @@ page-map {
     background-color: map-get($colors, bg);
   }
 
-  .location {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background-color: #fff;
-    width: 150px;
-    text-align: center;
-    border: 1px solid map-get($colors, divider);
-  }
-
   .stats {
-    // color: #fff;
-    // background-color: #333;
     padding-right: 0;
     padding-left: 0;
     border-bottom-width: 0px;

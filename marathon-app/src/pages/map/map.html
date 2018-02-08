@@ -1,18 +1,21 @@
 <ion-header no-border>
   <ion-navbar>
     <ion-buttons left>
-      <button ion-button icon-only menuToggle color="dark">
+      <button ion-button icon-only menuToggle>
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
+    <ion-buttons right>
+      <button ion-button icon-only>
+        <ion-icon name="refresh"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>{{ name | uppercase }} LIVE</ion-title>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content no-padding>
-  <div class="location">
-    {{ lat }}, {{ lng }}
-  </div>
   <div id="map_canvas"></div>
 </ion-content>
 

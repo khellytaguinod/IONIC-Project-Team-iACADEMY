@@ -27,8 +27,11 @@ export class EventPage {
   name;
   time;
   status;
-  location;
   description;
+  start;
+  end;
+  imgPath;
+  default = 'https://cdn.barnimages.com/wp-content/uploads/2017/03/2017-03-27-roman-drits-barnimages-009-768x512.jpg';
   map: GoogleMap;
 
   constructor(private navCtrl: NavController, private geolocation: Geolocation, private loadCtrl: LoadingController) {
@@ -39,7 +42,9 @@ export class EventPage {
         this.date = new Date(this.event.date).toDateString();
         this.name = this.event.name;
         this.time = this.convertTime(this.event.time);
-        this.location = this.event.location;
+        this.start = this.event.startPoint;
+        this.end = this.event.endPoint;
+        this.imgPath = this.event.imgPath ? this.event.imgPath : this.default;
         this.status = this.event.eventStatus;
         this.description = this.event.description;
       } else if (this.event.eventStatus === 'incoming') {
@@ -47,7 +52,9 @@ export class EventPage {
         this.date = new Date(this.event.date).toDateString();
         this.name = this.event.name;
         this.time = this.convertTime(this.event.time);
-        this.location = this.event.location;
+        this.start = this.event.startPoint;
+        this.end = this.event.endPoint;
+        this.imgPath = this.event.imgPath ? this.event.imgPath : this.default;
         this.status = this.event.eventStatus;
         this.description = this.event.description;
       }
@@ -115,7 +122,7 @@ export class EventPage {
   }
 
   onStartRun() {
-    this.navCtrl.push(MapPage, {id: this.id});
+    this.navCtrl.push(MapPage, {id: this.id, event: this.name});
   }
 
   onUserEventStatus() {
