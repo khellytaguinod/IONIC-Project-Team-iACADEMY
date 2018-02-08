@@ -4,7 +4,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
 import { EventsService } from '../../services/events';
-import { SearchPointPage } from '../search-point/search-point';
+import { StartPointPage } from '../start-point/start-point';
+import { EndPointPage } from '../end-point/end-point';
 
 @Component({
   selector: 'page-edit-event',
@@ -17,6 +18,10 @@ export class EditEventPage {
   minDate = new Date().toISOString();
   photoTaken: boolean = false;
   cameraUrl: string;
+  start: string;
+  end: string;
+  startIsSet: boolean = false;
+  endIsSet: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, private camera: Camera, public toastCtrl: ToastController, private eventsService: EventsService, public loadCtrl: LoadingController, public modalCtrl: ModalController) {
     this.mode = this.navParams.get('mode');
@@ -81,7 +86,7 @@ export class EditEventPage {
 
   onAddEventDetails() {
     if (this.mode === 'edit') {
-      this.eventsService.onEditEvent(this.eventData.id, this.eventForm.value.name, this.eventForm.value.description, this.eventForm.value.date, this.eventForm.value.time, this.eventForm.value.location, this.cameraUrl, this.eventData.imgPath, this.photoTaken)
+      this.eventsService.onEditEvent(this.eventData.id, this.eventForm.value.name, this.eventForm.value.description, this.eventForm.value.date, this.eventForm.value.time, this.start, this.end, this.cameraUrl, this.eventData.imgPath, this.photoTaken)
         .then(data => {
           let loading = this.loadCtrl.create({
             content: 'Updating event...'
@@ -99,7 +104,7 @@ export class EditEventPage {
           toast.present();
         });
     } else {
-      this.eventsService.onAddEvent(this.eventForm.value.name, this.eventForm.value.description, this.eventForm.value.date, this.eventForm.value.time, this.eventForm.value.location, this.cameraUrl, this.photoTaken).then(data => {
+      this.eventsService.onAddEvent(this.eventForm.value.name, this.eventForm.value.description, this.eventForm.value.date, this.eventForm.value.time, this.start, this.end, this.cameraUrl, this.photoTaken).then(data => {
         let loading = this.loadCtrl.create({
           content: 'Saving event...'
         });
@@ -118,9 +123,26 @@ export class EditEventPage {
     }
   }
 
-  onSearchPoint(point: string) {
-    let modal = this.modalCtrl.create(SearchPointPage, { point });
+  onSearchStart() {
+    let modal = this.modalCtrl.create(StartPointPage);
     modal.present();
+    modal.onDidDismiss(data => {
+      if(data) {
+        this.start = data.start;
+        this.startIsSet = true;
+      }
+    })
+  }
+
+  onSearchEnd() {
+    let modal = this.modalCtrl.create(EndPointPage);
+    modal.present();
+    modal.onDidDismiss(data => {
+      if(data) {
+        this.end = data.end;
+        this.endIsSet = true;
+      }
+    })
   }
 
   private initializeForm() {
