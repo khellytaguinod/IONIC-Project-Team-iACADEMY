@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {NavController, NavParams, ActionSheetController, ToastController, LoadingController, ModalController} from 'ionic-angular';
+import { Component } from '@angular/core';
+import { NavController, NavParams, ActionSheetController, ToastController, LoadingController, ModalController } from 'ionic-angular';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
@@ -80,24 +80,24 @@ export class EditEventPage {
   }
 
   onAddEventDetails() {
-    if(this.mode === 'edit') {
+    if (this.mode === 'edit') {
       this.eventsService.onEditEvent(this.eventData.id, this.eventForm.value.name, this.eventForm.value.description, this.eventForm.value.date, this.eventForm.value.time, this.eventForm.value.location, this.cameraUrl, this.eventData.imgPath, this.photoTaken)
-      .then(data => {
-        let loading = this.loadCtrl.create({
-          content: 'Updating event...'
+        .then(data => {
+          let loading = this.loadCtrl.create({
+            content: 'Updating event...'
+          });
+          loading.present();
+          this.initializeForm();
+          loading.dismiss();
+          this.navCtrl.popToRoot();
+        })
+        .catch(err => {
+          let toast = this.toastCtrl.create({
+            message: 'Could not update event. Please try again.',
+            duration: 3000
+          });
+          toast.present();
         });
-        loading.present();
-        this.initializeForm();
-        loading.dismiss();
-        this.navCtrl.popToRoot();
-      })
-      .catch(err => {
-        let toast = this.toastCtrl.create({
-          message: 'Could not update event. Please try again.',
-          duration: 3000
-        });
-        toast.present();
-      });
     } else {
       this.eventsService.onAddEvent(this.eventForm.value.name, this.eventForm.value.description, this.eventForm.value.date, this.eventForm.value.time, this.eventForm.value.location, this.cameraUrl, this.photoTaken).then(data => {
         let loading = this.loadCtrl.create({
@@ -119,7 +119,7 @@ export class EditEventPage {
   }
 
   onSearchPoint(point: string) {
-    let modal = this.modalCtrl.create(SearchPointPage, {point});
+    let modal = this.modalCtrl.create(SearchPointPage, { point });
     modal.present();
   }
 
@@ -130,7 +130,7 @@ export class EditEventPage {
     let time = null;
     let location = null;
 
-    if(this.mode == 'edit') {
+    if (this.mode == 'edit') {
       name = this.eventData.name;
       description = this.eventData.description;
       date = new Date(this.eventData.date).toISOString();
