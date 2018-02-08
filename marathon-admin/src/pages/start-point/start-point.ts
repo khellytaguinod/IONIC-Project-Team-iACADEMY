@@ -1,22 +1,19 @@
 import { Component } from '@angular/core';
-import { NavParams, ViewController } from 'ionic-angular';
+import { ViewController } from 'ionic-angular';
 
 declare var google;
 
 @Component({
-  selector: 'page-search-point',
-  templateUrl: 'search-point.html',
+  selector: 'page-start-point',
+  templateUrl: 'start-point.html',
 })
-export class SearchPointPage {
-  point: string;
-
+export class StartPointPage {
   autocompleteService: any;
   query: string = '';
   places: any = [];
+  start;
 
-  constructor(public navParams: NavParams, public viewCtrl: ViewController) {
-    this.point = this.navParams.get('point');
-  }
+  constructor(public viewCtrl: ViewController) {}
 
   ionViewDidLoad() {
     this.autocompleteService = new google.maps.places.AutocompleteService();
@@ -24,12 +21,10 @@ export class SearchPointPage {
 
   searchPlace() {
     if (this.query.length > 0) {
-
       let config = {
         input: this.query,
         componentRestrictions: { country: 'PH' }
       }
-
       this.autocompleteService.getPlacePredictions(config, (predictions, status) => {
         if (status == google.maps.places.PlacesServiceStatus.OK && predictions) {
           this.places;
@@ -41,15 +36,11 @@ export class SearchPointPage {
     } else {
       this.places;
     }
-
   }
 
-  selectPlace(test) {
-    console.log(test);
-    console.log(test.description); // yung isesend firebase 
-    // tapos idedecode na lng sa user app
-
-    this.viewCtrl.dismiss();
+  selectPlace(address) {
+    this.start = address.description;
+    this.viewCtrl.dismiss({start: this.start});
   }
 
   onClose() {

@@ -12,7 +12,7 @@ import {EditEventPage} from '../edit-event/edit-event';
 })
 export class EventsPage {
   events: any = [];
-  isListed: boolean = false;
+  isListed: boolean;
   default = 'https://cdn.barnimages.com/wp-content/uploads/2017/03/2017-03-27-roman-drits-barnimages-009-768x512.jpg';
 
   constructor(private navCtrl: NavController) {
@@ -27,7 +27,8 @@ export class EventsPage {
           date: snapshot.val().date,
           displayDate: new Date(snapshot.val().date).toDateString(),
           description: snapshot.val().description,
-          location: snapshot.val().location,
+          startPoint: snapshot.val().startPoint,
+          endPoint: snapshot.val().endPoint,
           imgPath: (snapshot.val().imgPath) ? snapshot.val().imgPath : this.default,
           status: snapshot.val().eventStatus
         });

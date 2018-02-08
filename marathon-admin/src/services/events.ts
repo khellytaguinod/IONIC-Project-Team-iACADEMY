@@ -2,7 +2,7 @@ import firebase from 'firebase';
 
 export class EventsService {
 
-  onAddEvent(name: string, description: string, date: string, time: string, location: string, imgUrl: any, photoTaken: boolean) {
+  onAddEvent(name: string, description: string, date: string, time: string, startPoint: string, endPoint: string, imgUrl: any, photoTaken: boolean) {
     let eventSubmitted = {};
     if(photoTaken == true) {
       let key = firebase.database().ref('events').push().key;
@@ -16,7 +16,8 @@ export class EventsService {
           description: description,
           date: date,
           time: time,
-          location: location,
+          startPoint: startPoint,
+          endPoint: endPoint,
           imgPath: imgData.downloadURL,
           eventStatus: 'incoming',
         };
@@ -28,7 +29,8 @@ export class EventsService {
         description: description,
         date: date,
         time: time,
-        location: location,
+        startPoint: startPoint,
+        endPoint: endPoint,
         imgPath: '',
         eventStatus: 'incoming',
       };
@@ -36,7 +38,7 @@ export class EventsService {
     }
   }
 
-  onEditEvent(id: any, name: string, description: string, date: string, time: string, location: string, imgUrl: any, oldImgPath: string, photoTaken: boolean) {
+  onEditEvent(id: any, name: string, description: string, date: string, time: string, startPoint: string, endPoint: string, imgUrl: any, oldImgPath: string, photoTaken: boolean) {
     let eventSubmitted = {};
     let imgPath = `events/${id}.jpg`;
     if(photoTaken) {
@@ -49,7 +51,8 @@ export class EventsService {
           description: description,
           date: date,
           time: time,
-          location: location,
+          startPoint: startPoint,
+          endPoint: endPoint,
           imgPath: imgData.downloadURL,
           eventStatus: 'incoming',
         };
@@ -61,7 +64,8 @@ export class EventsService {
         description: description,
         date: date,
         time: time,
-        location: location,
+        startPoint: startPoint,
+        endPoint: endPoint,
         imgPath: oldImgPath,
         eventStatus: 'incoming',
       };

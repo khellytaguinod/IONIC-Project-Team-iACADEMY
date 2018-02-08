@@ -32,7 +32,7 @@
   <div [ngSwitch]="event">
     <div *ngSwitchCase="'details'">
       <img [src]="eventData.imgPath" alt="Photo">
-      <ion-grid no-padding class="details">
+      <ion-grid class="details">
         <ion-row>
           <ion-col>
             <h4>{{eventData.displayDate}}</h4>
@@ -47,7 +47,7 @@
         <ion-row class="sec-details">
           <ion-col>
             <ion-icon name="pin" item-left></ion-icon>
-            {{eventData.location}}
+            {{eventData.startPoint}}
           </ion-col>
         </ion-row>
       </ion-grid>

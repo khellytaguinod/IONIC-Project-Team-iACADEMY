@@ -39,15 +39,6 @@
       <ion-row>
         <ion-col>
           <ion-item>
-            <ion-label floating>Location</ion-label>
-            <ion-input type="text" formControlName="location"></ion-input>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-
-      <ion-row>
-        <ion-col>
-          <ion-item>
             <ion-label floating>Description</ion-label>
             <ion-textarea rows="6" formControlName="description"></ion-textarea>
           </ion-item>
@@ -84,13 +75,13 @@
 
     <ion-list>
       <ion-list-header no-lines>Set Route</ion-list-header>
-      <button ion-item detail-none (click)="onSearchPoint('start')" type="button">
-        Start Point
-        <ion-note item-end>Address 1</ion-note>
+      <button ion-item detail-none (click)="onSearchStart()" type="button">
+        <div *ngIf="start">{{ start }}</div>
+        <div *ngIf="!start">Start Point</div>
       </button>
-      <button ion-item detail-none (click)="onSearchPoint('end')" type="button">
-        End Point
-        <ion-note item-end>Address 2</ion-note>
+      <button ion-item detail-none (click)="onSearchEnd()" type="button">
+          <div *ngIf="end">{{ end }}</div>
+          <div *ngIf="!end">End Point</div>
       </button>
     </ion-list>
 
@@ -108,7 +99,7 @@
 
       <ion-row>
         <ion-col>
-          <button type="submit" ion-button block icon-right color="secondary" [disabled]="!eventForm.valid">
+          <button type="submit" ion-button block icon-right color="secondary" [disabled]="!eventForm.valid && !startIsSet && !endIsSet">
             Save
             <ion-icon name="checkmark"></ion-icon>
           </button>

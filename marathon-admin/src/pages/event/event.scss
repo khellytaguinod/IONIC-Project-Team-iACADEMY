@@ -9,7 +9,9 @@ page-event {
     margin-bottom: 0;
   }
   .details {
-    margin-left: 20px;
+    ion-col {
+      padding: 0px 20px !important;
+    }
   }
   .sec-details {
     color: map-get($colors, secondarytext);
