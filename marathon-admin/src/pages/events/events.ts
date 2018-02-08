@@ -15,9 +15,7 @@ export class EventsPage {
   isListed: boolean = false;
   default = 'https://cdn.barnimages.com/wp-content/uploads/2017/03/2017-03-27-roman-drits-barnimages-009-768x512.jpg';
 
-  constructor(private navCtrl: NavController) {}
-
-  ionViewWillEnter() {
+  constructor(private navCtrl: NavController) {
     firebase.database().ref('events').orderByChild('date').on('child_added', snapshot => {
       if(snapshot.val() != null) {
         this.isListed = true;

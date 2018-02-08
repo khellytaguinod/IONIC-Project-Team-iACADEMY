@@ -6,7 +6,10 @@ page-edit-event {
     border-bottom-color: #fff !important;
   }
   #map {
-    height: 70vh;
+    height: 55vh;
     background-color: map-get($colors, bg);
+  }
+  .pointlist {
+    margin-bottom: 0 !important;
   }
 }

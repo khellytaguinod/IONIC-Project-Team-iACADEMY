@@ -107,6 +107,16 @@
     </div>
 
     <div *ngSwitchCase="'route'">
+      <ion-list class="pointlist">
+        <button ion-item detail-none (click)="onSearchPoint('start')">
+          Start Point
+          <ion-note item-end>Address 1</ion-note>
+        </button>
+        <button ion-item detail-none (click)="onSearchPoint('end')">
+          End Point
+          <ion-note item-end>Address 2</ion-note>
+        </button>
+      </ion-list>
       <div id="map"></div>
       <ion-grid>
         <ion-row>
