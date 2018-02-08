@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, NavParams, ActionSheetController, ToastController, LoadingController, ModalController } from 'ionic-angular';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
@@ -7,11 +7,17 @@ import { EventsService } from '../../services/events';
 import { StartPointPage } from '../start-point/start-point';
 import { EndPointPage } from '../end-point/end-point';
 
+declare var google;
+
 @Component({
   selector: 'page-edit-event',
   templateUrl: 'edit-event.html',
 })
 export class EditEventPage {
+
+  @ViewChild('map') mapElement: ElementRef;
+  map: any;
+
   mode: string;
   eventData;
   eventForm: FormGroup;
@@ -142,7 +148,43 @@ export class EditEventPage {
         this.end = data.end;
         this.endIsSet = true;
       }
+      this.loadMap();
+      this.showNavigation();
     })
+  }
+
+  loadMap() {
+    let latLng = new google.maps.LatLng(12.8797, 121.7740); //PH map coordinates
+
+    let mapOptions = {
+      center: latLng,
+      zoom: 15,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+
+    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+
+  }
+
+  showNavigation() {
+
+    let directionsService = new google.maps.DirectionsService;
+    let directionsDisplay = new google.maps.DirectionsRenderer;
+
+    directionsDisplay.setMap(this.map);
+
+    directionsService.route({
+      origin: this.start,
+      destination: this.end,
+      travelMode: google.maps.TravelMode['WALKING']
+    }, (res, status) => {
+      if (status == google.maps.DirectionsStatus.OK) {
+        directionsDisplay.setDirections(res);
+      } else {
+        console.warn(status);
+      }
+    });
+
   }
 
   private initializeForm() {

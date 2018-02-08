@@ -5,10 +5,16 @@ page-edit-event {
   ion-list-header {
     margin-bottom: 0 !important;
   }
-  #map {
-    height: 55vh;
-    background-color: map-get($colors, bg);
+  
+  .scroll {
+    height: 100%
   }
+
+  #map {
+    // width: 100px;
+    height: 300px;
+  }
+
   .pointlist {
     margin-bottom: 0 !important;
   }
