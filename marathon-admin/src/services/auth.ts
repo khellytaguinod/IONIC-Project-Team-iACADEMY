@@ -23,7 +23,7 @@ export class AuthService {
     if(admin) {
       admin.updateProfile({
         displayName: displayName,
-        photoUrl: photoUrl
+        photoURL: photoUrl
       })
     }
     return firebase.database().ref('/users').child(admin.uid + '/profile').update({

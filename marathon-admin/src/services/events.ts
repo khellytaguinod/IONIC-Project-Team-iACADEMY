@@ -4,10 +4,10 @@ export class EventsService {
 
   onAddEvent(name: string, description: string, date: string, time: string, location: string, imgUrl: any, photoTaken: boolean) {
     let eventSubmitted = {};
-    let key = firebase.database().ref('events').push().key;
-    let imgPath = `events/${key}.jpg`;
-    if(photoTaken) {
-      return firebase.storage().ref('img')
+    if(photoTaken == true) {
+      let key = firebase.database().ref('events').push().key;
+      let imgPath = `events/${key}.jpg`;
+      firebase.storage().ref('img')
       .child(imgPath)
       .putString(imgUrl, firebase.storage.StringFormat.DATA_URL)
       .then(imgData => {
@@ -20,7 +20,7 @@ export class EventsService {
           imgPath: imgData.downloadURL,
           eventStatus: 'incoming',
         };
-        firebase.database().ref('events').push(eventSubmitted);
+        return firebase.database().ref('events').push(eventSubmitted);
       });
     } else {
       eventSubmitted = {

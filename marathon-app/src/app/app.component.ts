@@ -20,8 +20,8 @@ export class MyApp {
   profilePage = ProfilePage;
   settingsPage = SettingsPage;
   isAuthenticated = false;
-  username;
-  email;
+  // username;
+  // email;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menuCtrl: MenuController, private authService: AuthService, private loadingCtrl: LoadingController, public events: Events, private alertCtrl: AlertController) {
     firebase.initializeApp({
