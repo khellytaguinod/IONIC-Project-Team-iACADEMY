@@ -5,7 +5,7 @@
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title>{{name}}</ion-title>
+    <ion-title>{{ name | uppercase }}</ion-title>
   </ion-navbar>
 
   <ion-toolbar>
@@ -24,7 +24,7 @@
   <div [ngSwitch]="item">
     <div *ngSwitchCase="'details'">
       <div id="header">
-        <img src="http://cdn-img.instyle.com/sites/default/files/images/2017/02/020516-royalfootrace-embed.jpg"
+        <img [src]="imgPath"
              alt="Photo">
         <ion-fab right bottom edge>
           <button ion-fab [color]="buttonColor" (click)="onUserEventStatus()">
@@ -32,7 +32,7 @@
           </button>
         </ion-fab>
       </div>
-      <ion-grid no-padding class="details">
+      <ion-grid class="details">
         <ion-row>
           <ion-col>
             <h4>{{date}}</h4>
@@ -47,7 +47,7 @@
         <ion-row class="sec-details">
           <ion-col>
             <ion-icon name="pin" item-left></ion-icon>
-            {{location}}
+            {{start}}
           </ion-col>
         </ion-row>
       </ion-grid>

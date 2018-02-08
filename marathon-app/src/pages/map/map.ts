@@ -19,6 +19,7 @@ import {LocationTrackerProvider} from '../../providers/location-tracker/location
   templateUrl: 'map.html',
 })
 export class MapPage {
+  name;
   lat;
   lng;
   map: GoogleMap;
@@ -27,8 +28,8 @@ export class MapPage {
   constructor(private geolocation: Geolocation,
               public locationTracker: LocationTrackerProvider,
               private modalCtrl: ModalController, private navParams: NavParams) {
-    this.id = navParams.get('id');
-    console.log(this.id);
+    this.id = this.navParams.get('id');
+    this.name = this.navParams.get('event');
   }
 
   ionViewDidLoad() {

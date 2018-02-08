@@ -28,7 +28,7 @@
 //   background-color: rgba(0,0,0,0.90);
 // }
 
-page-events, page-event, page-profile, page-settings, page-change-frequency, page-edit-user {
+page-events, page-event, page-profile, page-settings, page-change-frequency, page-edit-user, page-map {
   ion-header {
     .toolbar-background {
       background: map-get($colors, primary);
@@ -43,14 +43,14 @@ page-events, page-event, page-profile, page-settings, page-change-frequency, pag
   }
 }
 
-page-map {
-  ion-header {
-    .toolbar {
-      position: absolute;
+// page-map {
+//   ion-header {
+//     .toolbar {
+//       position: absolute;
 
-      .toolbar-background {
-        background: transparent;
-      }
-    }
-  }
-}
+//       .toolbar-background {
+//         background: transparent;
+//       }
+//     }
+//   }
+// }
