@@ -52,7 +52,9 @@ export class EventPage {
         this.description = this.event.description;
       }
     });
-    let loading = this.loadCtrl.create({});
+    let loading = this.loadCtrl.create({
+      content: 'Loading event...'
+    });
     loading.present();
     setTimeout(() => {
       let userId = firebase.auth().currentUser.uid;
@@ -62,7 +64,7 @@ export class EventPage {
             this.joined = dataSnapshot.val().joined;
             if (this.joined) {
               this.buttonIcon = "checkmark";
-              this.buttonColor = 'default';
+              this.buttonColor = 'secondary';
               loading.dismiss();
             } else {
               this.buttonIcon = "add";
@@ -78,12 +80,6 @@ export class EventPage {
         }
       });
     }, 2000);
-  }
-
-  onViewRoute() {
-    this.navCtrl.push(MapPage, {mode: 'view'}).catch(error => {
-      console.log(error);
-    });
   }
 
   ionViewWillEnter() {

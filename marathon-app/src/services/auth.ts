@@ -4,7 +4,6 @@ export class AuthService {
   public username: string;
   public email: string;
 
-
   signup(email: string, password: string, name: string) {
     return firebase.auth().createUserWithEmailAndPassword(email, password).then((user) => {
       user = firebase.auth().currentUser;
@@ -26,17 +25,25 @@ export class AuthService {
     return firebase.auth().signOut();
   }
 
-  editUser(displayName: string, photoURL: string) {
+  editUser(displayName: string, photoURL: string = '') {
     let user = firebase.auth().currentUser;
-    user.updateProfile({
-      displayName: displayName,
-      photoURL: photoURL
-    })
+    if(user) {
+      user.updateProfile({
+        displayName: displayName,
+        photoURL: photoURL
+      })
+    }
+    return firebase.database().ref('/users').child(user.uid + '/profile').update({
+      name: displayName
+    });
   }
 
   updateUserEmail(email: string) {
     let user = firebase.auth().currentUser;
-    return user.updateEmail(email);
+    user.updateEmail(email);
+    return firebase.database().ref('/users').child(user.uid + '/profile').update({
+      email: email
+    })
   }
 
   getUserDetails() {
@@ -45,5 +52,11 @@ export class AuthService {
       this.username = user.displayName;
       this.email = user.email;
     }
+  }
+
+  reauthenticateUser(email: string, password: string) {
+    let user = firebase.auth().currentUser;
+    let credential = firebase.auth.EmailAuthProvider.credential(email, password);
+    return user.reauthenticateWithCredential(credential);
   }
 }

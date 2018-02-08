@@ -49,32 +49,54 @@ export class EditUserPage implements OnInit {
 
   onEditName(form: NgForm) {
     if (form.valid) {
-      this.authService.editUser(form.value.name, '');
-      this.events.publish('user:updateName', form.value.name);
+      this.authService.editUser(form.value.name, '')
+      .then(() => {
+        this.events.publish('user:updateName', form.value.name);
+        this.successToast();
+      })
+      .catch(err => this.errorToast('name'));
       this.viewCtrl.dismiss();
     } else {
-      let toast = this.toastCtrl.create({
-        message: 'Please enter your name.',
-        duration: 3000
-      });
-      toast.present();
+      this.noValueToast('name');
     }
   }
 
   onEditEmail(form: NgForm) {
     if (form.valid) {
-      this.authService.updateUserEmail(form.value.email);
+      this.authService.updateUserEmail(form.value.email)
+      .then(() => this.successToast())
+      .catch(err => this.errorToast('email'));
       this.viewCtrl.dismiss();
     } else {
-      let toast = this.toastCtrl.create({
-        message: 'Please enter your email.',
-        duration: 3000
-      });
-      toast.present();
+      this.noValueToast('email');
     }
   }
 
   onChangePassword(form: NgForm) {
+  }
+
+  private successToast() {
+    let toast = this.toastCtrl.create({
+      message: 'Update successfull',
+      duration: 2500
+    });
+    toast.present();
+  }
+
+  private errorToast(type: string) {
+    let toast = this.toastCtrl.create({
+      message: `Could not update ${type}. Please try again.`,
+      duration: 2500
+    });
+    toast.present();
+  }
+
+  private noValueToast(type: string) {
+    let toast = this.toastCtrl.create({
+      message: `Please enter a valid ${type}.`,
+      duration: 2500
+    });
+    toast.present();
   }
 
 }

@@ -25,7 +25,6 @@ export class EditEventPage {
     if (this.mode === 'edit') {
       this.eventData = this.navParams.get('data');
       this.isActive = false;
-      console.log(this.eventData.imgPath);
     }
     this.initializeForm();
   }
@@ -107,8 +106,7 @@ export class EditEventPage {
         toast.present();
       });
     } else {
-      this.eventsService.onAddEvent(this.eventForm.value.name, this.eventForm.value.description, this.eventForm.value.date, this.eventForm.value.time, this.eventForm.value.location, this.cameraUrl, this.photoTaken)
-      .then(data => {
+      this.eventsService.onAddEvent(this.eventForm.value.name, this.eventForm.value.description, this.eventForm.value.date, this.eventForm.value.time, this.eventForm.value.location, this.cameraUrl, this.photoTaken).then(data => {
         let loading = this.loadCtrl.create({
           content: 'Saving event...'
         });
@@ -117,13 +115,13 @@ export class EditEventPage {
         this.event = 'route';
         loading.dismiss();
       })
-      .catch(err => {
-        let toast = this.toastCtrl.create({
-          message: 'Could not save event. Please try again.',
-          duration: 3000
-        });
-        toast.present();
-      });
+      // .catch(err => {
+      //   let toast = this.toastCtrl.create({
+      //     message: 'Could not save event. Please try again.',
+      //     duration: 3000
+      //   });
+      //   toast.present();
+      // });
     }
   }
 
