@@ -1,9 +1,10 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams, ActionSheetController, ToastController, LoadingController} from 'ionic-angular';
+import {NavController, NavParams, ActionSheetController, ToastController, LoadingController, ModalController} from 'ionic-angular';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
 import { EventsService } from '../../services/events';
+import { SearchPointPage } from '../search-point/search-point';
 
 @Component({
   selector: 'page-edit-event',
@@ -19,7 +20,7 @@ export class EditEventPage {
   photoTaken: boolean = false;
   cameraUrl: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private actionSheetCtrl: ActionSheetController, private camera: Camera, private toastCtrl: ToastController,private eventsService: EventsService, private loadCtrl: LoadingController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, private camera: Camera, public toastCtrl: ToastController, private eventsService: EventsService, public loadCtrl: LoadingController, public modalCtrl: ModalController) {
     this.mode = this.navParams.get('mode');
     if (this.mode === 'edit') {
       this.eventData = this.navParams.get('data');
@@ -124,6 +125,11 @@ export class EditEventPage {
         toast.present();
       });
     }
+  }
+
+  onSearchPoint(point: string) {
+    let modal = this.modalCtrl.create(SearchPointPage, {point});
+    modal.present();
   }
 
   private initializeForm() {

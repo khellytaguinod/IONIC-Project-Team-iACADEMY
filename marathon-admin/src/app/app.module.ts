@@ -17,6 +17,7 @@ import { LiveEventPage } from '../pages/live-event/live-event';
 import { NoConnectionPage } from '../pages/no-connection/no-connection';
 import { ParticipantPage } from '../pages/participant/participant';
 import { ParticipantsPage } from '../pages/participants/participants';
+import { SearchPointPage } from '../pages/search-point/search-point';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ParticipantsPage } from '../pages/participants/participants';
     LiveEventPage,
     NoConnectionPage,
     ParticipantPage,
-    ParticipantsPage
+    ParticipantsPage,
+    SearchPointPage
   ],
   imports: [
     BrowserModule,
@@ -46,7 +48,8 @@ import { ParticipantsPage } from '../pages/participants/participants';
     LiveEventPage,
     NoConnectionPage,
     ParticipantPage,
-    ParticipantsPage
+    ParticipantsPage,
+    SearchPointPage
   ],
   providers: [
     StatusBar,
