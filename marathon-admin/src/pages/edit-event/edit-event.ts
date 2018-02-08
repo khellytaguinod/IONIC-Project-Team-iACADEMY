@@ -12,8 +12,6 @@ import { SearchPointPage } from '../search-point/search-point';
 })
 export class EditEventPage {
   mode: string;
-  event: string;
-  isActive: boolean = true;
   eventData;
   eventForm: FormGroup;
   minDate = new Date().toISOString();
@@ -24,13 +22,8 @@ export class EditEventPage {
     this.mode = this.navParams.get('mode');
     if (this.mode === 'edit') {
       this.eventData = this.navParams.get('data');
-      this.isActive = false;
     }
     this.initializeForm();
-  }
-
-  ionViewWillEnter() {
-    this.event = 'details';
   }
 
   onUploadImg() {
@@ -94,9 +87,9 @@ export class EditEventPage {
           content: 'Updating event...'
         });
         loading.present();
-        this.isActive = false;
-        this.event = 'route';
+        this.initializeForm();
         loading.dismiss();
+        this.navCtrl.popToRoot();
       })
       .catch(err => {
         let toast = this.toastCtrl.create({
@@ -111,9 +104,9 @@ export class EditEventPage {
           content: 'Saving event...'
         });
         loading.present();
-        this.isActive = false;
-        this.event = 'route';
+        this.initializeForm();
         loading.dismiss();
+        this.navCtrl.popToRoot();
       })
       // .catch(err => {
       //   let toast = this.toastCtrl.create({

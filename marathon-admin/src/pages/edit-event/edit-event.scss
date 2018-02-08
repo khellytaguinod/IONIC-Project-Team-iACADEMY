@@ -1,9 +1,9 @@
 page-edit-event {
-  .segment-button {
-    color: #fff !important;
+  ion-grid:first-child {
+    margin-bottom: 10px;
   }
-  .segment-button.segment-activated {
-    border-bottom-color: #fff !important;
+  ion-list-header {
+    margin-bottom: 0 !important;
   }
   #map {
     height: 55vh;

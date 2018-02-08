@@ -9,7 +9,6 @@ import {SettingsPage} from "../pages/settings/settings";
 import {AuthService} from "../services/auth";
 import {LoginPage} from "../pages/login/login";
 import {EventPage} from '../pages/event/event';
-import {EventsPage} from "../../../marathon-admin/src/pages/events/events";
 
 @Component({
   templateUrl: 'app.html'
@@ -59,11 +58,11 @@ export class MyApp {
     });
   }
 
-  onGetUserDetails() {
-    this.authService.getUserDetails();
-    this.username = this.authService.username;
-    this.email = this.authService.email;
-  }
+  // onGetUserDetails() {
+  //   this.authService.getUserDetails();
+  //   this.username = this.authService.username;
+  //   this.email = this.authService.email;
+  // }
 
   onLoad(page: any) {
     this.nav.setRoot(page);
