@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController} from 'ionic-angular';
+import {LoadingController, NavController} from 'ionic-angular';
 import firebase from 'firebase';
 import {
   GoogleMaps,
@@ -31,7 +31,7 @@ export class EventPage {
   description;
   map: GoogleMap;
 
-  constructor(private navCtrl: NavController, private geolocation: Geolocation) {
+  constructor(private navCtrl: NavController, private geolocation: Geolocation, private loadCtrl: LoadingController) {
     firebase.database().ref('events/').on('child_added', snapshot => {
       this.event = snapshot.val();
       if (this.event.eventStatus === 'started') {
@@ -52,35 +52,37 @@ export class EventPage {
         this.description = this.event.description;
       }
     });
+    let loading = this.loadCtrl.create({});
+    loading.present();
+    setTimeout(() => {
+      let userId = firebase.auth().currentUser.uid;
+      firebase.database().ref('participants/' + this.id).once('value').then(snapshot => {
+        if (snapshot.hasChild(userId)) {
+          firebase.database().ref('participants/' + this.id).child(userId).once('value', dataSnapshot => {
+            this.joined = dataSnapshot.val().joined;
+            if (this.joined) {
+              this.buttonIcon = "checkmark";
+              this.buttonColor = 'default';
+              loading.dismiss();
+            } else {
+              this.buttonIcon = "add";
+              this.buttonColor = 'danger';
+              loading.dismiss();
+            }
+          });
+        } else {
+          this.joined = false;
+          this.buttonIcon = "add";
+          this.buttonColor = 'danger';
+          loading.dismiss();
+        }
+      });
+    }, 2000);
   }
 
   onViewRoute() {
     this.navCtrl.push(MapPage, {mode: 'view'}).catch(error => {
       console.log(error);
-    });
-  }
-
-  verifyJoinStatus(id: string) {
-    let userId = firebase.auth().currentUser.uid;
-    firebase.database().ref('participants/' + id).once('value').then(snapshot => {
-      if (snapshot.hasChild(userId)) {
-        console.log(snapshot.val());
-        // this.joined = false;
-        // this.butt  onIcon = "add";
-        // this.buttonColor = 'danger';
-      } else {
-        firebase.database().ref('participants/' + id).child(userId).once('value', dataSnapshot => {
-          console.log(dataSnapshot.val());
-          // this.joined = dataSnapshot.val().joined;
-          // if (this.joined) {
-          //   this.buttonIcon = "checkmark";
-          //   this.buttonColor = 'default';
-          // } else {
-          //   this.buttonIcon = "add";
-          //   this.buttonColor = 'danger';
-          // }
-        });
-      }
     });
   }
 
@@ -117,7 +119,7 @@ export class EventPage {
   }
 
   onStartRun() {
-    this.navCtrl.push(MapPage);
+    this.navCtrl.push(MapPage, {id: this.id});
   }
 
   onUserEventStatus() {

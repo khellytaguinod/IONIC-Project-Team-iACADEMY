@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { ModalController } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {ModalController, NavParams} from 'ionic-angular';
 import {
   GoogleMaps,
   GoogleMap,
@@ -10,9 +10,9 @@ import {
   // Marker,
   LatLng
 } from '@ionic-native/google-maps';
-import { Geolocation } from '@ionic-native/geolocation';
-import { StatsPage } from '../stats/stats';
-import { LocationTrackerProvider } from '../../providers/location-tracker/location-tracker';
+import {Geolocation} from '@ionic-native/geolocation';
+import {StatsPage} from '../stats/stats';
+import {LocationTrackerProvider} from '../../providers/location-tracker/location-tracker';
 
 @Component({
   selector: 'page-map',
@@ -22,14 +22,18 @@ export class MapPage {
   lat;
   lng;
   map: GoogleMap;
+  id;
 
   constructor(private geolocation: Geolocation,
               public locationTracker: LocationTrackerProvider,
-              private modalCtrl: ModalController) {}
+              private modalCtrl: ModalController, private navParams: NavParams) {
+    this.id = navParams.get('id');
+    console.log(this.id);
+  }
 
   ionViewDidLoad() {
     this.loadMap();
-    this.onStart();
+    this.onStart(this.id);
   }
 
   loadMap() {
@@ -63,8 +67,8 @@ export class MapPage {
     });
   }
 
-  onStart() {
-    this.locationTracker.startTracking();
+  onStart(eventId) {
+    this.locationTracker.startTracking(eventId);
   }
 
   // onPause() {

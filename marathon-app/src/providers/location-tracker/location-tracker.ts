@@ -22,15 +22,9 @@ import {
 import firebase from "firebase";
 import { Storage } from '@ionic/storage';
 
-/*
-  Generated class for the LocationTrackerProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
-
 @Injectable()
 export class LocationTrackerProvider {
+
 
   public list: any[] = [];  // james eto yung array na dapat isaved / push sa db natin
   // public list: any[] = [];  // james eto yung array na dapat isaved / push sa db natin
@@ -38,13 +32,14 @@ export class LocationTrackerProvider {
   public lat: number = 0;
   public lng: number = 0;
   public name: string;
+  userId = firebase.auth().currentUser.uid;
 
   constructor(public zone: NgZone,
     private geolocation: Geolocation,
     private backgroundGeolocation: BackgroundGeolocation,
     private storage: Storage) { }
 
-  startTracking() {
+  startTracking(eventId) {
     // Background Tracking
     let config = {
       desiredAccuracy: 0,
@@ -85,9 +80,9 @@ export class LocationTrackerProvider {
     this.watch = this.geolocation.watchPosition(options).filter((p: any) => p.code === undefined).subscribe((position: Geoposition) => {
       console.log(position);
 
-      let myKey = firebase.database().ref('/users/P9Ny6kCN13aVockO1qr7hXYLUsN2/').child('coordinates').push().key;
-      let savedCoordinates = new LatLng(position.coords.latitude, position.coords.longitude)
-      firebase.database().ref('/users/P9Ny6kCN13aVockO1qr7hXYLUsN2/coordinates/' + myKey).update({
+      let myKey = firebase.database().ref('userCoords/' + eventId + '/' + this.userId).push().key;
+      let savedCoordinates = new LatLng(position.coords.latitude, position.coords.longitude);
+      firebase.database().ref('userCoords/' + eventId + '/' + this.userId + '/' + myKey).update({
         lat: position.coords.latitude,
         lng: position.coords.longitude
       });
@@ -114,7 +109,7 @@ export class LocationTrackerProvider {
 
     this.storage.set('coordinates', this.list);
     console.log(' coordinates array saved ');
-    
+
   }
 
   showRecord() {
