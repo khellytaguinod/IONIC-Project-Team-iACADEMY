@@ -4,6 +4,7 @@ import {IonicApp, IonicErrorHandler, IonicModule} from 'ionic-angular';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {StatusBar} from '@ionic-native/status-bar';
 import {Camera} from '@ionic-native/camera';
+import { FileChooser } from '@ionic-native/file-chooser';
 
 import {MyApp} from './app.component';
 import {LoginPage} from '../pages/login/login';
@@ -19,6 +20,8 @@ import { ParticipantPage } from '../pages/participant/participant';
 import { ParticipantsPage } from '../pages/participants/participants';
 import { StartPointPage } from '../pages/start-point/start-point';
 import { EndPointPage } from '../pages/end-point/end-point';
+import { Network } from '@ionic-native/network';
+import { ConnectivityService } from '../services/connectivity';
 
 @NgModule({
   declarations: [
@@ -60,7 +63,10 @@ import { EndPointPage } from '../pages/end-point/end-point';
     AuthService,
     EventsService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    Camera
+    Camera,
+    Network,
+    ConnectivityService,
+    FileChooser
   ]
 })
 export class AppModule {

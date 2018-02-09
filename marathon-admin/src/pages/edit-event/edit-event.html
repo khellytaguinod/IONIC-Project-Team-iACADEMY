@@ -76,16 +76,26 @@
     <ion-list>
       <ion-list-header no-lines>Set Route</ion-list-header>
       <button ion-item detail-none (click)="onSearchStart()" type="button">
-        <div *ngIf="start">{{ start }}</div>
+        <div *ngIf="start">
+          <ion-note item-start class="a">A</ion-note>
+          {{ start }}
+        </div>
         <div *ngIf="!start">Start Point</div>
       </button>
       <button ion-item detail-none (click)="onSearchEnd()" type="button">
-          <div *ngIf="end">{{ end }}</div>
-          <div *ngIf="!end">End Point</div>
+        <div *ngIf="end">
+          <ion-note item-start class="b">B</ion-note>
+          {{ end }}
+        </div>
+        <div *ngIf="!end">End Point</div>
       </button>
     </ion-list>
 
-    <div #map id="map"></div>
+    <div #map id="map" *ngIf="start || end"></div>
+
+    <!-- <div *ngIf="mode === 'edit'">
+      <div #map id="map"></div>
+    </div> -->
 
     <ion-grid>
       <ion-row>
@@ -99,7 +109,7 @@
 
       <ion-row>
         <ion-col>
-          <button type="submit" ion-button block icon-right color="secondary" [disabled]="!eventForm.valid && !startIsSet && !endIsSet">
+          <button type="submit" ion-button block icon-right color="secondary" [disabled]="!eventForm.valid && !start || !end">
             Save
             <ion-icon name="checkmark"></ion-icon>
           </button>
