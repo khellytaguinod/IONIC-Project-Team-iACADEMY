@@ -83,4 +83,20 @@ export class EventsService {
       return firebase.database().ref('events/' + id).remove();
     }
   }
+
+  onChangeStatus(id: any, status: string) {
+    return firebase.database().ref('events/' + id).update({
+      eventStatus: status
+    });
+  }
+
+  // uploadFile(id, file) {
+  //   return firebase.storage().ref('file')
+  //   .child(`routes/${id}.gpx`).putString(file)
+  //   .then(data => {
+  //     firebase.database().ref('events/' + id).update({
+  //       route: data.downloadURL
+  //     })
+  //   })
+  // }
 }

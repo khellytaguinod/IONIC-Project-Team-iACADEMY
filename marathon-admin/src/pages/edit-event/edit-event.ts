@@ -26,6 +26,7 @@ export class EditEventPage {
   cameraUrl: string;
   start: string;
   end: string;
+  file;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, private camera: Camera, public toastCtrl: ToastController, private eventsService: EventsService, public loadCtrl: LoadingController, public modalCtrl: ModalController) {
     this.mode = this.navParams.get('mode');
@@ -128,13 +129,6 @@ export class EditEventPage {
         loading.dismiss();
         this.navCtrl.popToRoot();
       })
-      // .catch(err => {
-      //   let toast = this.toastCtrl.create({
-      //     message: 'Could not save event. Please try again.',
-      //     duration: 3000
-      //   });
-      //   toast.present();
-      // });
     }
   }
 
