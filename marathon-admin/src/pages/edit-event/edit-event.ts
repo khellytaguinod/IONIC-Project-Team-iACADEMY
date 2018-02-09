@@ -33,12 +33,16 @@ export class EditEventPage {
       this.eventData = this.navParams.get('data');
       this.start = this.eventData.startPoint;
       this.end = this.eventData.endPoint;
-      console.log('Start:', this.start);
-      console.log('End:', this.end);
-      // this.loadMap();
-      // this.showNavigation();
+      
     }
     this.initializeForm();
+  }
+
+  ionViewDidEnter () {
+    if(this.mode === 'edit') {
+      this.loadMap();
+      this.showNavigation();
+    }
   }
 
   onUploadImg() {
