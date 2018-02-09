@@ -2,16 +2,21 @@ page-edit-event {
   ion-grid:first-child {
     margin-bottom: 10px;
   }
+
+  ion-list {
+    .a {
+      color: green !important;
+    }
+    .b {
+      color: red !important;
+    }
+  }
+  
   ion-list-header {
     margin-bottom: 0 !important;
   }
-  
-  .scroll {
-    height: 100%
-  }
 
   #map {
-    // width: 100px;
     height: 300px;
   }
 

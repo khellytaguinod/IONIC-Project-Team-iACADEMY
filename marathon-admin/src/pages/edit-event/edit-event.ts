@@ -26,13 +26,17 @@ export class EditEventPage {
   cameraUrl: string;
   start: string;
   end: string;
-  startIsSet: boolean = false;
-  endIsSet: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, private camera: Camera, public toastCtrl: ToastController, private eventsService: EventsService, public loadCtrl: LoadingController, public modalCtrl: ModalController) {
     this.mode = this.navParams.get('mode');
     if (this.mode === 'edit') {
       this.eventData = this.navParams.get('data');
+      this.start = this.eventData.startPoint;
+      this.end = this.eventData.endPoint;
+      console.log('Start:', this.start);
+      console.log('End:', this.end);
+      // this.loadMap();
+      // this.showNavigation();
     }
     this.initializeForm();
   }
@@ -92,7 +96,7 @@ export class EditEventPage {
 
   onAddEventDetails() {
     if (this.mode === 'edit') {
-      this.eventsService.onEditEvent(this.eventData.id, this.eventForm.value.name, this.eventForm.value.description, this.eventForm.value.date, this.eventForm.value.time, this.start, this.end, this.cameraUrl, this.eventData.imgPath, this.photoTaken)
+      this.eventsService.onEditEvent(this.eventData.id, this.eventForm.value.name, this.eventForm.value.description, this.eventForm.value.date, this.eventForm.value.time, this.eventData.status, this.start, this.end, this.cameraUrl, this.eventData.imgPath, this.photoTaken)
         .then(data => {
           let loading = this.loadCtrl.create({
             content: 'Updating event...'
@@ -110,7 +114,8 @@ export class EditEventPage {
           toast.present();
         });
     } else {
-      this.eventsService.onAddEvent(this.eventForm.value.name, this.eventForm.value.description, this.eventForm.value.date, this.eventForm.value.time, this.start, this.end, this.cameraUrl, this.photoTaken).then(data => {
+      this.eventsService.onAddEvent(this.eventForm.value.name, this.eventForm.value.description, this.eventForm.value.date, this.eventForm.value.time, this.start, this.end, this.cameraUrl, this.photoTaken)
+      .then(data => {
         let loading = this.loadCtrl.create({
           content: 'Saving event...'
         });
@@ -135,7 +140,6 @@ export class EditEventPage {
     modal.onDidDismiss(data => {
       if(data) {
         this.start = data.start;
-        this.startIsSet = true;
       }
     })
   }
@@ -146,7 +150,6 @@ export class EditEventPage {
     modal.onDidDismiss(data => {
       if(data) {
         this.end = data.end;
-        this.endIsSet = true;
       }
       this.loadMap();
       this.showNavigation();
@@ -155,24 +158,18 @@ export class EditEventPage {
 
   loadMap() {
     let latLng = new google.maps.LatLng(12.8797, 121.7740); //PH map coordinates
-
     let mapOptions = {
       center: latLng,
       zoom: 15,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
-
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-
   }
 
   showNavigation() {
-
     let directionsService = new google.maps.DirectionsService;
     let directionsDisplay = new google.maps.DirectionsRenderer;
-
     directionsDisplay.setMap(this.map);
-
     directionsService.route({
       origin: this.start,
       destination: this.end,
@@ -184,7 +181,6 @@ export class EditEventPage {
         console.warn(status);
       }
     });
-
   }
 
   private initializeForm() {
