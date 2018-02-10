@@ -5,6 +5,7 @@ import firebase from 'firebase';
 import { EditEventPage } from '../edit-event/edit-event';
 import { LiveEventPage } from '../live-event/live-event';
 import { EventsService } from '../../services/events';
+import { EventsPage } from '../events/events';
 
 declare var google;
 
@@ -91,18 +92,18 @@ export class EventPage {
           load.present();
           let isDefault = (this.eventData.imgPath == this.default) ? true : false;
           this.eventsService.onDeleteEvent(this.eventData.id, isDefault)
-            .then(() => {
-              load.dismiss();
-              this.navCtrl.popToRoot();
-            })
-            .catch(err => {
-              load.dismiss();
-              let toast = this.toastCtrl.create({
-                message: 'Cannot delete event. Please try again.',
-                duration: 2000
-              });
-              toast.present();
-            })
+          .then(() => {
+            load.dismiss();
+            this.navCtrl.setRoot(EventsPage);
+          })
+          .catch(err => {
+            load.dismiss();
+            let toast = this.toastCtrl.create({
+              message: 'Cannot delete event. Please try again.',
+              duration: 2000
+            });
+            toast.present();
+          })
         }
       }, {
         text: 'No'
@@ -111,10 +112,17 @@ export class EventPage {
     alert.present();
   }
 
-  onLivePreview() {
-    //Check database first if there is a currently live event
-    if (this.eventData.status != 'started') {
-      //update database of event status = 'started'
+  onLivePreview(id: any) {
+    if(this.eventData.status != 'started') {
+      this.eventsService.onChangeStatus(id, 'started')
+      .then()
+      .catch(err => {
+        let toast = this.toastCtrl.create({
+          message: 'Could not start event. Please Try again.',
+          duration: 2000
+        });
+        toast.present();
+      })
     }
     this.navCtrl.setRoot(LiveEventPage);
   }

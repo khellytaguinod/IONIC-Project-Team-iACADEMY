@@ -99,7 +99,7 @@
 
 <ion-footer *ngIf="this.eventData.status !== 'ended'">
   <!-- <button ion-button full color="secondary" (click)="onStartEvent()" *ngIf="eventData.status != 'started'">START EVENT</button> -->
-  <button ion-button full (click)="onLivePreview()"
+  <button ion-button full (click)="onLivePreview(eventData.id)"
           [disabled]="this.eventData.status != 'started' ? anEventStarted == true : anEventStarted == false"
           [color]="this.eventData.status != 'started' ? 'secondary' : 'primary'">{{buttonTitle | uppercase}}
   </button>

@@ -38,7 +38,7 @@ export class EventsService {
     }
   }
 
-  onEditEvent(id: any, name: string, description: string, date: string, time: string, startPoint: string, endPoint: string, imgUrl: any, oldImgPath: string, photoTaken: boolean) {
+  onEditEvent(id: any, name: string, description: string, date: string, time: string, status: string, startPoint: string, endPoint: string, imgUrl: any, oldImgPath: string, photoTaken: boolean) {
     let eventSubmitted = {};
     let imgPath = `events/${id}.jpg`;
     if(photoTaken) {
@@ -54,7 +54,7 @@ export class EventsService {
           startPoint: startPoint,
           endPoint: endPoint,
           imgPath: imgData.downloadURL,
-          eventStatus: 'incoming',
+          eventStatus: status,
         };
         firebase.database().ref('events/' + id).update(eventSubmitted);
       });
@@ -67,7 +67,7 @@ export class EventsService {
         startPoint: startPoint,
         endPoint: endPoint,
         imgPath: oldImgPath,
-        eventStatus: 'incoming',
+        eventStatus: status,
       };
       return firebase.database().ref('events/' + id).update(eventSubmitted);
     }
@@ -83,4 +83,20 @@ export class EventsService {
       return firebase.database().ref('events/' + id).remove();
     }
   }
+
+  onChangeStatus(id: any, status: string) {
+    return firebase.database().ref('events/' + id).update({
+      eventStatus: status
+    });
+  }
+
+  // uploadFile(id, file) {
+  //   return firebase.storage().ref('file')
+  //   .child(`routes/${id}.gpx`).putString(file)
+  //   .then(data => {
+  //     firebase.database().ref('events/' + id).update({
+  //       route: data.downloadURL
+  //     })
+  //   })
+  // }
 }
