@@ -19,7 +19,7 @@
         Details
       </ion-segment-button>
       <ion-segment-button value="route">
-        Route
+        Course Map
       </ion-segment-button>
       <ion-segment-button value="participants">
         Participants
@@ -61,7 +61,18 @@
     </div>
 
     <div *ngSwitchCase="'route'">
-      <div id="map"></div>
+      <ion-list>
+        <ion-list-header no-lines>Routes</ion-list-header>
+        <div>
+          <ion-note item-start class="a">A:</ion-note>
+           {{eventData.startPoint}}
+        </div>
+        <div>
+          <ion-note item-start class="b">B:</ion-note>
+           {{eventData.endPoint}}
+        </div>
+      </ion-list>
+      <div #map id="map"></div>
     </div>
 
     <div *ngSwitchCase="'participants'">
