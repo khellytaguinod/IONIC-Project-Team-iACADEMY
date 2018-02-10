@@ -1,17 +1,24 @@
-import {Component} from '@angular/core';
-import {NavParams, NavController, AlertController, ActionSheetController, LoadingController, ToastController} from 'ionic-angular';
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { NavParams, NavController, AlertController, ActionSheetController, LoadingController, ToastController } from 'ionic-angular';
 import firebase from 'firebase';
 
-import {EditEventPage} from '../edit-event/edit-event';
+import { EditEventPage } from '../edit-event/edit-event';
 import { LiveEventPage } from '../live-event/live-event';
 import { EventsService } from '../../services/events';
 import { EventsPage } from '../events/events';
+
+declare var google;
+
 
 @Component({
   selector: 'page-event',
   templateUrl: 'event.html',
 })
 export class EventPage {
+
+  @ViewChild('map') mapElement: ElementRef;
+  map: any;
+
   eventData: any = {};
   event: string;
   participants: any = [];
@@ -22,7 +29,7 @@ export class EventPage {
   constructor(public navParams: NavParams, public navCtrl: NavController, private actionSheetCtrl: ActionSheetController, private eventsService: EventsService, public alertCtrl: AlertController, public loadCtrl: LoadingController, public toastCtrl: ToastController) {
     this.eventData = this.navParams.get('event');
     firebase.database().ref('participants/' + this.eventData.id).on('child_added', snapshot => {
-      if(snapshot) {
+      if (snapshot) {
         this.participants.push(snapshot.val());
       } else {
         this.participants = [];
@@ -38,6 +45,18 @@ export class EventPage {
 
   ionViewWillEnter() {
     this.event = 'details';
+    console.log('course map page');
+  }
+
+
+  ionViewDidEnter() {
+    this.loadMap()
+    this.showNavigation()
+  }
+
+  ionDidLoad(){
+    // this.loadMap();
+    // this.showNavigation();
   }
 
   onShowMore() {
@@ -46,7 +65,7 @@ export class EventPage {
         text: 'Edit',
         icon: 'create',
         handler: () => {
-          this.navCtrl.push(EditEventPage, {mode: 'edit', data: this.eventData});
+          this.navCtrl.push(EditEventPage, { mode: 'edit', data: this.eventData });
         }
       }, {
         text: 'Delete',
@@ -106,6 +125,40 @@ export class EventPage {
       })
     }
     this.navCtrl.setRoot(LiveEventPage);
+  }
+
+  loadMap() {
+    let latLng = new google.maps.LatLng(12.8797, 121.7740); //PH map coordinates
+
+    let mapOptions = {
+      center: latLng,
+      zoom: 15,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+
+    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+
+  }
+
+  showNavigation() {
+
+    let directionsService = new google.maps.DirectionsService;
+    let directionsDisplay = new google.maps.DirectionsRenderer;
+
+    directionsDisplay.setMap(this.map);
+
+    directionsService.route({
+      origin: this.eventData.startPoint,
+      destination: this.eventData.endPoint,
+      travelMode: google.maps.TravelMode['WALKING']
+    }, (res, status) => {
+      if (status == google.maps.DirectionsStatus.OK) {
+        directionsDisplay.setDirections(res);
+      } else {
+        console.warn(status);
+      }
+    });
+
   }
 
 }
