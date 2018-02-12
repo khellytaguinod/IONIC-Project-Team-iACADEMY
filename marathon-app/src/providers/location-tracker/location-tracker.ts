@@ -25,8 +25,8 @@ import { Storage } from '@ionic/storage';
 @Injectable()
 export class LocationTrackerProvider {
 
-  public userTrack: any [] = [];
-  public list: any [] = [];  // james eto yung array na dapat isaved / push sa db natin
+  public userTrack: any[] = [];
+  public list: any[] = [];  // james eto yung array na dapat isaved / push sa db natin
   // public list: any[] = [];  // james eto yung array na dapat isaved / push sa db natin
   public watch: any;
   public lat: number = 0;
@@ -110,17 +110,18 @@ export class LocationTrackerProvider {
     this.backgroundGeolocation.finish();
     this.watch.unsubscribe();
 
-
-    this.storage.set('coordinates', this.list);
+    // this.storage.set('coordinates', this.list);
+    this.storage.set('coordinates', this.userTrack);
     console.log(' coordinates array saved ');
-
+    this.showRecord();
   }
 
   showRecord() {
-      this.storage.get('coordinates').then((val) => {
+    this.storage.get('coordinates').then((val) => {
 
-      this.name = val;
-      console.log('coordinates are', val);
+      // this.name = val;
+      // console.log('coordinates are', val);
+      alert(val)
 
     });
   }

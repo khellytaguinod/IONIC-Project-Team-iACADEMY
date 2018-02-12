@@ -39,7 +39,7 @@ export class MapPage {
     setInterval(() => {
       console.log('adding user past tracks');
       this.drawUserTrack();
-    }, 20000); // will draw userTracks every 1 minutes 
+    }, 30000); // will draw userTracks every 1 minutes 
   }
 
   loadMap() {

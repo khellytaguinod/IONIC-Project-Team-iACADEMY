@@ -14,8 +14,8 @@ export class StatsPage {
     this.viewCtrl.dismiss();
   }
 
-  // stop() {
-  //   this.locationTracker.stopTracking();
-  // }
+  stop() {
+    this.locationTracker.stopTracking();
+  }
 
 }
