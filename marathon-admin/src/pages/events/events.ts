@@ -17,7 +17,7 @@ export class EventsPage {
 
   constructor(private navCtrl: NavController) {
     firebase.database().ref('events').orderByChild('date').on('child_added', snapshot => {
-      if(snapshot.val() != null) {
+      if (snapshot.val() != null) {
         this.isListed = true;
         this.events.push({
           id: snapshot.ref.key,
@@ -32,6 +32,8 @@ export class EventsPage {
           imgPath: (snapshot.val().imgPath) ? snapshot.val().imgPath : this.default,
           status: snapshot.val().eventStatus
         });
+      } else {
+        this.isListed = false;
       }
     });
   }
