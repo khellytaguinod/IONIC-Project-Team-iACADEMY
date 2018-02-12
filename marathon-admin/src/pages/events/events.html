@@ -10,7 +10,15 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid text-center class="content-middle" *ngIf="!isListed">
+  <ion-grid text-center class="content-middle" *ngIf="isListed == NULL">
+    <ion-row>
+      <ion-col>
+        <ion-spinner></ion-spinner>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid text-center class="content-middle" *ngIf="isListed == false">
     <ion-row>
       <ion-col>
         <h1>You have no events yet!</h1>
@@ -19,7 +27,7 @@
     </ion-row>
   </ion-grid>
 
-  <div *ngIf="isListed">
+  <div *ngIf="isListed == true">
     <ion-list no-lines>
       <ion-list-header no-lines><b>Current Events</b></ion-list-header>
       <div *ngFor="let event of events">
@@ -33,7 +41,7 @@
         </button>
       </div>
     </ion-list>
-  
+
     <ion-list no-lines>
       <ion-list-header no-lines><b>Incoming Events</b></ion-list-header>
       <div *ngFor="let event of events">
@@ -47,7 +55,7 @@
         </button>
       </div>
     </ion-list>
-  
+
     <ion-list no-lines>
       <ion-list-header no-lines><b>Past Events</b></ion-list-header>
       <div *ngFor="let event of events">
