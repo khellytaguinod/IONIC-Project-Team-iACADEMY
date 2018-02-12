@@ -25,8 +25,8 @@ import { Storage } from '@ionic/storage';
 @Injectable()
 export class LocationTrackerProvider {
 
-
-  public list: any[] = [];  // james eto yung array na dapat isaved / push sa db natin
+  public userTrack: any [] = [];
+  public list: any [] = [];  // james eto yung array na dapat isaved / push sa db natin
   // public list: any[] = [];  // james eto yung array na dapat isaved / push sa db natin
   public watch: any;
   public lat: number = 0;
@@ -57,7 +57,9 @@ export class LocationTrackerProvider {
         this.lng = location.longitude;
 
         let savedLocation = new LatLng(location.latitude, location.longitude)
-        this.list.push(savedLocation); // james eto yung array na dapat isaved / push sa db natin
+        this.userTrack.push(savedLocation);
+
+        // this.list.push(savedLocation); // james eto yung array na dapat isaved / push sa db natin
         // console.log(this.list);
 
         // let myKey = firebase.database().ref('/users/P9Ny6kCN13aVockO1qr7hXYLUsN2/').child('coordinates').push().key;
@@ -80,12 +82,14 @@ export class LocationTrackerProvider {
     this.watch = this.geolocation.watchPosition(options).filter((p: any) => p.code === undefined).subscribe((position: Geoposition) => {
       console.log(position);
 
-      let myKey = firebase.database().ref('userCoords/' + eventId + '/' + this.userId).push().key;
-      let savedCoordinates = new LatLng(position.coords.latitude, position.coords.longitude);
-      firebase.database().ref('userCoords/' + eventId + '/' + this.userId + '/' + myKey).update({
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      });
+
+
+      // let myKey = firebase.database().ref('userCoords/' + eventId + '/' + this.userId).push().key;
+      // let savedCoordinates = new LatLng(position.coords.latitude, position.coords.longitude);
+      // firebase.database().ref('userCoords/' + eventId + '/' + this.userId + '/' + myKey).update({
+      //   lat: position.coords.latitude,
+      //   lng: position.coords.longitude
+      // });
 
       // firebase.database().ref('/users/P9Ny6kCN13aVockO1qr7hXYLUsN2/coordinates/' + myKey).update(savedCoordinates);
       // let savedCoordinates = new LatLng(position.coords.latitude, position.coords.longitude)

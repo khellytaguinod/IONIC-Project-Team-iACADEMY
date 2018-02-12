@@ -35,9 +35,62 @@ export class MapPage {
   ionViewDidLoad() {
     this.loadMap();
     this.onStart(this.id);
+
+    setInterval(() => {
+      console.log('adding user past tracks');
+      this.drawUserTrack();
+    }, 20000); // will draw userTracks every 1 minutes 
   }
 
   loadMap() {
+
+    let tempRoute = [
+      {
+        "lat": 14.559130000000001,
+        "lng": 121.01941000000001
+      },
+      {
+        "lat": 14.5584,
+        "lng": 121.01894000000001
+      },
+      {
+        "lat": 14.558190000000002,
+        "lng": 121.01925000000001
+      },
+      {
+        "lat": 14.55713,
+        "lng": 121.02091000000001
+      },
+      {
+        "lat": 14.557150000000002,
+        "lng": 121.02095000000001
+      },
+      {
+        "lat": 14.557150000000002,
+        "lng": 121.02101
+      },
+      {
+        "lat": 14.556920000000002,
+        "lng": 121.02141
+      },
+      {
+        "lat": 14.55667,
+        "lng": 121.02182
+      },
+      {
+        "lat": 14.556440000000002,
+        "lng": 121.02211000000001
+      },
+      {
+        "lat": 14.556350000000002,
+        "lng": 121.02211000000001
+      },
+      {
+        "lat": 14.555740000000002,
+        "lng": 121.02300000000001
+      }
+    ]
+
     this.geolocation.getCurrentPosition().then((resp) => {
       this.lat = this.roundOff(resp.coords.latitude);
       this.lng = this.roundOff(resp.coords.longitude);
@@ -46,31 +99,53 @@ export class MapPage {
 
       let mapOptions: GoogleMapOptions = {
         camera: {
-          target: location,
+          target: tempRoute[0],
           zoom: 16
           // tilt: 30
         },
         controls: {
           compass: true,
-          myLocation: true, // go to controls definition then add a myLocation property and boolean modified by khelly 
+          myLocation: true,
           myLocationButton: true,
-          indoorPicker: true,
+          indoorPicker: false,
           zoom: true
+        },
+        preferences: {
+          building: false
         }
       };
 
       this.map = GoogleMaps.create('map_canvas', mapOptions);
       this.map.one(GoogleMapsEvent.MAP_READY)
         .then(() => {
-          console.log('Map is ready!');
+          
+          this.map.addPolyline({
+            points: tempRoute,
+            'color': '#8342f4',
+            'width': 7,
+            'geodesic': false,
+            'clickable': false // default = false
+          })
+
         });
     }).catch((error) => {
+      alert('error loading course map')
       console.log('Error getting location', error);
     });
   }
 
   onStart(eventId) {
     this.locationTracker.startTracking(eventId);
+  }
+
+  drawUserTrack() {
+    this.map.addPolyline({
+      points: this.locationTracker.userTrack,
+      'color': '#2db262',
+      'width': 8,
+      'geodesic': false,
+      'clickable': false // default = false
+    })
   }
 
   // onPause() {
