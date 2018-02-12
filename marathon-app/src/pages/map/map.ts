@@ -52,6 +52,7 @@ export class MapPage {
         },
         controls: {
           compass: true,
+          myLocation: true, // go to controls definition then add a myLocation property and boolean modified by khelly 
           myLocationButton: true,
           indoorPicker: true,
           zoom: true
