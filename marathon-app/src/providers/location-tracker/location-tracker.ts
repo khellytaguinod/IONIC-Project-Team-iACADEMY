@@ -45,8 +45,11 @@ export class LocationTrackerProvider {
       desiredAccuracy: 0,
       stationaryRadius: 20,
       distanceFilter: 10,
+      notificationTitle: 'Marathon App Running in Background',
+      notificationText: 'Marathon is recording user coordinates',
       debug: true,
-      interval: 2000
+      // interval: 15000 // settings for saving coordinates // in millisecond
+      interval: 3000 // settings for saving coordinates // in millisecond
     };
 
     this.backgroundGeolocation.configure(config).subscribe((location) => {
