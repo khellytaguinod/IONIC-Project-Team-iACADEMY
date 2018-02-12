@@ -21,47 +21,60 @@
 </ion-header>
 
 <ion-content>
-  <div [ngSwitch]="item">
-    <div *ngSwitchCase="'details'">
-      <div id="header">
-        <img [src]="imgPath"
-             alt="Photo">
-        <ion-fab right bottom edge>
-          <button ion-fab [color]="buttonColor" (click)="onUserEventStatus()">
-            <ion-icon [name]="buttonIcon"></ion-icon>
-          </button>
-        </ion-fab>
-      </div>
-      <ion-grid class="details">
-        <ion-row>
-          <ion-col>
-            <h4>{{date}}</h4>
-          </ion-col>
-        </ion-row>
-        <ion-row class="sec-details">
-          <ion-col>
-            <ion-icon name="time" item-left></ion-icon>
-            {{time}}
-          </ion-col>
-        </ion-row>
-        <ion-row class="sec-details">
-          <ion-col>
-            <ion-icon name="pin" item-left></ion-icon>
-            {{start}}
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-      <ion-grid class="description">
-        <ion-row>
-          <ion-col>
-            <p>{{description}}</p>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </div>
+  <ion-grid text-center class="content-middle" *ngIf="!loaded">
+    <ion-row>
+      <ion-col>
+        <ion-spinner name="dots"></ion-spinner>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
-    <div *ngSwitchCase="'route'">
-      <div id="map_canvas"></div>
+  <div *ngIf="loaded">
+    <div [ngSwitch]="item">
+      <div *ngSwitchCase="'details'">
+        <div id="header">
+          <img [src]="imgPath"
+               alt="Photo">
+          <ion-fab right bottom edge>
+            <button ion-fab [color]="buttonColor" (click)="onUserEventStatus()" *ngIf="joined == undefined">
+              <ion-spinner></ion-spinner>
+            </button>
+            <button ion-fab [color]="buttonColor" (click)="onUserEventStatus()" *ngIf="joined != undefined">
+              <ion-icon [name]="buttonIcon"></ion-icon>
+            </button>
+          </ion-fab>
+        </div>
+        <ion-grid class="details">
+          <ion-row>
+            <ion-col>
+              <h4>{{date}}</h4>
+            </ion-col>
+          </ion-row>
+          <ion-row class="sec-details">
+            <ion-col>
+              <ion-icon name="time" item-left></ion-icon>
+              {{time}}
+            </ion-col>
+          </ion-row>
+          <ion-row class="sec-details">
+            <ion-col>
+              <ion-icon name="pin" item-left></ion-icon>
+              {{start}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-grid class="description">
+          <ion-row>
+            <ion-col>
+              <p>{{description}}</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+
+      <div *ngSwitchCase="'route'">
+        <div id="map_canvas"></div>
+      </div>
     </div>
   </div>
 </ion-content>

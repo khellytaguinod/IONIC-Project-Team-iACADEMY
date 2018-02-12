@@ -1,13 +1,7 @@
 import {Component} from '@angular/core';
-import {LoadingController, NavController} from 'ionic-angular';
+import {NavController} from 'ionic-angular';
 import firebase from 'firebase';
-import {
-  GoogleMaps,
-  GoogleMap,
-  GoogleMapsEvent,
-  GoogleMapOptions,
-  LatLng
-} from '@ionic-native/google-maps';
+import {GoogleMaps, GoogleMap, GoogleMapsEvent, GoogleMapOptions, LatLng} from '@ionic-native/google-maps';
 import {Geolocation} from '@ionic-native/geolocation';
 
 import {MapPage} from '../map/map';
@@ -19,8 +13,9 @@ import {MapPage} from '../map/map';
 export class EventPage {
   buttonIcon: string = 'add';
   buttonColor: string = 'danger';
-  joined: boolean = false;
-  event: any = {};
+  joined: boolean;
+  event: any;
+  loaded = false;
   id;
   item: string;
   date;
@@ -34,7 +29,7 @@ export class EventPage {
   default = 'https://cdn.barnimages.com/wp-content/uploads/2017/03/2017-03-27-roman-drits-barnimages-009-768x512.jpg';
   map: GoogleMap;
 
-  constructor(private navCtrl: NavController, private geolocation: Geolocation, private loadCtrl: LoadingController) {
+  constructor(private navCtrl: NavController, private geoLocation: Geolocation) {
     firebase.database().ref('events/').on('child_added', snapshot => {
       this.event = snapshot.val();
       if (this.event.eventStatus === 'started') {
@@ -58,11 +53,10 @@ export class EventPage {
         this.status = this.event.eventStatus;
         this.description = this.event.description;
       }
+      setTimeout(() => {
+        this.loaded = true;
+      }, 1000)
     });
-    let loading = this.loadCtrl.create({
-      content: 'Loading event...'
-    });
-    loading.present();
     setTimeout(() => {
       let userId = firebase.auth().currentUser.uid;
       firebase.database().ref('participants/' + this.id).once('value').then(snapshot => {
@@ -72,18 +66,15 @@ export class EventPage {
             if (this.joined) {
               this.buttonIcon = "checkmark";
               this.buttonColor = 'secondary';
-              loading.dismiss();
             } else {
               this.buttonIcon = "add";
               this.buttonColor = 'danger';
-              loading.dismiss();
             }
-          });
+          }).catch(error => console.log(error));
         } else {
           this.joined = false;
           this.buttonIcon = "add";
           this.buttonColor = 'danger';
-          loading.dismiss();
         }
       });
     }, 2000);
@@ -94,7 +85,7 @@ export class EventPage {
   }
 
   loadMap() {
-    this.geolocation.getCurrentPosition().then((resp) => {
+    this.geoLocation.getCurrentPosition().then((resp) => {
       let location = new LatLng(resp.coords.latitude, resp.coords.longitude);
 
       let mapOptions: GoogleMapOptions = {
@@ -122,7 +113,7 @@ export class EventPage {
   }
 
   onStartRun() {
-    this.navCtrl.push(MapPage, {id: this.id, event: this.name});
+    this.navCtrl.push(MapPage, {id: this.id, event: this.name}).catch(err => console.log(err));
   }
 
   onUserEventStatus() {
