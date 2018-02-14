@@ -29,4 +29,10 @@ page-events, page-event, page-profile, page-settings, page-change-frequency, pag
       color: white;
     }
   }
+
+  .toast-danger {
+    .toast-wrapper {
+      background: red !important;
+    }
+  }
 }

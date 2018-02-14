@@ -20,6 +20,8 @@ import {ChangeFrequencyPage} from '../pages/change-frequency/change-frequency';
 import {EditUserPage} from '../pages/edit-user/edit-user';
 import {StatsPage} from '../pages/stats/stats';
 import {LocationTrackerProvider} from '../providers/location-tracker/location-tracker';
+import { Network } from '@ionic-native/network';
+import { ConnectivityService } from '../services/connectivity';
 
 @NgModule({
   declarations: [
@@ -60,6 +62,8 @@ import {LocationTrackerProvider} from '../providers/location-tracker/location-tr
     SplashScreen,
     AuthService,
     LocationTrackerProvider,
+    Network,
+    ConnectivityService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
