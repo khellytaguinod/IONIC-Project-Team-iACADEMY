@@ -1,7 +1,7 @@
-<ion-header>
+<ion-header no-border>
   <ion-navbar>
     <ion-buttons left>
-      <button ion-button icon-only color="dark" (click)="onClose()">
+      <button ion-button icon-only (click)="onClose()">
         <ion-icon name="close"></ion-icon>
       </button>
     </ion-buttons>
@@ -9,5 +9,45 @@
 </ion-header>
 
 <ion-content>
-  
+  <ion-grid no-padding text-center>
+    <ion-row>
+      <ion-col>
+        <img style="width: 80px; height: 95px; margin: auto ;" src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
+        <h2>{{name | uppercase}}</h2>
+        <p>
+          <ion-icon item-start name="pin"></ion-icon>
+          001
+        </p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid no-padding text-center>
+    <ion-row>
+      <ion-col>
+        <p>00:01:00</p>
+        Total Time
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-icon name="navigate"></ion-icon>
+        <h2>0.2 km</h2>
+        Distance
+      </ion-col>
+      <ion-col>
+        <ion-icon item-start name="speedometer"></ion-icon>
+        <h2>3 kpm</h2>
+        Avg Speed
+      </ion-col>
+      <ion-col>
+        <ion-icon item-start name="walk"></ion-icon>
+        <h2>3'00"</h2>
+        Avg Pace
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
+
+<ion-footer>
+  <button ion-button full color="danger" (click)="onStop()">FINISH</button>
+</ion-footer>
