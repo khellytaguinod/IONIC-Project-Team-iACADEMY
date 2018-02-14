@@ -45,19 +45,12 @@ export class EventPage {
 
   ionViewWillEnter() {
     this.event = 'details';
-    console.log('course map page');
   }
 
-
-  ionViewDidEnter() {
-    this.loadMap()
-    this.showNavigation()
-  }
-
-  ionDidLoad(){
-    // this.loadMap();
-    // this.showNavigation();
-  }
+  // ionViewDidEnter() {
+  //   this.loadMap()
+  //   this.showNavigation()
+  // }
 
   onShowMore() {
     let action = this.actionSheetCtrl.create({

@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {ModalController, NavParams} from 'ionic-angular';
+import {Component, ViewChild} from '@angular/core';
+import {ModalController, NavParams, Platform, AlertController, NavController} from 'ionic-angular';
 import {
   GoogleMaps,
   GoogleMap,
@@ -19,6 +19,7 @@ import {LocationTrackerProvider} from '../../providers/location-tracker/location
   templateUrl: 'map.html',
 })
 export class MapPage {
+  @ViewChild('rootNavController') nav: NavController;
   name;
   lat;
   lng;
@@ -27,7 +28,24 @@ export class MapPage {
 
   constructor(private geolocation: Geolocation,
               public locationTracker: LocationTrackerProvider,
-              private modalCtrl: ModalController, private navParams: NavParams) {
+              private modalCtrl: ModalController, private navParams: NavParams,
+              private platform: Platform,
+              private alertCtrl: AlertController) {
+    this.platform.registerBackButtonAction(() => {
+      let alert = this.alertCtrl.create({
+        title: 'Are you sure you want to quit?',
+        buttons: [{
+          text: 'Yes',
+          handler: () => {
+            this.nav.popToRoot();
+          }
+        }, {
+          text: 'No',
+          role: 'cancel'
+        }]
+      });
+      alert.present();
+    });
     this.id = this.navParams.get('id');
     this.name = this.navParams.get('event');
   }
@@ -153,7 +171,6 @@ export class MapPage {
   // }
 
   onOpenStats() {
-    // let modal = this.modalCtrl.create(StatsPage, {}, {cssClass: 'statsModal'});
     let modal = this.modalCtrl.create(StatsPage);
     modal.present();
   }
