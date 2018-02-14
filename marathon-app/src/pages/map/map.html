@@ -1,60 +1,45 @@
-<ion-header no-border>
+<!-- <ion-header no-border>
   <ion-navbar>
     <ion-buttons left>
       <button ion-button icon-only menuToggle>
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-buttons right>
-      <button ion-button icon-only>
-        <ion-icon name="refresh"></ion-icon>
-      </button>
-    </ion-buttons>
     <ion-title>{{ name | uppercase }} LIVE</ion-title>
   </ion-navbar>
-</ion-header>
-
+</ion-header> -->
+<ion-nav id="nav" #rootNavController [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
 
 <ion-content no-padding>
   <div id="map_canvas"></div>
 </ion-content>
 
 <ion-footer>
-  <ion-grid no-padding>
-    <ion-row>
-      <ion-col>
-        <button ion-item (click)="onOpenStats()" class="stats">
-            <div class="stats-open"></div>
-            <ion-grid no-padding text-center>
-              <ion-row>
-                <ion-col>
-                  <div class="details">
-                    <ion-icon item-left name="navigate"></ion-icon>
-                    10 km
-                  </div>
-                </ion-col>
+  <button ion-item (click)="onOpenStats()" class="stats">
+      <div class="stats-open"></div>
+      <ion-grid no-padding text-center>
+        <ion-row>
+          <ion-col>
+            <div class="details">
+              <ion-icon item-left name="navigate"></ion-icon>
+              10 km
+            </div>
+          </ion-col>
 
-                <ion-col>
-                  <div class="details">
-                    <ion-icon item-left name="time"></ion-icon>
-                    00:01:00
-                  </div>
-                </ion-col>
+          <ion-col>
+            <div class="details">
+              <ion-icon item-left name="time"></ion-icon>
+              00:01:00
+            </div>
+          </ion-col>
 
-                <ion-col>
-                  <div class="details"> <!--pace-->
-                    <ion-icon item-left name="speedometer"></ion-icon>
-                    5'28"
-                  </div>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-        </button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  <!-- <button ion-button full block icon-left color="danger" (click)="onPause()">
-    <ion-icon name="pause"></ion-icon>
-    PAUSE
-  </button> -->
+          <ion-col>
+            <div class="details"> <!--pace-->
+              <ion-icon item-left name="speedometer"></ion-icon>
+              5'28"
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+  </button>
 </ion-footer>

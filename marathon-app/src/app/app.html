@@ -1,16 +1,13 @@
 <ion-menu [content]="content">
 
   <ion-content>
-
-    <ion-grid class="profile-header" text-center>
-      <ion-row no-padding>
-        <ion-col>
-          <img style="width: 80px; height: 90px; margin: auto ;" src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
-          <!-- <h5>{{ username }}</h5>
-          <p>{{ email }}</p> -->
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+    
+    <ion-list no-lines>
+      <ion-item padding class="menu-header">
+        <img item-start style="width: 60px; height: 70px; margin: auto ;" src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
+        <h1>GPS Live</h1>
+      </ion-item>
+    </ion-list>
 
     <ion-list no-lines>
       <button ion-item (click)="onLoad(rootPage)" class="menu-button">

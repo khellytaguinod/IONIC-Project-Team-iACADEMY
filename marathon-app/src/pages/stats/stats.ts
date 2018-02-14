@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { ViewController } from 'ionic-angular';
+import { NavController, ViewController } from 'ionic-angular';
 import { LocationTrackerProvider } from '../../providers/location-tracker/location-tracker';
+import { EventPage } from '../event/event';
 
 @Component({
   selector: 'page-stats',
@@ -8,14 +9,14 @@ import { LocationTrackerProvider } from '../../providers/location-tracker/locati
 })
 export class StatsPage {
 
-  constructor(private viewCtrl: ViewController, public locationTracker: LocationTrackerProvider) {}
+  constructor(private navCtrl: NavController, private viewCtrl: ViewController, public locationTracker: LocationTrackerProvider) {}
 
   onClose() {
     this.viewCtrl.dismiss();
   }
 
-  // stop() {
-  //   this.locationTracker.stopTracking();
-  // }
+  onStop() {
+    this.navCtrl.setRoot(EventPage);
+  }
 
 }

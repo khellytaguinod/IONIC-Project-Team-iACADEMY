@@ -1,16 +1,9 @@
-.profile-header {
-  padding-top: 10px;
-  padding-bottom: 10px;
+.menu-header {
   background-color: map-get($colors, primary);
-  margin-bottom: 20px;
-  h5, p {
-    color: #fff;
-  }
-  h5 {
-    margin: 0;
-  }
-  p {
-    margin-top: 0;
+  color: #fff;
+  margin-bottom: 30px;
+  h1 {
+    margin-left: 15px;
   }
 }
 
@@ -23,12 +16,7 @@
   padding: 8px;
 }
 
-// .statsModal {
-//   padding: 3% 3% 3% 3%;
-//   background-color: rgba(0,0,0,0.90);
-// }
-
-page-events, page-event, page-profile, page-settings, page-change-frequency, page-edit-user, page-map {
+page-events, page-event, page-profile, page-settings, page-change-frequency, page-edit-user, page-map, page-stats {
   ion-header {
     .toolbar-background {
       background: map-get($colors, primary);
@@ -42,15 +30,3 @@ page-events, page-event, page-profile, page-settings, page-change-frequency, pag
     }
   }
 }
-
-// page-map {
-//   ion-header {
-//     .toolbar {
-//       position: absolute;
-
-//       .toolbar-background {
-//         background: transparent;
-//       }
-//     }
-//   }
-// }
