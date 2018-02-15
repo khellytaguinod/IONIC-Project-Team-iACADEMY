@@ -9,10 +9,12 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid no-padding text-center>
+  <!-- <ion-grid no-padding text-center>
     <ion-row>
       <ion-col>
-        <img style="width: 80px; height: 95px; margin: auto ;" src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
+        <ion-avatar>
+          <img [src]="imgPath">
+        </ion-avatar>
         <h2>{{name | uppercase}}</h2>
         <p>
           <ion-icon item-start name="pin"></ion-icon>
@@ -20,7 +22,16 @@
         </p>
       </ion-col>
     </ion-row>
-  </ion-grid>
+  </ion-grid> -->
+  <ion-list>
+    <ion-item text-center>
+      <ion-avatar>
+        <img style="width:90px; height:90px; margin:auto;" [src]="imgPath">
+      </ion-avatar>
+      <h1>{{name | uppercase}}</h1>
+      <p>#001</p>
+    </ion-item>
+  </ion-list>
   <ion-grid no-padding text-center>
     <ion-row>
       <ion-col>
