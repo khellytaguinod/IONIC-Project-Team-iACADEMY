@@ -38,7 +38,8 @@ export class MapPage {
   constructor(
     private geolocation: Geolocation,
     public locationTracker: LocationTrackerProvider,
-    private modalCtrl: ModalController, private navParams: NavParams,
+    private modalCtrl: ModalController, 
+    private navParams: NavParams,
     private platform: Platform,
     private alertCtrl: AlertController,
     public http: Http) {

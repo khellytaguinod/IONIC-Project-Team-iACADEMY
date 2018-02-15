@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams, ViewController, ModalController } from 'ionic-angular';
+import { NavParams, ViewController, ModalController } from 'ionic-angular';
 import { ParticipantPage } from '../participant/participant';
 
 @Component({
@@ -10,7 +10,7 @@ export class ParticipantsPage implements OnInit {
   eventData;
   participants;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public modalCtrl: ModalController) {}
+  constructor(public navParams: NavParams, public viewCtrl: ViewController, public modalCtrl: ModalController) {}
 
   ngOnInit() {
     this.eventData = this.navParams.get('event');

@@ -4,18 +4,20 @@ import firebase from 'firebase';
 
 import {EventPage} from '../event/event';
 import {EditEventPage} from '../edit-event/edit-event';
-
+import { NoConnectionPage } from '../no-connection/no-connection';
+import { ConnectivityService } from '../../services/connectivity';
 
 @Component({
   selector: 'page-events',
   templateUrl: 'events.html',
 })
 export class EventsPage {
+  data;
   events: any = [];
   isListed: boolean;
   default = 'https://cdn.barnimages.com/wp-content/uploads/2017/03/2017-03-27-roman-drits-barnimages-009-768x512.jpg';
 
-  constructor(private navCtrl: NavController) {
+  constructor(private navCtrl: NavController, private connectivity: ConnectivityService) {
     firebase.database().ref('events').orderByChild('date').on('child_added', snapshot => {
       if (snapshot.val() != null) {
         this.isListed = true;
@@ -36,6 +38,17 @@ export class EventsPage {
         this.isListed = false;
       }
     });
+  }
+
+  ionViewWillEnter() {
+    this.connectivity.isOffline().subscribe(data => {
+      console.log(data);
+      this.navCtrl.push(NoConnectionPage);
+    });
+    this.connectivity.isOnline().subscribe(data => {
+      console.log(data);
+      this.navCtrl.popToRoot();
+    })
   }
 
   onOpenEvent(event) {
