@@ -1,4 +1,13 @@
 page-profile {
+  ion-item {
+    background-color: map-get($colors, primary) !important;
+    color: #fff !important;
+    p {
+      font-size: 110% !important;
+      color: #fff !important;
+      margin-bottom: 8px !important;
+    }
+  }
   ion-note {
     font-size: 13px;
     align-self: flex-start;

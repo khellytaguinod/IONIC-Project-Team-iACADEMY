@@ -100,4 +100,5 @@
     </plugin>
     <plugin name="cordova-sqlite-storage" spec="^2.2.0" />
     <plugin name="cordova-plugin-network-information" spec="^2.0.1" />
+    <plugin name="cordova-plugin-camera" spec="^4.0.2" />
 </widget>

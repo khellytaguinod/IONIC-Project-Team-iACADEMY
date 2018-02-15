@@ -1,0 +1,31 @@
+<ion-header no-border>
+  <ion-navbar>
+    <ion-buttons left>
+      <button ion-button icon-only menuToggle color="white">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-buttons right>
+      <button ion-button icon-only (click)="onSave()">
+        <ion-icon name="checkmark"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>CHANGE PROFILE PICTURE</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <button ion-item (click)="onTakePhoto()">
+      <ion-icon name="camera" item-start></ion-icon>
+      Open Camera
+    </button>
+    <button ion-item (click)="onOpenGallery()">
+      <ion-icon name="albums" item-start></ion-icon>
+      Choose from Gallery
+    </button>
+  </ion-list>
+  <div *ngIf="photoTaken">
+    <img [src]="cameraUrl">
+  </div>
+</ion-content>
