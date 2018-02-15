@@ -13,13 +13,14 @@ import {
 import {Geolocation} from '@ionic-native/geolocation';
 import {StatsPage} from '../stats/stats';
 import {LocationTrackerProvider} from '../../providers/location-tracker/location-tracker';
+import { EventPage } from '../event/event';
 
 @Component({
   selector: 'page-map',
   templateUrl: 'map.html',
 })
 export class MapPage {
-  @ViewChild('rootNavController') nav: NavController;
+  // @ViewChild('rootNavController') nav: NavController;
   name;
   lat;
   lng;
@@ -30,14 +31,15 @@ export class MapPage {
               public locationTracker: LocationTrackerProvider,
               private modalCtrl: ModalController, private navParams: NavParams,
               private platform: Platform,
-              private alertCtrl: AlertController) {
+              private alertCtrl: AlertController,
+              private navCtrl: NavController) {
     this.platform.registerBackButtonAction(() => {
       let alert = this.alertCtrl.create({
         title: 'Are you sure you want to quit?',
         buttons: [{
           text: 'Yes',
           handler: () => {
-            this.nav.popToRoot();
+            this.navCtrl.popToRoot();
           }
         }, {
           text: 'No',
@@ -166,13 +168,14 @@ export class MapPage {
     })
   }
 
-  // onPause() {
-  //   this.locationTracker.stopTracking();
-  // }
-
   onOpenStats() {
     let modal = this.modalCtrl.create(StatsPage);
     modal.present();
+    modal.onDidDismiss(data => {
+      if(data.mode === 'stop') {
+        this.navCtrl.setRoot(EventPage);
+      }
+    })
   }
 
   private roundOff(number) {

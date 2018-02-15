@@ -76,7 +76,6 @@
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
         <splash height="2732" src="resources/ios/splash/Default@2x~universal~anyany.png" width="2732" />
     </platform>
-    <engine name="android" spec="6.3.0" />
     <plugin name="cordova-plugin-googlemaps" spec="^2.1.1">
         <variable name="API_KEY_FOR_ANDROID" value="AIzaSyA44eOh8LRaGIOzkzy_atWhSaOuN4ssUTg" />
         <variable name="API_KEY_FOR_IOS" value="AIzaSyC6u6Zfk9uiWLE5-kmgkGiWjKvVyEdVLHg" />
@@ -101,4 +100,5 @@
     <plugin name="cordova-sqlite-storage" spec="^2.2.0" />
     <plugin name="cordova-plugin-network-information" spec="^2.0.1" />
     <plugin name="cordova-plugin-camera" spec="^4.0.2" />
+    <engine name="android" spec="~6.3.0" />
 </widget>
