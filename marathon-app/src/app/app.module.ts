@@ -7,6 +7,7 @@ import {GoogleMaps} from '@ionic-native/google-maps';
 import {Geolocation} from '@ionic-native/geolocation';
 import {BackgroundGeolocation} from '@ionic-native/background-geolocation';
 import {IonicStorageModule} from '@ionic/storage';
+import {Camera} from '@ionic-native/camera';
 
 import {MyApp} from './app.component';
 import {LoginPage} from "../pages/login/login";
@@ -22,6 +23,7 @@ import {StatsPage} from '../pages/stats/stats';
 import {LocationTrackerProvider} from '../providers/location-tracker/location-tracker';
 import { Network } from '@ionic-native/network';
 import { ConnectivityService } from '../services/connectivity';
+import { ChangePhotoPage } from '../pages/change-photo/change-photo';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import { ConnectivityService } from '../services/connectivity';
     RegisterPage,
     ChangeFrequencyPage,
     EditUserPage,
-    StatsPage
+    StatsPage,
+    ChangePhotoPage
   ],
   imports: [
     BrowserModule,
@@ -52,7 +55,8 @@ import { ConnectivityService } from '../services/connectivity';
     RegisterPage,
     ChangeFrequencyPage,
     EditUserPage,
-    StatsPage
+    StatsPage,
+    ChangePhotoPage
   ],
   providers: [
     GoogleMaps,
@@ -64,6 +68,7 @@ import { ConnectivityService } from '../services/connectivity';
     LocationTrackerProvider,
     Network,
     ConnectivityService,
+    Camera,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

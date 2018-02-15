@@ -11,15 +11,15 @@
 
 <ion-content>
   <div id="header">
-    <ion-grid class="profile-header" text-center>
-      <ion-row no-padding>
-        <ion-col>
-          <img style="width: 80px; height: 90px; margin: auto ;" src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
-          <h5>{{ username }}</h5>
-          <p>{{ email }}</p>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+    <ion-list>
+      <ion-item text-center>
+        <ion-avatar>
+          <img style="width: 90px; height: 90px; margin: auto ;" src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
+        </ion-avatar>
+        <h1>{{ username }}</h1>
+        <p>{{ email }}</p>
+      </ion-item>
+    </ion-list>
     <ion-fab bottom right edge>
       <button ion-fab mini color="danger" (click)="onLoad(settingsPage)">
         <ion-icon name="create"></ion-icon>

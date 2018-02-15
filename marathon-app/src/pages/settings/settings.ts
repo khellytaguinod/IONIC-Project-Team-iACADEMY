@@ -3,34 +3,42 @@ import {NavController, AlertController, ToastController} from 'ionic-angular';
 import {ChangeFrequencyPage} from '../change-frequency/change-frequency';
 import {EditUserPage} from '../edit-user/edit-user';
 import { AuthService } from '../../services/auth';
+import { ChangePhotoPage } from '../change-photo/change-photo';
 
 @Component({
   selector: 'page-settings',
   templateUrl: 'settings.html',
 })
 export class SettingsPage {
-  frequency = 'Realtime';
+  frequency: string;
 
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController, private authService: AuthService, public toastCtrl: ToastController) {
-  }
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, private authService: AuthService, public toastCtrl: ToastController) {}
 
   onChangeFrequency() {
     new Promise((resolve, reject) => {
       this.navCtrl.push(ChangeFrequencyPage, {resolve: resolve});
     }).then(data => {
-        this.frequency = `${data}`;
-        this.navCtrl.pop();
+      if(data === '30') {
+        this.frequency = `${data} seconds`;
+      } else if (data === '1') {
+        this.frequency = `${data} minute`;
+      } else {
+        this.frequency = `${data} minutes`;
+      }
+      this.navCtrl.pop();
     });
+  }
+
+  onChangePicture() {
+    this.navCtrl.push(ChangePhotoPage);
   }
 
   onEditProfile(type) {
     if (type === 'editName') {
       this.navCtrl.push(EditUserPage, {editType: type});
     } else if (type === 'editEmail') {
-      // this.navCtrl.push(EditUserPage, {editType: type});
       this.onReauthenticate('email');
     } else {
-      // this.navCtrl.push(EditUserPage, {editType: type});
       this.onReauthenticate('password');
     }
   }

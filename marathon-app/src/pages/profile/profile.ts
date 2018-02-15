@@ -12,6 +12,7 @@ export class ProfilePage {
   username;
   email;
   settingsPage = SettingsPage;
+  default = 'http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private authService: AuthService) {}
 
