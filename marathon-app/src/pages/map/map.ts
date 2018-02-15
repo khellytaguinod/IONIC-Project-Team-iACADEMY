@@ -1,18 +1,23 @@
-import {Component, ViewChild} from '@angular/core';
-import {ModalController, NavParams, Platform, AlertController, NavController} from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { Http } from '@angular/http';
+
+import { ModalController, NavParams, Platform, AlertController, NavController } from 'ionic-angular';
 import {
   GoogleMaps,
   GoogleMap,
   GoogleMapsEvent,
   GoogleMapOptions,
-  // CameraPosition,
-  // MarkerOptions,
-  // Marker,
+  CameraPosition,
+  MarkerOptions,
+  Marker,
   LatLng
 } from '@ionic-native/google-maps';
-import {Geolocation} from '@ionic-native/geolocation';
-import {StatsPage} from '../stats/stats';
-import {LocationTrackerProvider} from '../../providers/location-tracker/location-tracker';
+import { Geolocation } from '@ionic-native/geolocation';
+import { StatsPage } from '../stats/stats';
+import { LocationTrackerProvider } from '../../providers/location-tracker/location-tracker';
+
+import parseTrack from 'parse-gpx/src/parseTrack'
+import xml2js from 'xml2js';
 
 @Component({
   selector: 'page-map',
@@ -20,17 +25,24 @@ import {LocationTrackerProvider} from '../../providers/location-tracker/location
 })
 export class MapPage {
   @ViewChild('rootNavController') nav: NavController;
+
+  public list: any[] = [];
+  public gpxData: any;
+
   name;
   lat;
   lng;
   map: GoogleMap;
   id;
 
-  constructor(private geolocation: Geolocation,
-              public locationTracker: LocationTrackerProvider,
-              private modalCtrl: ModalController, private navParams: NavParams,
-              private platform: Platform,
-              private alertCtrl: AlertController) {
+  constructor(
+    private geolocation: Geolocation,
+    public locationTracker: LocationTrackerProvider,
+    private modalCtrl: ModalController, 
+    private navParams: NavParams,
+    private platform: Platform,
+    private alertCtrl: AlertController,
+    public http: Http) {
     this.platform.registerBackButtonAction(() => {
       let alert = this.alertCtrl.create({
         title: 'Are you sure you want to quit?',
@@ -51,124 +63,119 @@ export class MapPage {
   }
 
   ionViewDidLoad() {
-    this.loadMap();
+    this.fetchGPX();
     this.onStart(this.id);
-
-    setInterval(() => {
-      console.log('adding user past tracks');
-      this.drawUserTrack();
-    }, 20000); // will draw userTracks every 1 minutes 
   }
+
+  fetchGPX() {
+    this.http.get('https://marathon-app-database.firebaseapp.com/makatiRun.gpx').subscribe(data => {
+      let dataCoords: any = data;
+      console.log(dataCoords._body);
+
+      let parser = new xml2js.Parser();
+      parser.parseString(dataCoords._body, (err, xml) => {
+        if (err) {
+          console.log(err);
+        } else {
+          this.gpxData = parseTrack(xml.gpx.trk);
+          for (let i = 0; i < this.gpxData.length; i++) {
+            // console.log(track[i].latitude); // 43.512926660478115
+            // console.log(track[i].longitude);
+            let coordinates = { lat: JSON.parse(this.gpxData[i].latitude), lng: JSON.parse(this.gpxData[i].longitude) };
+            this.list.push(coordinates);
+          }
+          console.log(this.list);
+          // this.loadMap();
+
+          setTimeout(() => {
+            this.loadMap();
+          }, 5000);
+        }
+      });
+    });
+  }
+
 
   loadMap() {
 
-    let tempRoute = [
-      {
-        "lat": 14.559130000000001,
-        "lng": 121.01941000000001
+    let mapOptions: GoogleMapOptions = {
+      camera: {
+        target: this.list[0],
+        zoom: 16
+        // tilt: 30
       },
-      {
-        "lat": 14.5584,
-        "lng": 121.01894000000001
+      controls: {
+        compass: true,
+        myLocation: true,
+        myLocationButton: true,
+        indoorPicker: false,
+        zoom: true
       },
-      {
-        "lat": 14.558190000000002,
-        "lng": 121.01925000000001
-      },
-      {
-        "lat": 14.55713,
-        "lng": 121.02091000000001
-      },
-      {
-        "lat": 14.557150000000002,
-        "lng": 121.02095000000001
-      },
-      {
-        "lat": 14.557150000000002,
-        "lng": 121.02101
-      },
-      {
-        "lat": 14.556920000000002,
-        "lng": 121.02141
-      },
-      {
-        "lat": 14.55667,
-        "lng": 121.02182
-      },
-      {
-        "lat": 14.556440000000002,
-        "lng": 121.02211000000001
-      },
-      {
-        "lat": 14.556350000000002,
-        "lng": 121.02211000000001
-      },
-      {
-        "lat": 14.555740000000002,
-        "lng": 121.02300000000001
+      preferences: {
+        building: false
       }
-    ]
+    };
 
-    this.geolocation.getCurrentPosition().then((resp) => {
-      this.lat = this.roundOff(resp.coords.latitude);
-      this.lng = this.roundOff(resp.coords.longitude);
+    this.map = GoogleMaps.create('map_canvas', mapOptions);
 
-      let location = new LatLng(resp.coords.latitude, resp.coords.longitude);
+    // Wait the MAP_READY before using any methods.
+    this.map.one(GoogleMapsEvent.MAP_READY)
+      .then(() => {
 
-      let mapOptions: GoogleMapOptions = {
-        camera: {
-          target: tempRoute[0],
-          zoom: 16
-          // tilt: 30
-        },
-        controls: {
-          compass: true,
-          myLocation: true,
-          myLocationButton: true,
-          indoorPicker: false,
-          zoom: true
-        },
-        preferences: {
-          building: false
-        }
-      };
+        this.map.addPolyline({
+          points: this.list,
+          'color': '#8342f4',
+          'width': 7,
+          'geodesic': false,
+          'clickable': false // default = false
+        })
 
-      this.map = GoogleMaps.create('map_canvas', mapOptions);
-      this.map.one(GoogleMapsEvent.MAP_READY)
-        .then(() => {
-          
-          this.map.addPolyline({
-            points: tempRoute,
-            'color': '#8342f4',
-            'width': 7,
-            'geodesic': false,
-            'clickable': false // default = false
-          })
+        this.map.addMarker({
+          'position': this.list[0],
+          'iconData': "https://marathon-app-database.firebaseapp.com/start.png"
+        });
+
+        this.map.addMarker({
+          'position': this.list.pop(),
+          'iconData': "https://marathon-app-database.firebaseapp.com/end.png"
 
         });
-    }).catch((error) => {
-      alert('error loading course map')
-      console.log('Error getting location', error);
-    });
+
+      }).catch((err) => {
+        alert('error loading course map')
+        console.log('Error setting up', err);
+      });
+
+    setInterval(() => {
+      console.log('adding user past tracks');
+      this.addCurrentTrack();
+    }, 4000); // will draw th users track every 4 seconds
+
+  }
+
+  addCurrentTrack() {
+    let userTracks: any[] = [];
+
+    const subscription = this.geolocation.watchPosition()
+      .filter((p) => p.coords !== undefined) //Filter Out Errors
+      .subscribe(position => {
+        console.log(position.coords.longitude + ' ' + position.coords.latitude);
+        userTracks.push({ lat: position.coords.longitude, lng: position.coords.latitude })
+
+        this.map.addPolyline({
+          points: userTracks,
+          'color': '#29d855',
+          'width': 6,
+          'geodesic': false,
+          'clickable': false // default = false
+        })
+        console.log(userTracks);
+      });
   }
 
   onStart(eventId) {
     this.locationTracker.startTracking(eventId);
   }
-
-  drawUserTrack() {
-    this.map.addPolyline({
-      points: this.locationTracker.userTrack,
-      'color': '#2db262',
-      'width': 8,
-      'geodesic': false,
-      'clickable': false // default = false
-    })
-  }
-
-  // onPause() {
-  //   this.locationTracker.stopTracking();
-  // }
 
   onOpenStats() {
     let modal = this.modalCtrl.create(StatsPage);
