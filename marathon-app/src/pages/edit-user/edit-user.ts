@@ -23,7 +23,6 @@ export class EditUserPage implements OnInit {
       if (user) {
         this.name = user.displayName;
         this.email = user.email;
-        console.log(this.name);
       } else {
         this.rootPage = LoginPage;
       }
@@ -73,6 +72,16 @@ export class EditUserPage implements OnInit {
   }
 
   onChangePassword(form: NgForm) {
+    if(form.valid) {
+      this.authService.changePassword(form.value.newPassword)
+      .then(() => {
+        this.successToast();
+        this.viewCtrl.dismiss();
+      })
+      .catch(err => this.errorToast('password'));
+    } else {
+      this.noValueToast('password');
+    }
   }
 
   private successToast() {

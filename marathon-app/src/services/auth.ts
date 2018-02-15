@@ -3,6 +3,8 @@ import firebase from 'firebase';
 export class AuthService {
   public username: string;
   public email: string;
+  public photoURL: string;
+  // public id: string;
 
   signup(email: string, password: string, name: string) {
     return firebase.auth().createUserWithEmailAndPassword(email, password).then((user) => {
@@ -38,6 +40,22 @@ export class AuthService {
     });
   }
 
+  changeUserPhoto(imgUrl: string) {
+    let user = firebase.auth().currentUser;
+    let imgPath = `users/${user.uid}.jpg`;
+    return firebase.storage().ref('img').child(imgPath)
+    .putString(imgUrl, firebase.storage.StringFormat.DATA_URL)
+    .then(imgData => {
+      user.updateProfile({
+        displayName: user.displayName,
+        photoURL: imgData.downloadURL
+      })
+      firebase.database().ref('/users').child(user.uid + '/profile').update({
+        imgPath: imgData.downloadURL
+      });
+    })
+  }
+
   updateUserEmail(email: string) {
     let user = firebase.auth().currentUser;
     user.updateEmail(email);
@@ -46,11 +64,17 @@ export class AuthService {
     })
   }
 
+  changePassword(password: string) {
+    let user = firebase.auth().currentUser;
+    return user.updatePassword(password);
+  }
+
   getUserDetails() {
     let user = firebase.auth().currentUser;
     if (user) {
       this.username = user.displayName;
       this.email = user.email;
+      this.photoURL = user.photoURL;
     }
   }
 

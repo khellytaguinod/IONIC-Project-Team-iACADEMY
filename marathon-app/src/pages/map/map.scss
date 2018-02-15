@@ -9,6 +9,14 @@ page-map {
     padding-left: 0;
     border-bottom-width: 0px;
   }
+
+  .item-md.item-block .item-inner {
+    padding-right: 0 !important;
+  }
+
+  .label-md {
+    margin-right: 0 !important;
+  }
   
   .stats-open {
     width: 10%;
@@ -19,9 +27,10 @@ page-map {
   }
 
   .details {
-    font-size: 130%;
+    font-size: 115%;
     color: #333;
     ion-icon {
+      font-size: 100%;
       color: #2979ff;
     }
   }

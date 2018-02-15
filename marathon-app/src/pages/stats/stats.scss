@@ -1,46 +1,51 @@
 page-stats {
-  ion-header {
-    .toolbar-background {
-      background: #fff;
-    }
-  }
-  .header-md::after {
-    background-image: none;
-  }
-  ion-row {
-    margin: 20px 0;
-  }
-  ion-row:first-child {
-    margin-top: 0;
-    color: #333;
-    h1 {
-      font-size: 400%;
-      margin-bottom: 0;
-      color: map-get($colors, primary);
-    }
-  }
-  ion-row:nth-child(2) {
-    color: map-get($colors, secondarytext);
+  ion-grid:first-child {
+    background-color: map-get($colors, primary);
+    color: #fff;
     h2 {
-      font-size: 200%;
       margin: 0;
-      color: #333;
+      font-weight: normal;
     }
-    ion-icon {
-      font-size: 200%;
-      color: map-get($colors, primary);
+    p {
+      margin-top: 0px;
+      font-size: 140%;
+      ion-icon {
+        font-size: 100%;
+        margin-right: 5px;
+      }
     }
   }
-  ion-row:nth-child(3) {
-    color: map-get($colors, secondarytext);
-    h2 {
-      font-size: 200%;
-      margin: 0px;
+  ion-grid:nth-child(2) {
+    // background-color: map-get($colors, bg);
+    ion-row:first-child {
+      font-size: 120%;
+      margin: 25px 0;
       color: #333;
+      p {
+        color: map-get($colors, primary);;
+        margin: 0;
+        font-size: 300%;
+        font-weight: bold;
+      }
     }
-    ion-icon {
-      font-size: 200%;
-      color: map-get($colors, primary);
+    ion-row:nth-child(2) {
+      color: map-get($colors, secondarytext);
+      margin-bottom: 25px;
+      h2 {
+        font-size: 180%;
+        margin: 0px;
+        color: #333;
+      }
+      ion-icon {
+        font-size: 150%;
+        color: map-get($colors, primary);
+      }
+    }
+  }
+  ion-footer {
+    button {
+      margin: 0 !important;
+      padding: 4px 0 !important;
     }
   }
 }

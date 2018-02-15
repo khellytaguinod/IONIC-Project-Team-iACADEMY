@@ -25,8 +25,8 @@ import { Storage } from '@ionic/storage';
 @Injectable()
 export class LocationTrackerProvider {
 
-  public userTrack: any[] = [];
-  public list: any[] = [];  // james eto yung array na dapat isaved / push sa db natin
+  public userTrack: any [] = [];
+  public list: any [] = [];  // james eto yung array na dapat isaved / push sa db natin
   // public list: any[] = [];  // james eto yung array na dapat isaved / push sa db natin
   public watch: any;
   public lat: number = 0;
@@ -45,11 +45,8 @@ export class LocationTrackerProvider {
       desiredAccuracy: 0,
       stationaryRadius: 20,
       distanceFilter: 10,
-      notificationTitle: 'Marathon App Running in Background',
-      notificationText: 'Marathon is recording user coordinates',
       debug: true,
-      // interval: 15000 // settings for saving coordinates // in millisecond
-      interval: 3000 // settings for saving coordinates // in millisecond
+      interval: 2000
     };
 
     this.backgroundGeolocation.configure(config).subscribe((location) => {
@@ -113,18 +110,17 @@ export class LocationTrackerProvider {
     this.backgroundGeolocation.finish();
     this.watch.unsubscribe();
 
-    // this.storage.set('coordinates', this.list);
-    this.storage.set('coordinates', this.userTrack);
+
+    this.storage.set('coordinates', this.list);
     console.log(' coordinates array saved ');
-    this.showRecord();
+
   }
 
   showRecord() {
-    this.storage.get('coordinates').then((val) => {
+      this.storage.get('coordinates').then((val) => {
 
-      // this.name = val;
-      // console.log('coordinates are', val);
-      alert(val)
+      this.name = val;
+      console.log('coordinates are', val);
 
     });
   }

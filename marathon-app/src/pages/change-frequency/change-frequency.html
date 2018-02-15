@@ -1,60 +1,53 @@
 <ion-header no-border>
   <ion-navbar>
+    <ion-buttons right>
+      <button ion-button icon-only type="submit" form="changeFq">
+        <ion-icon name="checkmark"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-title>CHANGE FREQUENCY</ion-title>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content no-padding>
-  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+  <form #f="ngForm" id="changeFq" (ngSubmit)="onSubmit(f)">
     <ion-list radio-group [(ngModel)]="frequency" name="frequency">
       <ion-list-header>Map frequency</ion-list-header>
       <ion-item>
-        <ion-label>Realtime</ion-label>
-        <ion-radio checked="true" value="Realtime"></ion-radio>
+        <ion-label>30 seconds</ion-label>
+        <ion-radio value="30"></ion-radio>
       </ion-item>
 
       <ion-item>
-        <ion-label>Every 3 seconds</ion-label>
-        <ion-radio value="3s"></ion-radio>
+        <ion-label>Every minute</ion-label>
+        <ion-radio value="1"></ion-radio>
       </ion-item>
 
       <ion-item>
-        <ion-label>Every 5 seconds</ion-label>
-        <ion-radio value="5s"></ion-radio>
+        <ion-label>Every 2 minutes</ion-label>
+        <ion-radio value="2"></ion-radio>
       </ion-item>
 
       <ion-item>
-        <ion-label>Every 10 seconds</ion-label>
-        <ion-radio value="10s"></ion-radio>
+        <ion-label>Every 3 minutes</ion-label>
+        <ion-radio value="3"></ion-radio>
       </ion-item>
 
       <ion-item>
-        <ion-label>Every 20 seconds</ion-label>
-        <ion-radio value="20s"></ion-radio>
+        <ion-label>Every 4 minutes</ion-label>
+        <ion-radio value="4"></ion-radio>
       </ion-item>
 
       <ion-item>
-        <ion-label>Every 30 seconds</ion-label>
-        <ion-radio value="30s"></ion-radio>
+        <ion-label>Every 5 minutes</ion-label>
+        <ion-radio value="5"></ion-radio>
       </ion-item>
 
       <ion-item>
-        <ion-label>Every 40 seconds</ion-label>
-        <ion-radio value="40s"></ion-radio>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>Every 50 seconds</ion-label>
-        <ion-radio value="50s"></ion-radio>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>Every 60 seconds</ion-label>
-        <ion-radio value="60s"></ion-radio>
+        <ion-label>Every 10 minutes</ion-label>
+        <ion-radio value="10"></ion-radio>
       </ion-item>
     </ion-list>
-
-    <button ion-button block type="submit">Select</button>
   </form>
 </ion-content>

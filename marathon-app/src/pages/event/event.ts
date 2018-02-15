@@ -1,10 +1,11 @@
 import {Component} from '@angular/core';
-import {NavController} from 'ionic-angular';
+import {NavController, ToastController} from 'ionic-angular';
 import firebase from 'firebase';
 import {GoogleMaps, GoogleMap, GoogleMapsEvent, GoogleMapOptions, LatLng} from '@ionic-native/google-maps';
 import {Geolocation} from '@ionic-native/geolocation';
 
 import {MapPage} from '../map/map';
+import { ConnectivityService } from '../../services/connectivity';
 
 @Component({
   selector: 'page-event',
@@ -29,7 +30,7 @@ export class EventPage {
   default = 'https://cdn.barnimages.com/wp-content/uploads/2017/03/2017-03-27-roman-drits-barnimages-009-768x512.jpg';
   map: GoogleMap;
 
-  constructor(private navCtrl: NavController, private geoLocation: Geolocation) {
+  constructor(private navCtrl: NavController, private geoLocation: Geolocation, private connectivity: ConnectivityService, private toastCtrl: ToastController) {
     firebase.database().ref('events/').on('child_added', snapshot => {
       this.event = snapshot.val();
       if (this.event.eventStatus === 'started') {
@@ -82,7 +83,22 @@ export class EventPage {
 
   ionViewWillEnter() {
     this.item = 'details';
+    let toast = this.toastCtrl.create({
+      message: 'No internet connection found. Check your connection.',
+      position: 'top',
+      cssClass: 'toast-danger'
+    });
+    this.connectivity.isOffline().subscribe(data => {
+      console.log(data);
+      toast.present();
+    });
+    this.connectivity.isOnline().subscribe(data => {
+      console.log(data);
+      toast.dismiss();
+    })
   }
+
+  ionViewDidLeave
 
   loadMap() {
     this.geoLocation.getCurrentPosition().then((resp) => {
