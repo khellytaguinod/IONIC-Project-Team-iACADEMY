@@ -38,13 +38,8 @@
   <form #f="ngForm" id="editPass" (ngSubmit)="onChangePassword(f)" *ngIf="toEdit === 'editPass'">
     <ion-list inset>
       <ion-item>
-        <ion-label floating>Old Password</ion-label>
-        <ion-input type="password" name="password" ngModel required></ion-input>
-      </ion-item>
-
-      <ion-item>
         <ion-label floating>New Password</ion-label>
-        <ion-input type="password" name="password" ngModel required [minlength]="6"></ion-input>
+        <ion-input type="password" name="newPassword" ngModel required [minlength]="6"></ion-input>
       </ion-item>
     </ion-list>
   </form>

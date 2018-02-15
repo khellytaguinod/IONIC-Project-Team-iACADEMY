@@ -46,6 +46,11 @@ export class AuthService {
     })
   }
 
+  changePassword(password: string) {
+    let user = firebase.auth().currentUser;
+    return user.updatePassword(password);
+  }
+
   getUserDetails() {
     let user = firebase.auth().currentUser;
     if (user) {
