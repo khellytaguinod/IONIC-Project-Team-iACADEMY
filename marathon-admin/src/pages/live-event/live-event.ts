@@ -32,8 +32,9 @@ export class LiveEventPage {
         resolve(this.eventData);
       })
     }).then(event => {
+      let eventId: any = event;
       let eventData = {
-        id: event.id,
+        id: eventId.id,
       };
 
       firebase.database().ref('userCoords/' + eventData.id).on('child_added', datasnapshot => {
