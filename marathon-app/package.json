@@ -34,7 +34,7 @@
     "cordova-plugin-camera": "^4.0.2",
     "cordova-plugin-device": "^1.1.7",
     "cordova-plugin-geolocation": "^4.0.1",
-    "cordova-plugin-googlemaps": "^2.2.4",
+    "cordova-plugin-googlemaps": "^2.2.5",
     "cordova-plugin-ionic-webview": "^1.1.16",
     "cordova-plugin-mauron85-background-geolocation": "^2.3.3",
     "cordova-plugin-network-information": "^2.0.1",
@@ -59,29 +59,19 @@
     "plugins": {
       "cordova-plugin-googlemaps": {
         "API_KEY_FOR_ANDROID": "AIzaSyA44eOh8LRaGIOzkzy_atWhSaOuN4ssUTg",
-        "API_KEY_FOR_IOS": "AIzaSyC6u6Zfk9uiWLE5-kmgkGiWjKvVyEdVLHg",
-        "PLAY_SERVICES_VERSION": "11.8.0",
-        "ANDROID_SUPPORT_V4_VERSION": "24.1.0"
-      },
-      "cordova-plugin-geolocation": {
-        "GEOLOCATION_USAGE_DESCRIPTION": "To locate you"
+        "API_KEY_FOR_IOS": "AIzaSyC6u6Zfk9uiWLE5-kmgkGiWjKvVyEdVLHg"
       },
       "ionic-plugin-keyboard": {},
       "cordova-plugin-whitelist": {},
       "cordova-plugin-device": {},
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-ionic-webview": {},
-      "cordova-plugin-mauron85-background-geolocation": {
-        "GOOGLE_PLAY_SERVICES_VERSION": "+",
-        "ICON": "@mipmap/icon",
-        "SMALL_ICON": "@mipmap/icon",
-        "ACCOUNT_NAME": "@string/app_name",
-        "ACCOUNT_LABEL": "@string/app_name",
-        "ACCOUNT_TYPE": "$PACKAGE_NAME.account",
-        "CONTENT_AUTHORITY": "$PACKAGE_NAME"
-      },
       "cordova-sqlite-storage": {},
       "cordova-plugin-network-information": {},
+      "cordova-plugin-geolocation": {
+        "GEOLOCATION_USAGE_DESCRIPTION": "To locate you"
+      },
+      "cordova-plugin-mauron85-background-geolocation": {},
       "cordova-plugin-camera": {}
     },
     "platforms": [

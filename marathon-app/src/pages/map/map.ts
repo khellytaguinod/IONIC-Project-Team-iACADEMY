@@ -18,14 +18,13 @@ import { LocationTrackerProvider } from '../../providers/location-tracker/locati
 
 import parseTrack from 'parse-gpx/src/parseTrack'
 import xml2js from 'xml2js';
-import { EventPage } from '../event/event';
 
 @Component({
   selector: 'page-map',
   templateUrl: 'map.html',
 })
 export class MapPage {
-  // @ViewChild('rootNavController') nav: NavController;
+  @ViewChild('rootNavController') nav: NavController;
 
   public list: any[] = [];
   public gpxData: any;
@@ -35,23 +34,23 @@ export class MapPage {
   lng;
   map: GoogleMap;
   id;
+  subscription
 
   constructor(
     private geolocation: Geolocation,
     public locationTracker: LocationTrackerProvider,
-    private modalCtrl: ModalController, 
+    private modalCtrl: ModalController,
     private navParams: NavParams,
     private platform: Platform,
     private alertCtrl: AlertController,
-    public http: Http,
-    private navCtrl: NavController) {
+    public http: Http) {
     this.platform.registerBackButtonAction(() => {
       let alert = this.alertCtrl.create({
         title: 'Are you sure you want to quit?',
         buttons: [{
           text: 'Yes',
           handler: () => {
-            this.navCtrl.popToRoot();
+            this.nav.popToRoot();
           }
         }, {
           text: 'No',
@@ -64,7 +63,7 @@ export class MapPage {
     this.name = this.navParams.get('event');
   }
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
     this.fetchGPX();
     this.onStart(this.id);
   }
@@ -99,6 +98,7 @@ export class MapPage {
 
 
   loadMap() {
+    alert('map loaded')
 
     let mapOptions: GoogleMapOptions = {
       camera: {
@@ -129,50 +129,59 @@ export class MapPage {
           'color': '#8342f4',
           'width': 7,
           'geodesic': false,
-          'clickable': false // default = false
+          'clickable': false
         })
 
         this.map.addMarker({
           'position': this.list[0],
-          'iconData': "https://marathon-app-database.firebaseapp.com/start.png"
-        });
+          'icon': '##49cc67',
+        }); // marker for start point
 
         this.map.addMarker({
           'position': this.list.pop(),
-          'iconData': "https://marathon-app-database.firebaseapp.com/end.png"
-
-        });
+          'icon': 'red',
+        }); // marker for end point
 
       }).catch((err) => {
         alert('error loading course map')
         console.log('Error setting up', err);
       });
-
-    setInterval(() => {
-      console.log('adding user past tracks');
-      this.addCurrentTrack();
-    }, 4000); // will draw th users track every 4 seconds
-
+    this.drawCurrentTrack()
   }
 
-  addCurrentTrack() {
+  // startDrawingUserTrack(){
+  //   setInterval(() => {
+  //     console.log('adding user past tracks');
+  //     this.addCurrentTrack();
+  //   }, 4000); // will draw th users track every 4 seconds
+  // }
+
+  drawCurrentTrack() {
     let userTracks: any[] = [];
 
-    const subscription = this.geolocation.watchPosition()
+    this.subscription = this.geolocation.watchPosition()
       .filter((p) => p.coords !== undefined) //Filter Out Errors
       .subscribe(position => {
         console.log(position.coords.longitude + ' ' + position.coords.latitude);
-        userTracks.push({ lat: position.coords.longitude, lng: position.coords.latitude })
+        userTracks.push({ lat: position.coords.latitude, lng: position.coords.longitude })
 
         this.map.addPolyline({
           points: userTracks,
           'color': '#29d855',
           'width': 6,
           'geodesic': false,
-          'clickable': false // default = false
+          'clickable': false 
         })
+
+        this.map.setCameraTarget(userTracks.pop());
+
         console.log(userTracks);
       });
+  }
+
+
+  stopDrawingTrack() {
+    this.subscription.unsubscribe();
   }
 
   onStart(eventId) {
@@ -182,11 +191,6 @@ export class MapPage {
   onOpenStats() {
     let modal = this.modalCtrl.create(StatsPage);
     modal.present();
-    modal.onDidDismiss(data => {
-      if(data.mode === 'stop') {
-        this.navCtrl.setRoot(EventPage);
-      }
-    })
   }
 
   private roundOff(number) {
