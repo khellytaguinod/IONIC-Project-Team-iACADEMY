@@ -11,6 +11,7 @@ import { AuthService } from '../../services/auth';
 export class ProfilePage {
   username;
   email;
+  imgPath;
   settingsPage = SettingsPage;
   default = 'http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png';
 
@@ -28,6 +29,7 @@ export class ProfilePage {
     this.authService.getUserDetails();
     this.username = this.authService.username;
     this.email = this.authService.email;
+    this.imgPath = (this.authService.photoURL) ? this.authService.photoURL : this.default;
   }
 
 }

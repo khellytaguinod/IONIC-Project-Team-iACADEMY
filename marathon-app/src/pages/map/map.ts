@@ -18,13 +18,14 @@ import { LocationTrackerProvider } from '../../providers/location-tracker/locati
 
 import parseTrack from 'parse-gpx/src/parseTrack'
 import xml2js from 'xml2js';
+import { EventPage } from '../event/event';
 
 @Component({
   selector: 'page-map',
   templateUrl: 'map.html',
 })
 export class MapPage {
-  @ViewChild('rootNavController') nav: NavController;
+  // @ViewChild('rootNavController') nav: NavController;
 
   public list: any[] = [];
   public gpxData: any;
@@ -42,14 +43,15 @@ export class MapPage {
     private navParams: NavParams,
     private platform: Platform,
     private alertCtrl: AlertController,
-    public http: Http) {
+    public http: Http,
+    private navCtrl: NavController) {
     this.platform.registerBackButtonAction(() => {
       let alert = this.alertCtrl.create({
         title: 'Are you sure you want to quit?',
         buttons: [{
           text: 'Yes',
           handler: () => {
-            this.nav.popToRoot();
+            this.navCtrl.popToRoot();
           }
         }, {
           text: 'No',
@@ -180,6 +182,11 @@ export class MapPage {
   onOpenStats() {
     let modal = this.modalCtrl.create(StatsPage);
     modal.present();
+    modal.onDidDismiss(data => {
+      if(data.mode === 'stop') {
+        this.navCtrl.setRoot(EventPage);
+      }
+    })
   }
 
   private roundOff(number) {
