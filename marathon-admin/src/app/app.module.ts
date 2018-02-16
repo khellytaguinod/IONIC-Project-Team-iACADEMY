@@ -1,19 +1,20 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {ErrorHandler, NgModule} from '@angular/core';
-import {IonicApp, IonicErrorHandler, IonicModule} from 'ionic-angular';
-import {SplashScreen} from '@ionic-native/splash-screen';
-import {StatusBar} from '@ionic-native/status-bar';
-import {Camera} from '@ionic-native/camera';
+import { BrowserModule } from '@angular/platform-browser';
+import { ErrorHandler, NgModule } from '@angular/core';
+import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { StatusBar } from '@ionic-native/status-bar';
+import { Camera } from '@ionic-native/camera';
 import { FileChooser } from '@ionic-native/file-chooser';
+import { GoogleMaps } from '@ionic-native/google-maps';
 
-import {MyApp} from './app.component';
-import {LoginPage} from '../pages/login/login';
-import {EventsPage} from '../pages/events/events';
-import {EventPage} from '../pages/event/event';
-import {EditEventPage} from '../pages/edit-event/edit-event';
-import {AuthService} from '../services/auth';
-import {EventsService} from '../services/events';
-import {ProfilePage} from '../pages/profile/profile';
+import { MyApp } from './app.component';
+import { LoginPage } from '../pages/login/login';
+import { EventsPage } from '../pages/events/events';
+import { EventPage } from '../pages/event/event';
+import { EditEventPage } from '../pages/edit-event/edit-event';
+import { AuthService } from '../services/auth';
+import { EventsService } from '../services/events';
+import { ProfilePage } from '../pages/profile/profile';
 import { LiveEventPage } from '../pages/live-event/live-event';
 import { NoConnectionPage } from '../pages/no-connection/no-connection';
 import { ParticipantPage } from '../pages/participant/participant';
@@ -58,11 +59,12 @@ import { ConnectivityService } from '../services/connectivity';
     EndPointPage
   ],
   providers: [
+    GoogleMaps,
     StatusBar,
     SplashScreen,
     AuthService,
     EventsService,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     Camera,
     Network,
     ConnectivityService,

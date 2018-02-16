@@ -1,23 +1,36 @@
-import {Component} from '@angular/core';
-import {ModalController} from 'ionic-angular';
+import { Component } from '@angular/core';
+import { ModalController } from 'ionic-angular';
 import firebase from 'firebase';
 
-import {ParticipantsPage} from '../participants/participants';
+import {
+  GoogleMaps,
+  GoogleMap,
+  GoogleMapsEvent,
+  GoogleMapOptions,
+  CameraPosition,
+  MarkerOptions,
+  Marker
+} from '@ionic-native/google-maps';
+
+import { ParticipantsPage } from '../participants/participants';
 
 @Component({
   selector: 'page-live-event',
   templateUrl: 'live-event.html',
 })
 export class LiveEventPage {
-  eventData: any;
+  eventData;
   isListed: boolean = false;
   participants: any = [];
-  userPoints: any = [];
+  map: GoogleMap;
+
 
   constructor(private modalCtrl: ModalController) {
-    new Promise((resolve, reject) => {
-      return firebase.database().ref('events').orderByChild('eventStatus').limitToFirst(1).equalTo('started').on('child_added', snapshot => {
-        if (snapshot.val() != null) {
+    firebase.database().ref('events')
+      .orderByChild('eventStatus')
+      .limitToFirst(1)
+      .equalTo('started').on('child_added', snapshot => {
+        if(snapshot.val() != null) {
           this.isListed = true;
           this.eventData = {
             id: snapshot.ref.key,
@@ -29,29 +42,10 @@ export class LiveEventPage {
             status: snapshot.val().eventStatus
           };
         }
-        resolve(this.eventData);
-      })
-    }).then(event => {
-      let eventId: any = event;
-      let eventData = {
-        id: eventId.id,
-      };
-
-      firebase.database().ref('userCoords/' + eventData.id).on('child_added', datasnapshot => {
-        firebase.database().ref('userCoords/' + eventData.id + '/' + datasnapshot.ref.key).child('coordinates').limitToLast(1).on('child_added', coordsnapshot => {
-          this.userPoints.push({
-            id: datasnapshot.ref.key,
-            coordinatesId: coordsnapshot.ref.key,
-            coordinates: coordsnapshot.val()
-          });
-          alert(this.userPoints);
-        })
       });
-    });
-
-    if (this.isListed) {
+    if(this.isListed) {
       firebase.database().ref('participants/' + this.eventData.id).on('child_added', snapshot => {
-        if (snapshot) {
+        if(snapshot) {
           this.participants.push(snapshot.val());
         } else {
           this.participants = [];
@@ -60,14 +54,61 @@ export class LiveEventPage {
     }
   }
 
+  ionViewDidLoad() {
+    this.loadMap();
+  }
+
+  loadMap() {
+
+    let mapOptions: GoogleMapOptions = {
+      camera: {
+        target: {
+          lat: 43.0741904,
+          lng: -89.3809802
+        },
+        zoom: 18,
+        tilt: 30
+      }, 
+      controls: {
+        compass: true,
+        myLocation: true,
+        myLocationButton: true,
+        indoorPicker: false,
+        zoom: true
+      }
+    };
+
+    this.map = GoogleMaps.create('map_canvas', mapOptions);
+
+    // Wait the MAP_READY before using any methods.
+    this.map.one(GoogleMapsEvent.MAP_READY)
+      .then(() => {
+        console.log('Map is ready!');
+
+        // Now you can use all methods safely.
+        this.map.addMarker({
+          title: 'Ionic',
+          // icon: 'https://cdn0.iconfinder.com/data/icons/world-issues/500/running_man-128.png',
+          icon: 'green',
+          animation: 'DROP',
+          position: {
+            lat: 43.0741904,
+            lng: -89.3809802
+          }
+        })
+          .then(marker => {
+            marker.on(GoogleMapsEvent.MARKER_CLICK)
+              .subscribe(() => {
+                alert('clicked');
+              });
+          });
+
+      });
+  }
+
   onOpenParticipants() {
     let modal = this.modalCtrl.create(ParticipantsPage, {event: this.eventData, participants: this.participants});
     modal.present();
   }
-
-  getLastPoint() {
-  }
-
-
 
 }
