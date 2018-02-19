@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Http } from '@angular/http';
 
-import { ModalController, NavParams, Platform, AlertController, NavController } from 'ionic-angular';
+import {ModalController, NavParams, Platform, AlertController, NavController, LoadingController} from 'ionic-angular';
 import {
   GoogleMaps,
   GoogleMap,
@@ -34,7 +34,8 @@ export class MapPage {
   lng;
   map: GoogleMap;
   id;
-  subscription
+  subscription;
+  loading;
 
   constructor(
     private geolocation: Geolocation,
@@ -43,7 +44,8 @@ export class MapPage {
     private navParams: NavParams,
     private platform: Platform,
     private alertCtrl: AlertController,
-    public http: Http) {
+    public http: Http,
+    private loadCtrl: LoadingController) {
     this.platform.registerBackButtonAction(() => {
       let alert = this.alertCtrl.create({
         title: 'Are you sure you want to quit?',
@@ -59,6 +61,10 @@ export class MapPage {
       });
       alert.present();
     });
+    this.loading = loadCtrl.create({
+      content: "Loading Map..."
+    });
+    this.loading.present();
     this.id = this.navParams.get('id');
     this.name = this.navParams.get('event');
   }
@@ -98,8 +104,7 @@ export class MapPage {
 
 
   loadMap() {
-    alert('map loaded')
-
+    this.loading.dismiss();
     let mapOptions: GoogleMapOptions = {
       camera: {
         target: this.list[0],
@@ -170,7 +175,7 @@ export class MapPage {
           'color': '#29d855',
           'width': 6,
           'geodesic': false,
-          'clickable': false 
+          'clickable': false
         })
 
         this.map.setCameraTarget(userTracks.pop());
