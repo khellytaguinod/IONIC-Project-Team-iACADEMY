@@ -60,5 +60,7 @@ typings/
 #jetbrains
 .idea/
 .iws
+.idea
+
 
 marathon-web/
