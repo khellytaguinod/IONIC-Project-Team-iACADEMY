@@ -9,6 +9,7 @@ import {SettingsPage} from "../pages/settings/settings";
 import {AuthService} from "../services/auth";
 import {LoginPage} from "../pages/login/login";
 import {EventPage} from '../pages/event/event';
+import {Storage} from "@ionic/storage";
 
 @Component({
   templateUrl: 'app.html'
@@ -22,7 +23,7 @@ export class MyApp {
   // username;
   // email;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menuCtrl: MenuController, private authService: AuthService, private loadingCtrl: LoadingController, public events: Events, private alertCtrl: AlertController) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menuCtrl: MenuController, private authService: AuthService, private loadingCtrl: LoadingController, public events: Events, private alertCtrl: AlertController, private storage: Storage) {
     firebase.initializeApp({
       apiKey: "AIzaSyB69ECSbnlRhzzjDWl9G1RkylwdP_r0oVI",
       authDomain: "marathon-app-database.firebaseapp.com",
@@ -35,7 +36,7 @@ export class MyApp {
       if (user) {
         firebase.database().ref('users/' + user.uid).once('value').then(snapshot => {
           if (snapshot.val().userType === 'admin') {
-            let message = 'Only accessible by users. Please create a different account';
+            let message = 'Only accessible by users.';
             const alert = this.alertCtrl.create({
               title: 'Signin failed',
               message: message,
@@ -45,6 +46,12 @@ export class MyApp {
             this.authService.logout();
           } else {
             this.rootPage = EventPage;
+            let id = firebase.auth().currentUser.uid;
+            this.storage.get('interval').then(val => {
+              if(val === null){
+                storage.set(id, 60000)
+              }
+            })
           }
         });
       } else {

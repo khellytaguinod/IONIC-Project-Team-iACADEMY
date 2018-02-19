@@ -4,26 +4,43 @@ import {ChangeFrequencyPage} from '../change-frequency/change-frequency';
 import {EditUserPage} from '../edit-user/edit-user';
 import { AuthService } from '../../services/auth';
 import { ChangePhotoPage } from '../change-photo/change-photo';
+import {Storage} from "@ionic/storage";
+import firebase from 'firebase';
 
 @Component({
   selector: 'page-settings',
   templateUrl: 'settings.html',
 })
 export class SettingsPage {
-  frequency: string;
+  frequency: string = `1 minute`;
+  id = firebase.auth().currentUser.uid;
 
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController, private authService: AuthService, public toastCtrl: ToastController) {}
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, private authService: AuthService, public toastCtrl: ToastController, private storage: Storage) {
+    storage.get(this.id).then(val => {
+      if(val == 30000){
+        this.frequency = val/1000 + ' seconds'
+      } else if (val == 60000) {
+        this.frequency = val/1000/10/6 + ' minute'
+      } else {
+        this.frequency = val/1000/10/6 + ' minutes'
+      }
+    })
+  }
 
   onChangeFrequency() {
     new Promise((resolve, reject) => {
       this.navCtrl.push(ChangeFrequencyPage, {resolve: resolve});
     }).then(data => {
+      let num = Number(data);
       if(data === '30') {
         this.frequency = `${data} seconds`;
+        this.storage.set(this.id, num * 1000);
       } else if (data === '1') {
         this.frequency = `${data} minute`;
+        this.storage.set(this.id, num * 6 * 10 * 1000);
       } else {
         this.frequency = `${data} minutes`;
+        this.storage.set(this.id, num * 6 * 10 * 1000);
       }
       this.navCtrl.pop();
     });
