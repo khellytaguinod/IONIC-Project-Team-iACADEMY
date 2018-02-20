@@ -47,11 +47,6 @@ export class EventPage {
     this.event = 'details';
   }
 
-  // ionViewDidEnter() {
-  //   this.loadMap()
-  //   this.showNavigation()
-  // }
-
   onShowMore() {
     let action = this.actionSheetCtrl.create({
       buttons: [{
