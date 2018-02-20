@@ -21,7 +21,6 @@ import { RegisterPage } from '../pages/register/register';
 import { AuthService } from "../services/auth";
 import { ChangeFrequencyPage } from '../pages/change-frequency/change-frequency';
 import { EditUserPage } from '../pages/edit-user/edit-user';
-import { StatsPage } from '../pages/stats/stats';
 import { LocationTrackerProvider } from '../providers/location-tracker/location-tracker';
 import { Network } from '@ionic-native/network';
 import { ConnectivityService } from '../services/connectivity';
@@ -38,7 +37,6 @@ import { ChangePhotoPage } from '../pages/change-photo/change-photo';
     RegisterPage,
     ChangeFrequencyPage,
     EditUserPage,
-    StatsPage,
     ChangePhotoPage
   ],
   imports: [
@@ -58,7 +56,6 @@ import { ChangePhotoPage } from '../pages/change-photo/change-photo';
     RegisterPage,
     ChangeFrequencyPage,
     EditUserPage,
-    StatsPage,
     ChangePhotoPage
   ],
   providers: [

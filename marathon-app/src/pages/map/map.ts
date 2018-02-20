@@ -1,7 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
 import {Http} from '@angular/http';
 
-import {ModalController, NavParams, Platform, AlertController, NavController, LoadingController} from 'ionic-angular';
+import { NavParams, Platform, AlertController, NavController, LoadingController } from 'ionic-angular';
 import {
   GoogleMaps,
   GoogleMap,
@@ -13,11 +13,11 @@ import {
   LatLng
 } from '@ionic-native/google-maps';
 import {Geolocation} from '@ionic-native/geolocation';
-import {StatsPage} from '../stats/stats';
 import {LocationTrackerProvider} from '../../providers/location-tracker/location-tracker';
 
 import parseTrack from 'parse-gpx/src/parseTrack'
 import xml2js from 'xml2js';
+import { EventPage } from '../event/event';
 import firebase from 'firebase';
 import {Storage} from "@ionic/storage";
 
@@ -43,12 +43,12 @@ export class MapPage {
 
   constructor(private geolocation: Geolocation,
               public locationTracker: LocationTrackerProvider,
-              private modalCtrl: ModalController,
               private navParams: NavParams,
               private platform: Platform,
               private alertCtrl: AlertController,
               public http: Http,
               private loadCtrl: LoadingController,
+              private navCtrl: NavController,
               private storage: Storage) {
     this.platform.registerBackButtonAction(() => {
       let alert = this.alertCtrl.create({
@@ -87,8 +87,6 @@ export class MapPage {
   fetchGPX() {
     this.http.get('https://marathon-app-database.firebaseapp.com/makatiRun.gpx').subscribe(data => {
       let dataCoords: any = data;
-      console.log(dataCoords._body);
-
       let parser = new xml2js.Parser();
       parser.parseString(dataCoords._body, (err, xml) => {
         if (err) {
@@ -96,13 +94,9 @@ export class MapPage {
         } else {
           this.gpxData = parseTrack(xml.gpx.trk);
           for (let i = 0; i < this.gpxData.length; i++) {
-            // console.log(track[i].latitude); // 43.512926660478115
-            // console.log(track[i].longitude);
-            let coordinates = {lat: JSON.parse(this.gpxData[i].latitude), lng: JSON.parse(this.gpxData[i].longitude)};
+            let coordinates = { lat: JSON.parse(this.gpxData[i].latitude), lng: JSON.parse(this.gpxData[i].longitude) };
             this.list.push(coordinates);
           }
-          console.log(this.list);
-          // this.loadMap();
 
           setTimeout(() => {
             this.loadMap();
@@ -119,7 +113,6 @@ export class MapPage {
       camera: {
         target: this.list[0],
         zoom: 16
-        // tilt: 30
       },
       controls: {
         compass: true,
@@ -129,7 +122,7 @@ export class MapPage {
         zoom: true
       },
       preferences: {
-        building: false
+        building: true
       }
     };
 
@@ -188,9 +181,7 @@ export class MapPage {
           'clickable': false
         });
 
-        this.map.setCameraTarget(userTracks.pop());
-
-        console.log(userTracks);
+        this.map.setCameraTarget(userTracks[userTracks.length - 1]);
       });
   }
 
@@ -203,9 +194,21 @@ export class MapPage {
     this.locationTracker.startTracking(eventId);
   }
 
-  onOpenStats() {
-    let modal = this.modalCtrl.create(StatsPage);
-    modal.present();
+  onFinish() {
+    let alert = this.alertCtrl.create({
+      title: 'Are you sure you want to end your run?',
+      buttons: [{
+        text: 'Yes',
+        handler: () => {
+          this.locationTracker.stopTracking();
+          this.navCtrl.setRoot(EventPage);
+        }
+      }, {
+        text: 'No',
+        role: 'cancel'
+      }]
+    });
+    alert.present();
   }
 
   private roundOff(number) {

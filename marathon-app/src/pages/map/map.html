@@ -1,13 +1,3 @@
-<!-- <ion-header no-border>
-  <ion-navbar>
-    <ion-buttons left>
-      <button ion-button icon-only menuToggle>
-        <ion-icon name="menu"></ion-icon>
-      </button>
-    </ion-buttons>
-    <ion-title>{{ name | uppercase }} LIVE</ion-title>
-  </ion-navbar>
-</ion-header> -->
 <ion-nav id="nav" #rootNavController [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
 
 <ion-content no-padding>
@@ -15,31 +5,15 @@
 </ion-content>
 
 <ion-footer>
-  <button ion-item (click)="onOpenStats()" class="stats">
-      <div class="stats-open"></div>
-      <ion-grid no-padding text-center>
-        <ion-row>
-          <ion-col>
-            <div class="details">
-              <ion-icon item-left name="navigate"></ion-icon>
-              10 km
-            </div>
-          </ion-col>
-
-          <ion-col>
-            <div class="details">
-              <ion-icon item-left name="time"></ion-icon>
-              00:01:00
-            </div>
-          </ion-col>
-
-          <ion-col>
-            <div class="details"> <!--pace-->
-              <ion-icon item-left name="speedometer"></ion-icon>
-              5'28"
-            </div>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-  </button>
+  <ion-grid no-padding text-center>
+    <ion-row>
+      <ion-col>
+        <h1>
+          <ion-icon item-start name="time"></ion-icon>
+          00:01:00
+        </h1>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <button ion-button full color="danger" (click)="onFinish()">FINISH</button>
 </ion-footer>
