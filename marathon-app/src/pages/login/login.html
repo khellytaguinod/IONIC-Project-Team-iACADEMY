@@ -17,8 +17,7 @@
           <ion-input type="password" ngModel name="password" required></ion-input>
         </ion-item>
 
-        <a float-start padding-vertical>Forgot Password?</a>
-        <a float-end padding-vertical (click)="onGoToSignup()">Create New Account</a>
+        <a float-start padding-vertical (click)="onGoToSignup()">Create New Account</a>
 
         <button type="submit" ion-button block full [disabled]="!f.valid">LOG IN</button>
 
