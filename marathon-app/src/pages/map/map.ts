@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Http } from '@angular/http';
 
-import {NavParams, Platform, AlertController, NavController, LoadingController} from 'ionic-angular';
+import { NavParams, Platform, AlertController, NavController, LoadingController } from 'ionic-angular';
 import {
   GoogleMaps,
   GoogleMap,
@@ -77,8 +77,6 @@ export class MapPage {
   fetchGPX() {
     this.http.get('https://marathon-app-database.firebaseapp.com/makatiRun.gpx').subscribe(data => {
       let dataCoords: any = data;
-      console.log(dataCoords._body);
-
       let parser = new xml2js.Parser();
       parser.parseString(dataCoords._body, (err, xml) => {
         if (err) {
@@ -86,13 +84,9 @@ export class MapPage {
         } else {
           this.gpxData = parseTrack(xml.gpx.trk);
           for (let i = 0; i < this.gpxData.length; i++) {
-            // console.log(track[i].latitude); // 43.512926660478115
-            // console.log(track[i].longitude);
             let coordinates = { lat: JSON.parse(this.gpxData[i].latitude), lng: JSON.parse(this.gpxData[i].longitude) };
             this.list.push(coordinates);
           }
-          console.log(this.list);
-          // this.loadMap();
 
           setTimeout(() => {
             this.loadMap();
@@ -109,7 +103,6 @@ export class MapPage {
       camera: {
         target: this.list[0],
         zoom: 16
-        // tilt: 30
       },
       controls: {
         compass: true,
@@ -119,7 +112,7 @@ export class MapPage {
         zoom: true
       },
       preferences: {
-        building: false
+        building: true
       }
     };
 
@@ -178,9 +171,7 @@ export class MapPage {
           'clickable': false
         })
 
-        this.map.setCameraTarget(userTracks.pop());
-
-        console.log(userTracks);
+        this.map.setCameraTarget(userTracks[userTracks.length - 1]);
       });
   }
 
