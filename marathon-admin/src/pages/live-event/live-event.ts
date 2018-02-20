@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Http } from '@angular/http';
 
-import { ModalController, LoadingController } from 'ionic-angular';
+import { ModalController, LoadingController, ActionSheetController, AlertController, NavController } from 'ionic-angular';
 import {
   GoogleMaps,
   GoogleMap,
@@ -18,6 +18,8 @@ import parseTrack from 'parse-gpx/src/parseTrack'
 import xml2js from 'xml2js';
 
 import { ParticipantsPage } from '../participants/participants';
+import { EventsService } from '../../services/events';
+import { EventsPage } from '../events/events';
 
 @Component({
   selector: 'page-live-event',
@@ -36,7 +38,7 @@ export class LiveEventPage {
   loading;
 
 
-  constructor(private modalCtrl: ModalController, public http: Http, private loadCtrl: LoadingController,
+  constructor(private modalCtrl: ModalController, public http: Http, private loadCtrl: LoadingController, private actionSheetCtrl: ActionSheetController, private alertCtrl: AlertController, private eventsService: EventsService, private navCtrl: NavController
 ) {
     this.loading = loadCtrl.create({
       content: "Preparing Live Event Map"
@@ -93,6 +95,38 @@ export class LiveEventPage {
 
   ionViewDidLoad() {
     this.fetchGPX();
+  }
+
+  onShowMore() {
+    let actionSheet = this.actionSheetCtrl.create({
+      buttons: [{
+        text: 'Stop Event',
+        handler: () => this.onStop()
+      }, {
+        text: 'Cancel',
+        role: 'cancel'
+      }]
+    });
+    actionSheet.present();
+  }
+
+  onStop() {
+    let alert = this.alertCtrl.create({
+      title: 'Are you sure you want to stop the event?',
+      buttons: [{
+        text: 'Yes',
+        handler: () => {
+          this.eventsService.onChangeStatus(this.eventData.id, 'ended')
+          .then(() => {
+            this.navCtrl.setRoot(EventsPage);
+          })
+        }
+      }, {
+        text: 'No',
+        role: 'cancel'
+      }]
+    });
+    alert.present();
   }
 
   fetchGPX() {
@@ -180,7 +214,6 @@ export class LiveEventPage {
       })
     });
   }
-
 
   onOpenParticipants() {
     let modal = this.modalCtrl.create(ParticipantsPage, { event: this.eventData, participants: this.participants });
