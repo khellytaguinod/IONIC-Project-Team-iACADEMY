@@ -15,8 +15,9 @@ import {Storage} from '@ionic/storage';
 @Injectable()
 export class LocationTrackerProvider {
 
+  public userTrackFirebase: any = [];
   public userTrack: any = [];
-  public list: any[] = [];
+  public list: any = [];
   public watch: any;
   public lat: number = 0;
   public lng: number = 0;
@@ -45,7 +46,8 @@ export class LocationTrackerProvider {
 
         let savedLocation = new LatLng(location.latitude, location.longitude);
         let myKey = firebase.database().ref('userCoords/' + eventId + '/' + this.userId).push();
-        this.userTrack.push({[myKey.key]: savedLocation});
+        this.userTrackFirebase.push({[myKey.key]: savedLocation, 'time': new Date().toISOString()});
+        this.userTrack.push(savedLocation);
       });
     }, (err) => {
       console.log(err);
@@ -56,12 +58,11 @@ export class LocationTrackerProvider {
 
     // Foreground Tracking
     let options = {
-      frequency: 3000,
+      frequency: 2000,
       enableHighAccuracy: true
     };
 
     this.watch = this.geolocation.watchPosition(options).filter((p: any) => p.code === undefined).subscribe((position: Geoposition) => {
-      console.log(position);
       // Run update inside of Angular's zone
       this.zone.run(() => {
         this.lat = position.coords.latitude;
@@ -69,29 +70,28 @@ export class LocationTrackerProvider {
 
         let savedLocation = new LatLng(position.coords.latitude, position.coords.longitude);
         let myKey = firebase.database().ref('userCoords/' + eventId + '/' + this.userId).push();
-        this.userTrack.push({[myKey.key]: savedLocation});
+        this.userTrackFirebase.push({[myKey.key]: savedLocation, 'time': new Date().toISOString()});
+        this.userTrack.push(savedLocation);
       });
     });
   }
 
   saveToDatabase(eventId) {
-    this.userTrack.forEach(data => {
+    this.userTrackFirebase.forEach(data => {
       firebase.database().ref('userCoords/' + eventId + '/').child(this.userId).update(data);
     });
   }
 
   stopTracking() {
-    console.log('stopTracking');
     this.backgroundGeolocation.finish();
     this.backgroundGeolocation.stop();
     this.watch.unsubscribe();
-    this.storage.set('coordinates', this.userTrack);
+    this.storage.set('coordinates', this.userTrackFirebase);
   }
 
   showRecord() {
     this.storage.get('coordinates').then((val) => {
       this.name = val;
-      console.log('coordinates are', val);
     });
   }
 }

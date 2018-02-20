@@ -32,6 +32,7 @@ export class MyApp {
       storageBucket: "marathon-app-database.appspot.com",
       messagingSenderId: "941647442438"
     });
+
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         firebase.database().ref('users/' + user.uid).once('value').then(snapshot => {
@@ -48,7 +49,7 @@ export class MyApp {
             this.rootPage = EventPage;
             let id = firebase.auth().currentUser.uid;
             this.storage.get('interval').then(val => {
-              if(val === null){
+              if (val === null) {
                 storage.set(id, 60000)
               }
             })
@@ -59,6 +60,7 @@ export class MyApp {
         this.rootPage = LoginPage;
       }
     });
+
     platform.ready().then(() => {
       statusBar.styleDefault();
       splashScreen.hide();
