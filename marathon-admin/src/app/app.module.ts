@@ -42,6 +42,7 @@ import { ConnectivityService } from '../services/connectivity';
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
