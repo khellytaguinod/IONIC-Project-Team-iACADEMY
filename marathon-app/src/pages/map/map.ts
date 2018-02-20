@@ -1,7 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
 import {Http} from '@angular/http';
 
-import { NavParams, Platform, AlertController, NavController, LoadingController } from 'ionic-angular';
+import {NavParams, Platform, AlertController, NavController, LoadingController} from 'ionic-angular';
 import {
   GoogleMaps,
   GoogleMap,
@@ -17,7 +17,7 @@ import {LocationTrackerProvider} from '../../providers/location-tracker/location
 
 import parseTrack from 'parse-gpx/src/parseTrack'
 import xml2js from 'xml2js';
-import { EventPage } from '../event/event';
+import {EventPage} from '../event/event';
 import firebase from 'firebase';
 import {Storage} from "@ionic/storage";
 
@@ -39,6 +39,7 @@ export class MapPage {
   subscription;
   frequency;
   loading;
+  intervalId;
   userId = firebase.auth().currentUser.uid;
 
   constructor(private geolocation: Geolocation,
@@ -79,8 +80,14 @@ export class MapPage {
   ionViewDidEnter() {
     this.fetchGPX();
     this.onStart(this.id);
-    setInterval(() => {
+    this.intervalId = setInterval(() => {
       this.locationTracker.saveToDatabase(this.id);
+    }, this.frequency)
+  }
+
+  ionViewDidLeave() {
+    setTimeout(() => {
+      clearInterval(this.intervalId);
     }, this.frequency)
   }
 
@@ -94,7 +101,7 @@ export class MapPage {
         } else {
           this.gpxData = parseTrack(xml.gpx.trk);
           for (let i = 0; i < this.gpxData.length; i++) {
-            let coordinates = { lat: JSON.parse(this.gpxData[i].latitude), lng: JSON.parse(this.gpxData[i].longitude) };
+            let coordinates = {lat: JSON.parse(this.gpxData[i].latitude), lng: JSON.parse(this.gpxData[i].longitude)};
             this.list.push(coordinates);
           }
 
