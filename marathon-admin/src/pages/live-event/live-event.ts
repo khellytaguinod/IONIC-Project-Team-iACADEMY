@@ -131,11 +131,32 @@ export class LiveEventPage {
       .then(() => {
         console.log('Map is ready!');
 
+        this.map.addPolyline({
+          points: this.list,
+          'color': '#8342f4',
+          'width': 7,
+          'geodesic': false,
+          'clickable': false
+        });
+
+        this.map.addMarker({
+          'position': this.list[0],
+          'icon': '##49cc67',
+        }); // marker for start point
+
+        this.map.addMarker({
+          'position': this.list[this.list.length - 1],
+          'icon': 'red',
+        }); // marker for end point
+
+        this.showUser();
+
         setInterval(() => {
           this.showUser()
         }, 30000); // will add new pin about user whereAbout every 30 seconds
 
       });
+      
   }
 
   showUser() {
