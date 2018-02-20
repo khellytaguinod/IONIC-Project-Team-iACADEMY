@@ -4,21 +4,34 @@ import { ToastController, LoadingController, NavController } from 'ionic-angular
 
 import { AuthService } from '../../services/auth';
 import { SettingsPage } from '../settings/settings';
+import { ConnectivityService } from '../../services/connectivity';
+import { NoConnectionPage } from '../no-connection/no-connection';
 
 @Component({
   selector: 'page-change-photo',
   templateUrl: 'change-photo.html',
 })
 export class ChangePhotoPage {
+  private offline;
   cameraUrl;
   photoTaken: boolean = false;
 
-  constructor(private camera: Camera, private toastCtrl: ToastController, private authService: AuthService, private loadCtrl: LoadingController, private navCtrl: NavController) {
+  constructor(private camera: Camera, private toastCtrl: ToastController, private authService: AuthService, private loadCtrl: LoadingController, private navCtrl: NavController, private connectivity: ConnectivityService) {
     this.authService.getUserDetails();
     if(this.authService.photoURL != null) {
       this.cameraUrl = this.authService.photoURL;
       this.photoTaken = true;
     }
+  }
+
+  ionViewWillEnter() {
+    this.offline = this.connectivity.isOffline().subscribe(data => {
+      this.navCtrl.push(NoConnectionPage);
+    });
+  }
+
+  ionViewWillLeave() {
+    this.offline.unsubscribe();
   }
 
   onTakePhoto() {
