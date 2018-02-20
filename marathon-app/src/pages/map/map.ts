@@ -57,21 +57,6 @@ export class MapPage {
               private navCtrl: NavController,
               private storage: Storage,
               private connectivity: ConnectivityService) {
-    this.platform.registerBackButtonAction(() => {
-      let alert = this.alertCtrl.create({
-        title: 'Are you sure you want to quit?',
-        buttons: [{
-          text: 'Yes',
-          handler: () => {
-            this.nav.popToRoot();
-          }
-        }, {
-          text: 'No',
-          role: 'cancel'
-        }]
-      });
-      alert.present();
-    });
     this.loading = loadCtrl.create({
       content: "Preparing your course map"
     });
