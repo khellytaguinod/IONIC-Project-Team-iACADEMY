@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Http } from '@angular/http';
 
-import { ModalController } from 'ionic-angular';
+import { ModalController, LoadingController } from 'ionic-angular';
 import {
   GoogleMaps,
   GoogleMap,
@@ -33,8 +33,16 @@ export class LiveEventPage {
   participants: any = [];
   userPoints: any = [];
   map: GoogleMap;
+  loading;
 
-  constructor(private modalCtrl: ModalController, public http: Http) {
+
+  constructor(private modalCtrl: ModalController, public http: Http, private loadCtrl: LoadingController,
+) {
+    this.loading = loadCtrl.create({
+      content: "Preparing Live Event Map"
+    });
+    this.loading.present();
+
     new Promise((resolve, reject) => {
       return firebase.database().ref('events').orderByChild('eventStatus').limitToFirst(1).equalTo('started').on('child_added', snapshot => {
         if (snapshot.val() != null) {
@@ -109,6 +117,7 @@ export class LiveEventPage {
   }
 
   loadMap() {
+    this.loading.dismiss();
 
     let mapOptions: GoogleMapOptions = {
       camera: {
