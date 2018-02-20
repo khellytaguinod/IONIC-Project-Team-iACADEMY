@@ -46,7 +46,14 @@ export class LocationTrackerProvider {
 
         let savedLocation = new LatLng(location.latitude, location.longitude);
         let myKey = firebase.database().ref('userCoords/' + eventId + '/' + this.userId).push();
-        this.userTrackFirebase.push({[myKey.key]: savedLocation, 'time': new Date().toISOString()});
+        // this.userTrackFirebase.push({[myKey.key]: savedLocation, 'time': new Date().toISOString()});
+        this.userTrackFirebase.push({
+          [myKey.key]: {
+            'lat': location.latitude,
+            'lng': location.longitude,
+            'time': new Date().toISOString()
+          }
+        });
         this.userTrack.push(savedLocation);
       });
     }, (err) => {
@@ -69,8 +76,16 @@ export class LocationTrackerProvider {
         this.lng = position.coords.longitude;
 
         let savedLocation = new LatLng(position.coords.latitude, position.coords.longitude);
+        console.log(savedLocation);
         let myKey = firebase.database().ref('userCoords/' + eventId + '/' + this.userId).push();
-        this.userTrackFirebase.push({[myKey.key]: savedLocation, 'time': new Date().toISOString()});
+        // this.userTrackFirebase.push({[myKey.key]: savedLocation, 'time': new Date().toISOString()});
+        this.userTrackFirebase.push({
+          [myKey.key]: {
+            'lat': position.coords.latitude,
+            'lng': position.coords.longitude,
+            'time': new Date().toISOString()
+          }
+        });
         this.userTrack.push(savedLocation);
       });
     });
@@ -82,7 +97,10 @@ export class LocationTrackerProvider {
     });
   }
 
-  stopTracking() {
+  stopTracking(eventId) {
+    this.userTrackFirebase.forEach(data => {
+      firebase.database().ref('userCoords/' + eventId + '/').child(this.userId).update(data);
+    });
     this.backgroundGeolocation.finish();
     this.backgroundGeolocation.stop();
     this.watch.unsubscribe();

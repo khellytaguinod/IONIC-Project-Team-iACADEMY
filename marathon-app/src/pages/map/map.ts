@@ -17,7 +17,6 @@ import parseTrack from 'parse-gpx/src/parseTrack'
 import xml2js from 'xml2js';
 
 import {LocationTrackerProvider} from '../../providers/location-tracker/location-tracker';
-import {EventPage} from '../event/event';
 import {ConnectivityService} from '../../services/connectivity';
 import {Timer} from '../../app/timer';
 import {State} from '../../app/state';
@@ -94,9 +93,7 @@ export class MapPage {
 
   ionViewDidLeave() {
     this.unregisterBackButtonAction && this.unregisterBackButtonAction()
-    setTimeout(() => {
-      clearInterval(this.intervalId);
-    }, this.frequency)
+    clearInterval(this.intervalId);
   }
 
   initializeBackButtonCustomHandler(): void {
@@ -113,7 +110,7 @@ export class MapPage {
         handler: () => {
           this.navCtrl.pop().then(() => {
             this.navCtrl.pop();
-            this.locationTracker.stopTracking();
+            this.locationTracker.stopTracking(this.id);
           });
         }
       }, {
@@ -245,7 +242,7 @@ export class MapPage {
           this.timerReset();
           this.navCtrl.pop().then(() => {
             this.navCtrl.pop();
-            this.locationTracker.stopTracking();
+            this.locationTracker.stopTracking(this.id);
           });
         }
       }, {
