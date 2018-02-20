@@ -77,7 +77,7 @@ export class LocationTrackerProvider {
   }
 
   saveToDatabase(eventId) {
-    this.userTrack.forEach(data => {
+    this.userTrackFirebase.forEach(data => {
       firebase.database().ref('userCoords/' + eventId + '/').child(this.userId).update(data);
     });
   }
@@ -86,7 +86,7 @@ export class LocationTrackerProvider {
     this.backgroundGeolocation.finish();
     this.backgroundGeolocation.stop();
     this.watch.unsubscribe();
-    this.storage.set('coordinates', this.userTrack);
+    this.storage.set('coordinates', this.userTrackFirebase);
   }
 
   showRecord() {
