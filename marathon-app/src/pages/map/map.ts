@@ -1,7 +1,7 @@
-import { Component, ViewChild } from '@angular/core';
-import { Http } from '@angular/http';
+import {Component, ViewChild} from '@angular/core';
+import {Http} from '@angular/http';
 
-import { NavParams, Platform, AlertController, NavController, LoadingController } from 'ionic-angular';
+import {NavParams, Platform, AlertController, NavController, LoadingController} from 'ionic-angular';
 import {
   GoogleMaps,
   GoogleMap,
@@ -12,17 +12,17 @@ import {
   Marker,
   LatLng
 } from '@ionic-native/google-maps';
-import { Geolocation } from '@ionic-native/geolocation';
+import {Geolocation} from '@ionic-native/geolocation';
 import parseTrack from 'parse-gpx/src/parseTrack'
 import xml2js from 'xml2js';
 
 import {LocationTrackerProvider} from '../../providers/location-tracker/location-tracker';
-import { EventPage } from '../event/event';
-import { ConnectivityService } from '../../services/connectivity';
-import { Timer } from '../../app/timer';
-import { State } from '../../app/state';
+import {EventPage} from '../event/event';
+import {ConnectivityService} from '../../services/connectivity';
+import {Timer} from '../../app/timer';
+import {State} from '../../app/state';
 import firebase from 'firebase';
-import { Storage } from "@ionic/storage";
+import {Storage} from "@ionic/storage";
 
 @Component({
   selector: 'page-map',
@@ -118,10 +118,16 @@ export class MapPage {
         }
       }, {
         text: 'No',
-        role: 'cancel'
+        role: 'cancel',
+        handler: () => {
+          this.navCtrl.pop().then(() => {
+            this.initializeBackButtonCustomHandler();
+          });
+        }
       }]
     });
     alert.present();
+    this.unregisterBackButtonAction && this.unregisterBackButtonAction()
   }
 
   ionViewWillLeave() {
@@ -139,7 +145,7 @@ export class MapPage {
         } else {
           this.gpxData = parseTrack(xml.gpx.trk);
           for (let i = 0; i < this.gpxData.length; i++) {
-            let coordinates = { lat: JSON.parse(this.gpxData[i].latitude), lng: JSON.parse(this.gpxData[i].longitude) };
+            let coordinates = {lat: JSON.parse(this.gpxData[i].latitude), lng: JSON.parse(this.gpxData[i].longitude)};
             this.list.push(coordinates);
           }
 
@@ -197,9 +203,9 @@ export class MapPage {
         }); // marker for end point
 
       }).catch((err) => {
-        alert('error loading course map')
-        console.log('Error setting up', err);
-      });
+      alert('error loading course map')
+      console.log('Error setting up', err);
+    });
 
     setInterval(() => {
       this.drawCurrentTrack()
@@ -211,7 +217,7 @@ export class MapPage {
     this.map.addPolyline({
       points: this.locationTracker.userTrack,
       'color': '#29d855',
-      'width':  6,
+      'width': 6,
       'geodesic': false,
       'clickable': false
     });
@@ -254,19 +260,19 @@ export class MapPage {
   }
 
   timerPlay() {
-		this.timer.start();
-		this.state.setPlay();
-	}
+    this.timer.start();
+    this.state.setPlay();
+  }
 
-	timerStop() {
-		this.timer.stop();
-		this.state.setStop();
-	}
-	
-	timerReset() {
-		this.timer.reset();
-		this.state.setBackward();
-	}
+  timerStop() {
+    this.timer.stop();
+    this.state.setStop();
+  }
+
+  timerReset() {
+    this.timer.reset();
+    this.state.setBackward();
+  }
 
   private roundOff(number) {
     let factor = Math.pow(10, 4);
