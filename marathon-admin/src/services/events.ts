@@ -75,9 +75,9 @@ export class EventsService {
 
   onDeleteEvent(id: any, imgDefault: boolean) {
     if(!imgDefault) {
-      return firebase.storage().ref().child(`img/events/${id}.jpg`).delete()
+      firebase.storage().ref().child(`img/events/${id}.jpg`).delete()
       .then(() => {
-        firebase.database().ref('events/' + id).remove();
+        return firebase.database().ref('events/' + id).remove();
       })
     } else {
       return firebase.database().ref('events/' + id).remove();
