@@ -72,7 +72,7 @@ export class MapPage {
       alert.present();
     });
     this.loading = loadCtrl.create({
-      content: "Loading Map..."
+      content: "Preparing your course map"
     });
     this.loading.present();
     this.id = this.navParams.get('id');
