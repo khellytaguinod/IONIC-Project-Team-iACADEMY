@@ -17,8 +17,8 @@ import {LocationTrackerProvider} from '../../providers/location-tracker/location
 
 import parseTrack from 'parse-gpx/src/parseTrack'
 import xml2js from 'xml2js';
-import { EventPage } from '../event/event';
-import { ConnectivityService } from '../../services/connectivity';
+import {EventPage} from '../event/event';
+import {ConnectivityService} from '../../services/connectivity';
 import firebase from 'firebase';
 import {Storage} from "@ionic/storage";
 
@@ -45,6 +45,7 @@ export class MapPage {
   loading;
   intervalId;
   userId = firebase.auth().currentUser.uid;
+  unregisterBackButtonAction: any;
 
   constructor(private geolocation: Geolocation,
               public locationTracker: LocationTrackerProvider,
@@ -94,6 +95,7 @@ export class MapPage {
   }
 
   ionViewDidEnter() {
+    this.initializeBackButtonCustomHandler();
     this.fetchGPX();
     this.onStart(this.id);
     this.intervalId = setInterval(() => {
@@ -102,9 +104,35 @@ export class MapPage {
   }
 
   ionViewDidLeave() {
+    this.unregisterBackButtonAction && this.unregisterBackButtonAction()
     setTimeout(() => {
       clearInterval(this.intervalId);
     }, this.frequency)
+  }
+
+  initializeBackButtonCustomHandler(): void {
+    this.unregisterBackButtonAction = this.platform.registerBackButtonAction(() => {
+      this.customHandleBackButton();
+    }, 101);
+  }
+
+  private customHandleBackButton(): void {
+    let alert = this.alertCtrl.create({
+      title: 'Are you sure you want to quit?',
+      buttons: [{
+        text: 'Yes',
+        handler: () => {
+          this.navCtrl.pop().then(() => {
+            this.navCtrl.pop();
+            this.locationTracker.stopTracking();
+          });
+        }
+      }, {
+        text: 'No',
+        role: 'cancel'
+      }]
+    });
+    alert.present();
   }
 
   ionViewWillLeave() {
@@ -228,8 +256,14 @@ export class MapPage {
       buttons: [{
         text: 'Yes',
         handler: () => {
-          this.locationTracker.stopTracking();
-          this.navCtrl.setRoot(EventPage);
+          alert.dismiss().then(() => {
+            this.nav.pop();
+            this.locationTracker.stopTracking();
+          });
+          // this.navCtrl.pop().then(() => {
+          //   this.navCtrl.pop();
+          //   this.locationTracker.stopTracking();
+          // });
         }
       }, {
         text: 'No',
