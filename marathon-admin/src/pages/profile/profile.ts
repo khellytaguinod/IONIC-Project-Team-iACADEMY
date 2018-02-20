@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController, ToastController } from 'ionic-angular';
+import { AlertController, ToastController, NavController  } from 'ionic-angular';
 import { AuthService } from '../../services/auth';
 
 @Component({
@@ -10,7 +10,7 @@ export class ProfilePage {
   adminName: string;
   adminEmail: string;
 
-  constructor(private alertCtrl: AlertController, private toastCtrl: ToastController, private authService: AuthService) {
+  constructor(private alertCtrl: AlertController, private toastCtrl: ToastController, private authService: AuthService, public navCtrl: NavController) {
     this.getDetails();
   }
 
@@ -147,6 +147,7 @@ export class ProfilePage {
     alert.present();
   }
 
+
   private getDetails() {
     let admin = this.authService.getCurrentUser();
     if(admin) {
@@ -161,6 +162,11 @@ export class ProfilePage {
       duration: 2500
     });
     toast.present();
+
+    setTimeout(() => {
+      this.navCtrl.setRoot(this.navCtrl.getActive().component);
+    }, 1000);
+
   }
 
   private errorToast(type: string) {
