@@ -174,7 +174,7 @@ export class MapPage {
         }); // marker for start point
 
         this.map.addMarker({
-          'position': this.list.pop(),
+          'position': this.list[this.list.length - 1],
           'icon': 'red',
         }); // marker for end point
 
