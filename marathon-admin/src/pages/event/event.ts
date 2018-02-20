@@ -28,7 +28,6 @@ export class EventPage {
 
   constructor(public navParams: NavParams, public navCtrl: NavController, private actionSheetCtrl: ActionSheetController, private eventsService: EventsService, public alertCtrl: AlertController, public toastCtrl: ToastController) {
     this.eventData = this.navParams.get('event');
-    console.log(this.eventData.id);
     firebase.database().ref('participants/' + this.eventData.id).on('child_added', snapshot => {
       if (snapshot) {
         this.participants.push(snapshot.val());
