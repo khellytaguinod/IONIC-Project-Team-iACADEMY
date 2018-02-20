@@ -1,4 +1,3 @@
-import {HttpClient} from '@angular/common/http';
 import {Injectable, NgZone} from '@angular/core';
 
 import {Geolocation, Geoposition} from '@ionic-native/geolocation';
@@ -17,32 +16,28 @@ import {Storage} from '@ionic/storage';
 export class LocationTrackerProvider {
 
   public userTrack: any = [];
-  public list: any[] = [];  // james eto yung array na dapat isaved / push sa db natin
-  // public list: any[] = [];  // james eto yung array na dapat isaved / push sa db natin
+  public list: any[] = [];
   public watch: any;
   public lat: number = 0;
   public lng: number = 0;
   public name: string;
   userId = firebase.auth().currentUser.uid;
 
-  constructor(public zone: NgZone,
-              private geolocation: Geolocation,
-              private backgroundGeolocation: BackgroundGeolocation,
-              private storage: Storage) {
+  constructor(public zone: NgZone, private geolocation: Geolocation, private backgroundGeolocation: BackgroundGeolocation, private storage: Storage) {
   }
 
   startTracking(eventId) {
     // Background Tracking
     let config = {
       desiredAccuracy: 0,
-      stationaryRadius: 0,
+      stationaryRadius: 20,
       distanceFilter: 10,
       debug: true,
+      stopOnTerminate: true,
       interval: 2000
     };
 
     this.backgroundGeolocation.configure(config).subscribe((location) => {
-      console.log('BackgroundGeolocation:  ' + location.latitude + ',' + location.longitude);
       // Run update inside of Angular's zone
       this.zone.run(() => {
         this.lat = location.latitude;
@@ -51,13 +46,6 @@ export class LocationTrackerProvider {
         let savedLocation = new LatLng(location.latitude, location.longitude);
         let myKey = firebase.database().ref('userCoords/' + eventId + '/' + this.userId).push();
         this.userTrack.push({[myKey.key]: savedLocation});
-
-        // this.list.push(savedLocation); // james eto yung array na dapat isaved / push sa db natin
-        // console.log(this.list);
-
-        // let myKey = firebase.database().ref('/users/P9Ny6kCN13aVockO1qr7hXYLUsN2/').child('coordinates').push().key;
-        // firebase.database().ref('/users/P9Ny6kCN13aVockO1qr7hXYLUsN2/coordinates/' + myKey).update(savedLocation);
-
       });
     }, (err) => {
       console.log(err);
@@ -66,24 +54,24 @@ export class LocationTrackerProvider {
     // Turn ON the background-geolocation system.
     this.backgroundGeolocation.start();
 
-    // // Foreground Tracking
-    // let options = {
-    //   frequency: 3000,
-    //   enableHighAccuracy: true
-    // };
+    // Foreground Tracking
+    let options = {
+      frequency: 3000,
+      enableHighAccuracy: true
+    };
 
-    // this.watch = this.geolocation.watchPosition(options).filter((p: any) => p.code === undefined).subscribe((position: Geoposition) => {
-    //   console.log(position);
-    //   // Run update inside of Angular's zone
-    //   this.zone.run(() => {
-    //     this.lat = position.coords.latitude;
-    //     this.lng = position.coords.longitude;
-    //
-    //     let savedLocation = new LatLng(position.coords.latitude, position.coords.longitude);
-    //     let myKey = firebase.database().ref('userCoords/' + eventId + '/' + this.userId).push();
-    //     this.userTrack.push({[myKey.key]: savedLocation});
-    //   });
-    // });
+    this.watch = this.geolocation.watchPosition(options).filter((p: any) => p.code === undefined).subscribe((position: Geoposition) => {
+      console.log(position);
+      // Run update inside of Angular's zone
+      this.zone.run(() => {
+        this.lat = position.coords.latitude;
+        this.lng = position.coords.longitude;
+
+        let savedLocation = new LatLng(position.coords.latitude, position.coords.longitude);
+        let myKey = firebase.database().ref('userCoords/' + eventId + '/' + this.userId).push();
+        this.userTrack.push({[myKey.key]: savedLocation});
+      });
+    });
   }
 
   saveToDatabase(eventId) {
@@ -96,18 +84,14 @@ export class LocationTrackerProvider {
     console.log('stopTracking');
     this.backgroundGeolocation.finish();
     this.backgroundGeolocation.stop();
-    // this.watch.unsubscribe();
+    this.watch.unsubscribe();
     this.storage.set('coordinates', this.userTrack);
-    console.log(' coordinates array saved ');
-
   }
 
   showRecord() {
     this.storage.get('coordinates').then((val) => {
-
       this.name = val;
       console.log('coordinates are', val);
-      alert(val)
     });
   }
 }
