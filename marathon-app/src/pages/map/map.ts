@@ -1,5 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
-import { Http } from '@angular/http';
+import {Component, ViewChild} from '@angular/core';
+import {Http} from '@angular/http';
 
 import {NavParams, Platform, AlertController, NavController, LoadingController} from 'ionic-angular';
 import {
@@ -12,13 +12,15 @@ import {
   Marker,
   LatLng
 } from '@ionic-native/google-maps';
-import { Geolocation } from '@ionic-native/geolocation';
-import { LocationTrackerProvider } from '../../providers/location-tracker/location-tracker';
+import {Geolocation} from '@ionic-native/geolocation';
+import {LocationTrackerProvider} from '../../providers/location-tracker/location-tracker';
 
 import parseTrack from 'parse-gpx/src/parseTrack'
 import xml2js from 'xml2js';
 import { EventPage } from '../event/event';
 import { ConnectivityService } from '../../services/connectivity';
+import firebase from 'firebase';
+import {Storage} from "@ionic/storage";
 
 @Component({
   selector: 'page-map',
@@ -39,18 +41,21 @@ export class MapPage {
   map: GoogleMap;
   id;
   subscription;
+  frequency;
   loading;
+  intervalId;
+  userId = firebase.auth().currentUser.uid;
 
-  constructor(
-    private geolocation: Geolocation,
-    public locationTracker: LocationTrackerProvider,
-    private navParams: NavParams,
-    private platform: Platform,
-    private alertCtrl: AlertController,
-    public http: Http,
-    private loadCtrl: LoadingController,
-    private navCtrl: NavController,
-    private connectivity: ConnectivityService) {
+  constructor(private geolocation: Geolocation,
+              public locationTracker: LocationTrackerProvider,
+              private navParams: NavParams,
+              private platform: Platform,
+              private alertCtrl: AlertController,
+              public http: Http,
+              private loadCtrl: LoadingController,
+              private navCtrl: NavController,
+              private storage: Storage,
+              private connectivity: ConnectivityService) {
     this.platform.registerBackButtonAction(() => {
       let alert = this.alertCtrl.create({
         title: 'Are you sure you want to quit?',
@@ -72,6 +77,9 @@ export class MapPage {
     this.loading.present();
     this.id = this.navParams.get('id');
     this.name = this.navParams.get('event');
+    storage.get(this.userId).then(val => {
+      this.frequency = val;
+    })
   }
 
   ionViewWillEnter() {
@@ -88,6 +96,15 @@ export class MapPage {
   ionViewDidEnter() {
     this.fetchGPX();
     this.onStart(this.id);
+    this.intervalId = setInterval(() => {
+      this.locationTracker.saveToDatabase(this.id);
+    }, this.frequency)
+  }
+
+  ionViewDidLeave() {
+    setTimeout(() => {
+      clearInterval(this.intervalId);
+    }, this.frequency)
   }
 
   ionViewWillLeave() {
@@ -98,8 +115,6 @@ export class MapPage {
   fetchGPX() {
     this.http.get('https://marathon-app-database.firebaseapp.com/makatiRun.gpx').subscribe(data => {
       let dataCoords: any = data;
-      console.log(dataCoords._body);
-
       let parser = new xml2js.Parser();
       parser.parseString(dataCoords._body, (err, xml) => {
         if (err) {
@@ -107,13 +122,9 @@ export class MapPage {
         } else {
           this.gpxData = parseTrack(xml.gpx.trk);
           for (let i = 0; i < this.gpxData.length; i++) {
-            // console.log(track[i].latitude); // 43.512926660478115
-            // console.log(track[i].longitude);
-            let coordinates = { lat: JSON.parse(this.gpxData[i].latitude), lng: JSON.parse(this.gpxData[i].longitude) };
+            let coordinates = {lat: JSON.parse(this.gpxData[i].latitude), lng: JSON.parse(this.gpxData[i].longitude)};
             this.list.push(coordinates);
           }
-          console.log(this.list);
-          // this.loadMap();
 
           setTimeout(() => {
             this.loadMap();
@@ -130,7 +141,6 @@ export class MapPage {
       camera: {
         target: this.list[0],
         zoom: 16
-        // tilt: 30
       },
       controls: {
         compass: true,
@@ -140,7 +150,7 @@ export class MapPage {
         zoom: true
       },
       preferences: {
-        building: false
+        building: true
       }
     };
 
@@ -156,7 +166,7 @@ export class MapPage {
           'width': 7,
           'geodesic': false,
           'clickable': false
-        })
+        });
 
         this.map.addMarker({
           'position': this.list[0],
@@ -169,9 +179,9 @@ export class MapPage {
         }); // marker for end point
 
       }).catch((err) => {
-        alert('error loading course map')
-        console.log('Error setting up', err);
-      });
+      alert('error loading course map')
+      console.log('Error setting up', err);
+    });
     this.drawCurrentTrack()
   }
 
@@ -189,7 +199,7 @@ export class MapPage {
       .filter((p) => p.coords !== undefined) //Filter Out Errors
       .subscribe(position => {
         console.log(position.coords.longitude + ' ' + position.coords.latitude);
-        userTracks.push({ lat: position.coords.latitude, lng: position.coords.longitude })
+        userTracks.push({lat: position.coords.latitude, lng: position.coords.longitude})
 
         this.map.addPolyline({
           points: userTracks,
@@ -197,11 +207,9 @@ export class MapPage {
           'width': 6,
           'geodesic': false,
           'clickable': false
-        })
+        });
 
-        this.map.setCameraTarget(userTracks.pop());
-
-        console.log(userTracks);
+        this.map.setCameraTarget(userTracks[userTracks.length - 1]);
       });
   }
 

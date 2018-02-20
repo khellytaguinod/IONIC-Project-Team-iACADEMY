@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Http } from '@angular/http';
+
 import { ModalController } from 'ionic-angular';
 import {
   GoogleMaps,
@@ -11,6 +13,8 @@ import {
 } from '@ionic-native/google-maps';
 
 import firebase from 'firebase';
+import parseTrack from 'parse-gpx/src/parseTrack'
+import xml2js from 'xml2js';
 
 import { ParticipantsPage } from '../participants/participants';
 
@@ -19,13 +23,17 @@ import { ParticipantsPage } from '../participants/participants';
   templateUrl: 'live-event.html',
 })
 export class LiveEventPage {
+
+  public list: any[] = [];
+  public gpxData: any;
+
   eventData: any;
   isListed: boolean = false;
   participants: any = [];
   userPoints: any = [];
   map: GoogleMap;
 
-  constructor(private modalCtrl: ModalController) {
+  constructor(private modalCtrl: ModalController, public http: Http) {
     new Promise((resolve, reject) => {
       return firebase.database().ref('events').orderByChild('eventStatus').limitToFirst(1).equalTo('started').on('child_added', snapshot => {
         if (snapshot.val() != null) {
@@ -75,24 +83,39 @@ export class LiveEventPage {
   }
 
   ionViewDidLoad() {
-    setTimeout(() => {
-      this.loadMap();
-    }, 3000);
+    this.fetchGPX();
+  }
+
+  fetchGPX() {
+    this.http.get('https://marathon-app-database.firebaseapp.com/makatiRun.gpx').subscribe(data => {
+      let dataCoords: any = data;
+      let parser = new xml2js.Parser();
+      parser.parseString(dataCoords._body, (err, xml) => {
+        if (err) {
+          console.log(err);
+        } else {
+          this.gpxData = parseTrack(xml.gpx.trk);
+          for (let i = 0; i < this.gpxData.length; i++) {
+            let coordinates = { lat: JSON.parse(this.gpxData[i].latitude), lng: JSON.parse(this.gpxData[i].longitude) };
+            this.list.push(coordinates);
+          }
+          setTimeout(() => {
+            this.loadMap();
+          }, 5000);
+        }
+      });
+    });
   }
 
   loadMap() {
 
     let mapOptions: GoogleMapOptions = {
       camera: {
-        target: {
-          lat: 43.0741904,
-          lng: -89.3809802
-        },
-        zoom: 10,
-        // tilt: 30
+        target: this.list[0],
+        zoom: 16
       },
       controls: {
-        // compass: true,
+        compass: true,
         myLocation: true,
         myLocationButton: true,
         indoorPicker: false,
@@ -112,7 +135,7 @@ export class LiveEventPage {
 
         setInterval(() => {
           this.showUser()
-        }, 30000); // will add new pin about user whereabout every 30 seconds
+        }, 30000); // will add new pin about user whereAbout every 30 seconds
 
       });
   }
@@ -125,7 +148,6 @@ export class LiveEventPage {
         title: 'Ionic',
         // icon: 'https://cdn0.iconfinder.com/data/icons/world-issues/500/running_man-128.png',
         icon: 'green',
-        // animation: 'DROP',
         position: element
       })
     });
