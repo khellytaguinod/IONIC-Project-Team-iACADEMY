@@ -1,12 +1,13 @@
 import firebase from 'firebase';
 
 export class EventsService {
+  private default = 'https://cdn.barnimages.com/wp-content/uploads/2017/03/2017-03-27-roman-drits-barnimages-009-768x512.jpg';
 
   onAddEvent(name: string, description: string, date: string, time: string, startPoint: string, endPoint: string, imgUrl: any, photoTaken: boolean) {
     let eventSubmitted = {};
-    if(photoTaken == true) {
-      let key = firebase.database().ref('events').push().key;
-      let imgPath = `events/${key}.jpg`;
+    let key = firebase.database().ref('events').push().key;
+    let imgPath = `events/${key}.jpg`;
+    if(photoTaken) {
       firebase.storage().ref('img')
       .child(imgPath)
       .putString(imgUrl, firebase.storage.StringFormat.DATA_URL)
@@ -21,7 +22,7 @@ export class EventsService {
           imgPath: imgData.downloadURL,
           eventStatus: 'incoming',
         };
-        return firebase.database().ref('events').push(eventSubmitted);
+        return firebase.database().ref('events/' + key).update(eventSubmitted);
       });
     } else {
       eventSubmitted = {
@@ -31,7 +32,7 @@ export class EventsService {
         time: time,
         startPoint: startPoint,
         endPoint: endPoint,
-        imgPath: '',
+        imgPath: this.default,
         eventStatus: 'incoming',
       };
       return firebase.database().ref('events').push(eventSubmitted);
@@ -74,13 +75,13 @@ export class EventsService {
   }
 
   onDeleteEvent(id: any, imgDefault: boolean) {
-    if(!imgDefault) {
-      firebase.storage().ref().child(`img/events/${id}.jpg`).delete()
-      .then(() => {
-        return firebase.database().ref('events/' + id).remove();
-      })
-    } else {
+    if(imgDefault) {
       return firebase.database().ref('events/' + id).remove();
+    } else {
+      return firebase.storage().ref('img').child(`events/${id}.jpg`).delete()
+      .then(() => {
+        firebase.database().ref('events/' + id).remove();
+      })
     }
   }
 
