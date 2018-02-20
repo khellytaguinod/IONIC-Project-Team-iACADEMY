@@ -209,26 +209,6 @@ export class MapPage {
   // }
 
   drawCurrentTrack() {
-    // let userTracks: any[] = [];
-
-    // this.subscription = this.geolocation.watchPosition()
-    //   .filter((p) => p.coords !== undefined) //Filter Out Errors
-    //   .subscribe(position => {
-    //     console.log(position.coords.longitude + ' ' + position.coords.latitude);
-    //     userTracks.push({ lat: position.coords.latitude, lng: position.coords.longitude })
-
-    //     this.map.addPolyline({
-    //       points: userTracks,
-    //       'color': '#29d855',
-    //       'width': 6,
-    //       'geodesic': false,
-    //       'clickable': false
-    //     });
-
-    //     this.map.setCameraTarget(userTracks[userTracks.length - 1]);
-    //   });
-
-    // this.locationTracker.userTrack
 
     this.map.addPolyline({
       points: this.locationTracker.userTrack,
