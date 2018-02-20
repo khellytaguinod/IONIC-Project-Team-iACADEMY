@@ -233,18 +233,14 @@ export class MapPage {
 
   onFinish() {
     let alert = this.alertCtrl.create({
-      title: 'Are you sure you want to end your run?',
+      title: 'Are you sure you want to quit?',
       buttons: [{
         text: 'Yes',
         handler: () => {
-          alert.dismiss().then(() => {
-            this.nav.pop();
+          this.navCtrl.pop().then(() => {
+            this.navCtrl.pop();
             this.locationTracker.stopTracking();
           });
-          // this.navCtrl.pop().then(() => {
-          //   this.navCtrl.pop();
-          //   this.locationTracker.stopTracking();
-          // });
         }
       }, {
         text: 'No',
