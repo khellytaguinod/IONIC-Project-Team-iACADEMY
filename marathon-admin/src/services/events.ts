@@ -5,9 +5,9 @@ export class EventsService {
 
   onAddEvent(name: string, description: string, date: string, time: string, startPoint: string, endPoint: string, imgUrl: any, photoTaken: boolean) {
     let eventSubmitted = {};
-    if(photoTaken == true) {
-      let key = firebase.database().ref('events').push().key;
-      let imgPath = `events/${key}.jpg`;
+    let key = firebase.database().ref('events').push().key;
+    let imgPath = `events/${key}.jpg`;
+    if(photoTaken) {
       firebase.storage().ref('img')
       .child(imgPath)
       .putString(imgUrl, firebase.storage.StringFormat.DATA_URL)
@@ -78,9 +78,9 @@ export class EventsService {
     if(imgDefault) {
       return firebase.database().ref('events/' + id).remove();
     } else {
-      firebase.storage().ref('img').child(`events/${id}.jpg`).delete()
+      return firebase.storage().ref('img').child(`events/${id}.jpg`).delete()
       .then(() => {
-        return firebase.database().ref('events/' + id).remove();
+        firebase.database().ref('events/' + id).remove();
       })
     }
   }

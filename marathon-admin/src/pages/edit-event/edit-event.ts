@@ -106,11 +106,9 @@ export class EditEventPage {
           toast.present();
         });
     } else {
-      this.eventsService.onAddEvent(this.eventForm.value.name, this.eventForm.value.description, this.eventForm.value.date, this.eventForm.value.time, this.start, this.end, this.cameraUrl, this.photoTaken)
-      .then(data => {
-        this.initializeForm();
-        this.navCtrl.setRoot(EventsPage);
-      })
+      this.eventsService.onAddEvent(this.eventForm.value.name, this.eventForm.value.description, this.eventForm.value.date, this.eventForm.value.time, this.start, this.end, this.cameraUrl, this.photoTaken);
+      this.initializeForm();
+      this.navCtrl.setRoot(EventsPage);
     }
   }
 
