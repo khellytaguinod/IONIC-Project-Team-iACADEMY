@@ -35,7 +35,7 @@ export class AuthService {
         photoURL: photoURL
       })
     }
-    return firebase.database().ref('/users').child(user.uid + '/profile').update({
+    return firebase.database().ref('/users').child(user.uid).update({
       name: displayName
     });
   }
@@ -50,7 +50,7 @@ export class AuthService {
         displayName: user.displayName,
         photoURL: imgData.downloadURL
       })
-      firebase.database().ref('/users').child(user.uid + '/profile').update({
+      firebase.database().ref('/users').child(user.uid).update({
         imgPath: imgData.downloadURL
       });
     })
@@ -59,7 +59,7 @@ export class AuthService {
   updateUserEmail(email: string) {
     let user = firebase.auth().currentUser;
     user.updateEmail(email);
-    return firebase.database().ref('/users').child(user.uid + '/profile').update({
+    return firebase.database().ref('/users').child(user.uid).update({
       email: email
     })
   }
