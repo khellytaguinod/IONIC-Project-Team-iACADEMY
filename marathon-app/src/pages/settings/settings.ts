@@ -76,7 +76,6 @@ export class SettingsPage {
 
   onReauthenticate(type: string) {
     let alert = this.alertCtrl.create({
-      title: 'Sign In',
       subTitle: 'Enter your current email and password before changing your ' + type,
       inputs: [{
         name: 'email',
