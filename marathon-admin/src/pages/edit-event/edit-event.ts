@@ -39,13 +39,6 @@ export class EditEventPage {
     this.initializeForm();
   }
 
-  ionViewDidEnter () {
-    if(this.mode === 'edit') {
-      // this.loadMap();
-      // this.showNavigation();
-    }
-  }
-
   onUploadImg() {
     let actionSheet = this.actionSheetCtrl.create({
       buttons: [{

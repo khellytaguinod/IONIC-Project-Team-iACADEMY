@@ -13,14 +13,16 @@ import {
   LatLng
 } from '@ionic-native/google-maps';
 import {Geolocation} from '@ionic-native/geolocation';
-import {LocationTrackerProvider} from '../../providers/location-tracker/location-tracker';
-
-import parseTrack from 'parse-gpx/src/parseTrack'
+import {Storage} from '@ionic/storage';
+import firebase from 'firebase';
 import xml2js from 'xml2js';
+import parseTrack from 'parse-gpx/src/parseTrack';
+
+import {LocationTrackerProvider} from '../../providers/location-tracker/location-tracker';
 import { EventPage } from '../event/event';
 import { ConnectivityService } from '../../services/connectivity';
-import firebase from 'firebase';
-import {Storage} from "@ionic/storage";
+import { Timer } from '../../app/timer';
+import { State } from '../../app/state';
 
 @Component({
   selector: 'page-map',
@@ -55,7 +57,9 @@ export class MapPage {
               private loadCtrl: LoadingController,
               private navCtrl: NavController,
               private storage: Storage,
-              private connectivity: ConnectivityService) {
+              private connectivity: ConnectivityService,
+              private timer: Timer,
+              private state: State) {
     this.platform.registerBackButtonAction(() => {
       let alert = this.alertCtrl.create({
         title: 'Are you sure you want to quit?',
@@ -137,6 +141,7 @@ export class MapPage {
 
   loadMap() {
     this.loading.dismiss();
+    this.timerPlay();
     let mapOptions: GoogleMapOptions = {
       camera: {
         target: this.list[0],
@@ -223,21 +228,41 @@ export class MapPage {
   }
 
   onFinish() {
+    this.timerStop();
     let alert = this.alertCtrl.create({
       title: 'Are you sure you want to end your run?',
       buttons: [{
         text: 'Yes',
         handler: () => {
           this.locationTracker.stopTracking();
+          this.timerReset();
           this.navCtrl.setRoot(EventPage);
         }
       }, {
         text: 'No',
-        role: 'cancel'
+        role: 'cancel',
+        handler: () => {
+          this.timerPlay();
+        }
       }]
     });
     alert.present();
   }
+
+  timerPlay() {
+		this.timer.start();
+		this.state.setPlay();
+	}
+
+	timerStop() {
+		this.timer.stop();
+		this.state.setStop();
+	}
+	
+	timerReset() {
+		this.timer.reset();
+		this.state.setBackward();
+	}
 
   private roundOff(number) {
     let factor = Math.pow(10, 4);
