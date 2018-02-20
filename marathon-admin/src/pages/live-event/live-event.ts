@@ -9,7 +9,8 @@ import {
   GoogleMapOptions,
   CameraPosition,
   MarkerOptions,
-  Marker
+  Marker,
+  LatLng
 } from '@ionic-native/google-maps';
 
 import firebase from 'firebase';
@@ -57,7 +58,7 @@ export class LiveEventPage {
       };
 
       firebase.database().ref('userCoords/' + eventData.id).on('child_added', datasnapshot => {
-        firebase.database().ref('userCoords/' + eventData.id + '/' + datasnapshot.ref.key).child('coordinates').limitToLast(1).on('child_added', coordsnapshot => {
+        firebase.database().ref('userCoords/' + eventData.id + '/' + datasnapshot.ref.key).limitToLast(1).on('child_added', coordsnapshot => {
           // this.userPoints.push({
           //   id: datasnapshot.ref.key,
           //   coordinatesId: coordsnapshot.ref.key,
@@ -115,9 +116,6 @@ export class LiveEventPage {
         zoom: 16
       },
       controls: {
-        compass: true,
-        myLocation: true,
-        myLocationButton: true,
         indoorPicker: false,
         zoom: true
       },
@@ -148,7 +146,7 @@ export class LiveEventPage {
         title: 'Ionic',
         // icon: 'https://cdn0.iconfinder.com/data/icons/world-issues/500/running_man-128.png',
         icon: 'green',
-        position: element
+        position: new LatLng(element.lat, element.lng)
       })
     });
   }
