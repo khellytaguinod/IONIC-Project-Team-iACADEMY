@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Http } from '@angular/http';
 
-import {ModalController, NavParams, Platform, AlertController, NavController, LoadingController} from 'ionic-angular';
+import {NavParams, Platform, AlertController, NavController, LoadingController} from 'ionic-angular';
 import {
   GoogleMaps,
   GoogleMap,
@@ -13,11 +13,11 @@ import {
   LatLng
 } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
-import { StatsPage } from '../stats/stats';
 import { LocationTrackerProvider } from '../../providers/location-tracker/location-tracker';
 
 import parseTrack from 'parse-gpx/src/parseTrack'
 import xml2js from 'xml2js';
+import { EventPage } from '../event/event';
 
 @Component({
   selector: 'page-map',
@@ -40,12 +40,12 @@ export class MapPage {
   constructor(
     private geolocation: Geolocation,
     public locationTracker: LocationTrackerProvider,
-    private modalCtrl: ModalController,
     private navParams: NavParams,
     private platform: Platform,
     private alertCtrl: AlertController,
     public http: Http,
-    private loadCtrl: LoadingController) {
+    private loadCtrl: LoadingController,
+    private navCtrl: NavController) {
     this.platform.registerBackButtonAction(() => {
       let alert = this.alertCtrl.create({
         title: 'Are you sure you want to quit?',
@@ -193,9 +193,21 @@ export class MapPage {
     this.locationTracker.startTracking(eventId);
   }
 
-  onOpenStats() {
-    let modal = this.modalCtrl.create(StatsPage);
-    modal.present();
+  onFinish() {
+    let alert = this.alertCtrl.create({
+      title: 'Are you sure you want to end your run?',
+      buttons: [{
+        text: 'Yes',
+        handler: () => {
+          this.locationTracker.stopTracking();
+          this.navCtrl.setRoot(EventPage);
+        }
+      }, {
+        text: 'No',
+        role: 'cancel'
+      }]
+    });
+    alert.present();
   }
 
   private roundOff(number) {
