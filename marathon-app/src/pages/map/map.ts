@@ -18,12 +18,16 @@ import { LocationTrackerProvider } from '../../providers/location-tracker/locati
 import parseTrack from 'parse-gpx/src/parseTrack'
 import xml2js from 'xml2js';
 import { EventPage } from '../event/event';
+import { ConnectivityService } from '../../services/connectivity';
 
 @Component({
   selector: 'page-map',
   templateUrl: 'map.html',
 })
 export class MapPage {
+  isOffline: boolean;
+  private online;
+  private offline;
   @ViewChild('rootNavController') nav: NavController;
 
   public list: any[] = [];
@@ -45,7 +49,8 @@ export class MapPage {
     private alertCtrl: AlertController,
     public http: Http,
     private loadCtrl: LoadingController,
-    private navCtrl: NavController) {
+    private navCtrl: NavController,
+    private connectivity: ConnectivityService) {
     this.platform.registerBackButtonAction(() => {
       let alert = this.alertCtrl.create({
         title: 'Are you sure you want to quit?',
@@ -69,9 +74,25 @@ export class MapPage {
     this.name = this.navParams.get('event');
   }
 
+  ionViewWillEnter() {
+    this.offline = this.connectivity.isOffline().subscribe(data => {
+      console.log(data);
+      this.isOffline = true;
+    });
+    this.online = this.connectivity.isOnline().subscribe(data => {
+      console.log(data);
+      this.isOffline = false;
+    });
+  }
+
   ionViewDidEnter() {
     this.fetchGPX();
     this.onStart(this.id);
+  }
+
+  ionViewWillLeave() {
+    this.offline.unsubscribe();
+    this.online.unsubscribe();
   }
 
   fetchGPX() {

@@ -1,16 +1,19 @@
 import {Component, OnInit} from '@angular/core';
-import {ViewController, NavParams, ToastController, Events} from 'ionic-angular';
+import {ViewController, NavParams, ToastController, Events, NavController} from 'ionic-angular';
 import {NgForm} from '@angular/forms';
 
 import {AuthService} from '../../services/auth';
 import firebase from "firebase";
 import {LoginPage} from "../login/login";
+import { ConnectivityService } from '../../services/connectivity';
+import { NoConnectionPage } from '../no-connection/no-connection';
 
 @Component({
   selector: 'page-edit-user',
   templateUrl: 'edit-user.html',
 })
 export class EditUserPage implements OnInit {
+  private offline;
   username;
   email;
   name;
@@ -18,7 +21,7 @@ export class EditUserPage implements OnInit {
   toEdit;
   rootPage: any;
 
-  constructor(private viewCtrl: ViewController, private authService: AuthService, private navParams: NavParams, private toastCtrl: ToastController, private events: Events) {
+  constructor(private viewCtrl: ViewController, private authService: AuthService, private navParams: NavParams, private toastCtrl: ToastController, private events: Events, private navCtrl: NavController, private connectivity: ConnectivityService) {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.name = user.displayName;
@@ -40,10 +43,20 @@ export class EditUserPage implements OnInit {
     }
   }
 
+  ionViewWillEnter() {
+    this.offline = this.connectivity.isOffline().subscribe(data => {
+      this.navCtrl.push(NoConnectionPage);
+    });
+  }
+
   ionViewDidLoad() {
     this.authService.getUserDetails();
     this.username = this.authService.username;
     this.email = this.authService.email;
+  }
+
+  ionViewWillLeave() {
+    this.offline.unsubscribe();
   }
 
   onEditName(form: NgForm) {

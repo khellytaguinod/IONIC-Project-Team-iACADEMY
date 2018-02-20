@@ -1,21 +1,25 @@
 import {Component} from '@angular/core';
 import {NavController, AlertController, ToastController} from 'ionic-angular';
+import {Storage} from "@ionic/storage";
+import firebase from 'firebase';
+
 import {ChangeFrequencyPage} from '../change-frequency/change-frequency';
 import {EditUserPage} from '../edit-user/edit-user';
 import { AuthService } from '../../services/auth';
 import { ChangePhotoPage } from '../change-photo/change-photo';
-import {Storage} from "@ionic/storage";
-import firebase from 'firebase';
+import { ConnectivityService } from '../../services/connectivity';
+import { NoConnectionPage } from '../no-connection/no-connection';
 
 @Component({
   selector: 'page-settings',
   templateUrl: 'settings.html',
 })
 export class SettingsPage {
+  private offline;
   frequency: string = `1 minute`;
   id = firebase.auth().currentUser.uid;
 
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController, private authService: AuthService, public toastCtrl: ToastController, private storage: Storage) {
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, private authService: AuthService, public toastCtrl: ToastController, private storage: Storage, private connectivity: ConnectivityService) {
     storage.get(this.id).then(val => {
       if(val == 30000){
         this.frequency = val/1000 + ' seconds'
@@ -25,6 +29,16 @@ export class SettingsPage {
         this.frequency = val/1000/10/6 + ' minutes'
       }
     })
+  }
+
+  ionViewWillEnter() {
+    this.offline = this.connectivity.isOffline().subscribe(data => {
+      this.navCtrl.push(NoConnectionPage);
+    });
+  }
+
+  ionViewWillLeave() {
+    this.offline.unsubscribe();
   }
 
   onChangeFrequency() {
