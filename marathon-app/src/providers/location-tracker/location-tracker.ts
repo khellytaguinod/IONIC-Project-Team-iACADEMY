@@ -15,6 +15,7 @@ import {Storage} from '@ionic/storage';
 @Injectable()
 export class LocationTrackerProvider {
 
+  public userTrackFirebase: any = [];
   public userTrack: any = [];
   public list: any[] = [];
   public watch: any;
@@ -45,7 +46,8 @@ export class LocationTrackerProvider {
 
         let savedLocation = new LatLng(location.latitude, location.longitude);
         let myKey = firebase.database().ref('userCoords/' + eventId + '/' + this.userId).push();
-        this.userTrack.push({[myKey.key]: savedLocation});
+        this.userTrackFirebase.push({[myKey.key]: savedLocation});
+        this.userTrack.push(savedLocation)
       });
     }, (err) => {
       console.log(err);
@@ -69,13 +71,15 @@ export class LocationTrackerProvider {
 
         let savedLocation = new LatLng(position.coords.latitude, position.coords.longitude);
         let myKey = firebase.database().ref('userCoords/' + eventId + '/' + this.userId).push();
-        this.userTrack.push({[myKey.key]: savedLocation});
+        this.userTrackFirebase.push({[myKey.key]: savedLocation});
+        this.userTrack.push(savedLocation)
+
       });
     });
   }
 
   saveToDatabase(eventId) {
-    this.userTrack.forEach(data => {
+    this.userTrackFirebase.forEach(data => {
       firebase.database().ref('userCoords/' + eventId + '/').child(this.userId).update(data);
     });
   }
@@ -85,7 +89,7 @@ export class LocationTrackerProvider {
     this.backgroundGeolocation.finish();
     this.backgroundGeolocation.stop();
     this.watch.unsubscribe();
-    this.storage.set('coordinates', this.userTrack);
+    this.storage.set('coordinates', this.userTrackFirebase);
   }
 
   showRecord() {

@@ -1,7 +1,7 @@
-import {Component, ViewChild} from '@angular/core';
-import {Http} from '@angular/http';
+import { Component, ViewChild } from '@angular/core';
+import { Http } from '@angular/http';
 
-import {NavParams, Platform, AlertController, NavController, LoadingController} from 'ionic-angular';
+import { NavParams, Platform, AlertController, NavController, LoadingController } from 'ionic-angular';
 import {
   GoogleMaps,
   GoogleMap,
@@ -12,15 +12,15 @@ import {
   Marker,
   LatLng
 } from '@ionic-native/google-maps';
-import {Geolocation} from '@ionic-native/geolocation';
-import {LocationTrackerProvider} from '../../providers/location-tracker/location-tracker';
+import { Geolocation } from '@ionic-native/geolocation';
+import { LocationTrackerProvider } from '../../providers/location-tracker/location-tracker';
 
 import parseTrack from 'parse-gpx/src/parseTrack'
 import xml2js from 'xml2js';
-import {EventPage} from '../event/event';
-import {ConnectivityService} from '../../services/connectivity';
+import { EventPage } from '../event/event';
+import { ConnectivityService } from '../../services/connectivity';
 import firebase from 'firebase';
-import {Storage} from "@ionic/storage";
+import { Storage } from "@ionic/storage";
 
 @Component({
   selector: 'page-map',
@@ -48,15 +48,15 @@ export class MapPage {
   unregisterBackButtonAction: any;
 
   constructor(private geolocation: Geolocation,
-              public locationTracker: LocationTrackerProvider,
-              private navParams: NavParams,
-              private platform: Platform,
-              private alertCtrl: AlertController,
-              public http: Http,
-              private loadCtrl: LoadingController,
-              private navCtrl: NavController,
-              private storage: Storage,
-              private connectivity: ConnectivityService) {
+    public locationTracker: LocationTrackerProvider,
+    private navParams: NavParams,
+    private platform: Platform,
+    private alertCtrl: AlertController,
+    public http: Http,
+    private loadCtrl: LoadingController,
+    private navCtrl: NavController,
+    private storage: Storage,
+    private connectivity: ConnectivityService) {
     this.platform.registerBackButtonAction(() => {
       let alert = this.alertCtrl.create({
         title: 'Are you sure you want to quit?',
@@ -150,7 +150,7 @@ export class MapPage {
         } else {
           this.gpxData = parseTrack(xml.gpx.trk);
           for (let i = 0; i < this.gpxData.length; i++) {
-            let coordinates = {lat: JSON.parse(this.gpxData[i].latitude), lng: JSON.parse(this.gpxData[i].longitude)};
+            let coordinates = { lat: JSON.parse(this.gpxData[i].latitude), lng: JSON.parse(this.gpxData[i].longitude) };
             this.list.push(coordinates);
           }
 
@@ -207,10 +207,13 @@ export class MapPage {
         }); // marker for end point
 
       }).catch((err) => {
-      alert('error loading course map')
-      console.log('Error setting up', err);
-    });
-    this.drawCurrentTrack()
+        alert('error loading course map')
+        console.log('Error setting up', err);
+      });
+
+    setInterval(() => {
+      this.drawCurrentTrack()
+    }, 5000);
   }
 
   // startDrawingUserTrack(){
@@ -221,24 +224,37 @@ export class MapPage {
   // }
 
   drawCurrentTrack() {
-    let userTracks: any[] = [];
+    // let userTracks: any[] = [];
 
-    this.subscription = this.geolocation.watchPosition()
-      .filter((p) => p.coords !== undefined) //Filter Out Errors
-      .subscribe(position => {
-        console.log(position.coords.longitude + ' ' + position.coords.latitude);
-        userTracks.push({lat: position.coords.latitude, lng: position.coords.longitude})
+    // this.subscription = this.geolocation.watchPosition()
+    //   .filter((p) => p.coords !== undefined) //Filter Out Errors
+    //   .subscribe(position => {
+    //     console.log(position.coords.longitude + ' ' + position.coords.latitude);
+    //     userTracks.push({ lat: position.coords.latitude, lng: position.coords.longitude })
 
-        this.map.addPolyline({
-          points: userTracks,
-          'color': '#29d855',
-          'width': 6,
-          'geodesic': false,
-          'clickable': false
-        });
+    //     this.map.addPolyline({
+    //       points: userTracks,
+    //       'color': '#29d855',
+    //       'width': 6,
+    //       'geodesic': false,
+    //       'clickable': false
+    //     });
 
-        this.map.setCameraTarget(userTracks[userTracks.length - 1]);
-      });
+    //     this.map.setCameraTarget(userTracks[userTracks.length - 1]);
+    //   });
+
+    // this.locationTracker.userTrack
+
+    this.map.addPolyline({
+      points: this.locationTracker.userTrack,
+      'color': '#29d855',
+      'width':  6,
+      'geodesic': false,
+      'clickable': false
+    });
+
+    this.map.setCameraTarget(this.locationTracker.userTrack[this.locationTracker.userTrack.length - 1]);
+
   }
 
 
