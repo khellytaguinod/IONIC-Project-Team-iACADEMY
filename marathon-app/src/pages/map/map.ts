@@ -18,6 +18,7 @@ import {LocationTrackerProvider} from '../../providers/location-tracker/location
 import parseTrack from 'parse-gpx/src/parseTrack'
 import xml2js from 'xml2js';
 import {EventPage} from '../event/event';
+import {ConnectivityService} from '../../services/connectivity';
 import firebase from 'firebase';
 import {Storage} from "@ionic/storage";
 
@@ -26,6 +27,9 @@ import {Storage} from "@ionic/storage";
   templateUrl: 'map.html',
 })
 export class MapPage {
+  isOffline: boolean;
+  private online;
+  private offline;
   @ViewChild('rootNavController') nav: NavController;
 
   public list: any[] = [];
@@ -51,9 +55,25 @@ export class MapPage {
               public http: Http,
               private loadCtrl: LoadingController,
               private navCtrl: NavController,
-              private storage: Storage) {
+              private storage: Storage,
+              private connectivity: ConnectivityService) {
+    this.platform.registerBackButtonAction(() => {
+      let alert = this.alertCtrl.create({
+        title: 'Are you sure you want to quit?',
+        buttons: [{
+          text: 'Yes',
+          handler: () => {
+            this.nav.popToRoot();
+          }
+        }, {
+          text: 'No',
+          role: 'cancel'
+        }]
+      });
+      alert.present();
+    });
     this.loading = loadCtrl.create({
-      content: "Loading Map..."
+      content: "Preparing your course map"
     });
     this.loading.present();
     this.id = this.navParams.get('id');
@@ -61,6 +81,17 @@ export class MapPage {
     storage.get(this.userId).then(val => {
       this.frequency = val;
     })
+  }
+
+  ionViewWillEnter() {
+    this.offline = this.connectivity.isOffline().subscribe(data => {
+      console.log(data);
+      this.isOffline = true;
+    });
+    this.online = this.connectivity.isOnline().subscribe(data => {
+      console.log(data);
+      this.isOffline = false;
+    });
   }
 
   ionViewDidEnter() {
@@ -102,6 +133,11 @@ export class MapPage {
       }]
     });
     alert.present();
+  }
+
+  ionViewWillLeave() {
+    this.offline.unsubscribe();
+    this.online.unsubscribe();
   }
 
   fetchGPX() {
@@ -166,7 +202,7 @@ export class MapPage {
         }); // marker for start point
 
         this.map.addMarker({
-          'position': this.list.pop(),
+          'position': this.list[this.list.length - 1],
           'icon': 'red',
         }); // marker for end point
 

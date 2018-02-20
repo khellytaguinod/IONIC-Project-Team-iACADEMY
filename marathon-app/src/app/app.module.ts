@@ -25,6 +25,7 @@ import { LocationTrackerProvider } from '../providers/location-tracker/location-
 import { Network } from '@ionic-native/network';
 import { ConnectivityService } from '../services/connectivity';
 import { ChangePhotoPage } from '../pages/change-photo/change-photo';
+import { NoConnectionPage } from '../pages/no-connection/no-connection';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { ChangePhotoPage } from '../pages/change-photo/change-photo';
     RegisterPage,
     ChangeFrequencyPage,
     EditUserPage,
-    ChangePhotoPage
+    ChangePhotoPage,
+    NoConnectionPage
   ],
   imports: [
     BrowserModule,
@@ -56,7 +58,8 @@ import { ChangePhotoPage } from '../pages/change-photo/change-photo';
     RegisterPage,
     ChangeFrequencyPage,
     EditUserPage,
-    ChangePhotoPage
+    ChangePhotoPage,
+    NoConnectionPage
   ],
   providers: [
     GoogleMaps,
