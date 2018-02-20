@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Http } from '@angular/http';
 
-import { ModalController } from 'ionic-angular';
+import { ModalController, LoadingController } from 'ionic-angular';
 import {
   GoogleMaps,
   GoogleMap,
@@ -9,7 +9,8 @@ import {
   GoogleMapOptions,
   CameraPosition,
   MarkerOptions,
-  Marker
+  Marker,
+  LatLng
 } from '@ionic-native/google-maps';
 
 import firebase from 'firebase';
@@ -32,8 +33,16 @@ export class LiveEventPage {
   participants: any = [];
   userPoints: any = [];
   map: GoogleMap;
+  loading;
 
-  constructor(private modalCtrl: ModalController, public http: Http) {
+
+  constructor(private modalCtrl: ModalController, public http: Http, private loadCtrl: LoadingController,
+) {
+    this.loading = loadCtrl.create({
+      content: "Preparing Live Event Map"
+    });
+    this.loading.present();
+
     new Promise((resolve, reject) => {
       return firebase.database().ref('events').orderByChild('eventStatus').limitToFirst(1).equalTo('started').on('child_added', snapshot => {
         if (snapshot.val() != null) {
@@ -57,7 +66,7 @@ export class LiveEventPage {
       };
 
       firebase.database().ref('userCoords/' + eventData.id).on('child_added', datasnapshot => {
-        firebase.database().ref('userCoords/' + eventData.id + '/' + datasnapshot.ref.key).child('coordinates').limitToLast(1).on('child_added', coordsnapshot => {
+        firebase.database().ref('userCoords/' + eventData.id + '/' + datasnapshot.ref.key).limitToLast(1).on('child_added', coordsnapshot => {
           // this.userPoints.push({
           //   id: datasnapshot.ref.key,
           //   coordinatesId: coordsnapshot.ref.key,
@@ -108,6 +117,7 @@ export class LiveEventPage {
   }
 
   loadMap() {
+    this.loading.dismiss();
 
     let mapOptions: GoogleMapOptions = {
       camera: {
@@ -115,9 +125,6 @@ export class LiveEventPage {
         zoom: 16
       },
       controls: {
-        compass: true,
-        myLocation: true,
-        myLocationButton: true,
         indoorPicker: false,
         zoom: true
       },
@@ -133,11 +140,32 @@ export class LiveEventPage {
       .then(() => {
         console.log('Map is ready!');
 
+        this.map.addPolyline({
+          points: this.list,
+          'color': '#8342f4',
+          'width': 7,
+          'geodesic': false,
+          'clickable': false
+        });
+
+        this.map.addMarker({
+          'position': this.list[0],
+          'icon': '##49cc67',
+        }); // marker for start point
+
+        this.map.addMarker({
+          'position': this.list[this.list.length - 1],
+          'icon': 'red',
+        }); // marker for end point
+
+        this.showUser();
+
         setInterval(() => {
           this.showUser()
         }, 30000); // will add new pin about user whereAbout every 30 seconds
 
       });
+      
   }
 
   showUser() {
@@ -148,7 +176,7 @@ export class LiveEventPage {
         title: 'Ionic',
         // icon: 'https://cdn0.iconfinder.com/data/icons/world-issues/500/running_man-128.png',
         icon: 'green',
-        position: element
+        position: new LatLng(element.lat, element.lng)
       })
     });
   }
