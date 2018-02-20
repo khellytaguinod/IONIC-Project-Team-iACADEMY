@@ -26,7 +26,7 @@ export class AuthService {
         photoURL: photoUrl
       })
     }
-    return firebase.database().ref('/users').child(admin.uid + '/profile').update({
+    return firebase.database().ref('/users').child(admin.uid).update({
       name: displayName
     });
   }
@@ -34,7 +34,7 @@ export class AuthService {
   editUserEmail(email: string) {
     let admin = this.getCurrentUser();
     admin.updateEmail(email);
-    return firebase.database().ref('/users').child(admin.uid + '/profile').update({
+    return firebase.database().ref('/users').child(admin.uid).update({
       email: email
     })
   }
