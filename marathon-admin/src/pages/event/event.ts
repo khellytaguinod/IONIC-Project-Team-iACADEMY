@@ -28,6 +28,7 @@ export class EventPage {
 
   constructor(public navParams: NavParams, public navCtrl: NavController, private actionSheetCtrl: ActionSheetController, private eventsService: EventsService, public alertCtrl: AlertController, public loadCtrl: LoadingController, public toastCtrl: ToastController) {
     this.eventData = this.navParams.get('event');
+    console.log(this.eventData.id);
     firebase.database().ref('participants/' + this.eventData.id).on('child_added', snapshot => {
       if (snapshot) {
         this.participants.push(snapshot.val());
@@ -74,18 +75,17 @@ export class EventPage {
       buttons: [{
         text: 'Yes',
         handler: () => {
-          let load = this.loadCtrl.create({
-            content: 'Deleting event...'
-          });
-          load.present();
-          let isDefault = (this.eventData.imgPath == this.default) ? true : false;
+          let isDefault: boolean = (this.eventData.imgPath == this.default) ? true : false;
           this.eventsService.onDeleteEvent(this.eventData.id, isDefault)
           .then(() => {
+            let load = this.loadCtrl.create({
+              content: 'Deleting event...'
+            });
+            load.present();
             load.dismiss();
             this.navCtrl.setRoot(EventsPage);
           })
           .catch(err => {
-            load.dismiss();
             let toast = this.toastCtrl.create({
               message: 'Cannot delete event. Please try again.',
               duration: 2000

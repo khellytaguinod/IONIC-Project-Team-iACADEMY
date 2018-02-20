@@ -8,8 +8,6 @@ import { StartPointPage } from '../start-point/start-point';
 import { EndPointPage } from '../end-point/end-point';
 import { EventsPage } from '../events/events';
 
-declare var google;
-
 @Component({
   selector: 'page-edit-event',
   templateUrl: 'edit-event.html',
@@ -95,12 +93,12 @@ export class EditEventPage {
 
   onAddEventDetails() {
     if (this.mode === 'edit') {
-      let loading = this.loadCtrl.create({
-        content: 'Updating event...'
-      });
-      loading.present();
       this.eventsService.onEditEvent(this.eventData.id, this.eventForm.value.name, this.eventForm.value.description, this.eventForm.value.date, this.eventForm.value.time, this.eventData.status, this.start, this.end, this.cameraUrl, this.eventData.imgPath, this.photoTaken)
         .then(data => {
+          let loading = this.loadCtrl.create({
+            content: 'Updating event...'
+          });
+          loading.present();
           this.initializeForm();
           loading.dismiss();
           this.navCtrl.setRoot(EventsPage);
@@ -113,12 +111,12 @@ export class EditEventPage {
           toast.present();
         });
     } else {
-      let loading = this.loadCtrl.create({
-        content: 'Saving event...'
-      });
-      loading.present();
       this.eventsService.onAddEvent(this.eventForm.value.name, this.eventForm.value.description, this.eventForm.value.date, this.eventForm.value.time, this.start, this.end, this.cameraUrl, this.photoTaken)
       .then(data => {
+        let loading = this.loadCtrl.create({
+          content: 'Saving event...'
+        });
+        loading.present();
         this.initializeForm();
         loading.dismiss();
         this.navCtrl.setRoot(EventsPage);
