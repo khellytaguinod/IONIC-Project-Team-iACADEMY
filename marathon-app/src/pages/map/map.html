@@ -1,3 +1,8 @@
+<ion-header *ngIf="isOffline" no-border>
+  <ion-toolbar class="noconnect">
+    <span>No internet connection detected. Please check your connection.</span>
+  </ion-toolbar>
+</ion-header>
 <ion-nav id="nav" #rootNavController [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
 
 <ion-content no-padding>

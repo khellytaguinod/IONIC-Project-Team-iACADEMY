@@ -1,17 +1,19 @@
 import {Component} from '@angular/core';
-import {NavController, ToastController} from 'ionic-angular';
+import {NavController} from 'ionic-angular';
 import firebase from 'firebase';
 import {GoogleMaps, GoogleMap, GoogleMapsEvent, GoogleMapOptions, LatLng} from '@ionic-native/google-maps';
 import {Geolocation} from '@ionic-native/geolocation';
 
 import {MapPage} from '../map/map';
 import { ConnectivityService } from '../../services/connectivity';
+import { NoConnectionPage } from '../no-connection/no-connection';
 
 @Component({
   selector: 'page-event',
   templateUrl: 'event.html',
 })
 export class EventPage {
+  private offline;
   buttonIcon: string = 'add';
   buttonColor: string = 'danger';
   joined: boolean;
@@ -30,7 +32,7 @@ export class EventPage {
   default = 'https://cdn.barnimages.com/wp-content/uploads/2017/03/2017-03-27-roman-drits-barnimages-009-768x512.jpg';
   map: GoogleMap;
 
-  constructor(private navCtrl: NavController, private geoLocation: Geolocation, private connectivity: ConnectivityService, private toastCtrl: ToastController) {
+  constructor(private navCtrl: NavController, private geoLocation: Geolocation, private connectivity: ConnectivityService) {
     firebase.database().ref('events/').on('child_added', snapshot => {
       this.event = snapshot.val();
       if (this.event.eventStatus === 'started') {
@@ -83,22 +85,14 @@ export class EventPage {
 
   ionViewWillEnter() {
     this.item = 'details';
-    let toast = this.toastCtrl.create({
-      message: 'No internet connection found. Check your connection.',
-      position: 'top',
-      cssClass: 'toast-danger'
+    this.offline = this.connectivity.isOffline().subscribe(data => {
+      this.navCtrl.push(NoConnectionPage);
     });
-    this.connectivity.isOffline().subscribe(data => {
-      console.log(data);
-      toast.present();
-    });
-    this.connectivity.isOnline().subscribe(data => {
-      console.log(data);
-      toast.dismiss();
-    })
   }
 
-  ionViewDidLeave
+  ionViewWillLeave() {
+    this.offline.unsubscribe();
+  }
 
   loadMap() {
     this.geoLocation.getCurrentPosition().then((resp) => {
