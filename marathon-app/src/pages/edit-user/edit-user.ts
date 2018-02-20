@@ -16,6 +16,7 @@ export class EditUserPage implements OnInit {
   private offline;
   username;
   email;
+  imgPath;
   name;
   mode;
   toEdit;
@@ -26,6 +27,7 @@ export class EditUserPage implements OnInit {
       if (user) {
         this.name = user.displayName;
         this.email = user.email;
+        this.imgPath = user.photoURL;
       } else {
         this.rootPage = LoginPage;
       }
@@ -61,7 +63,7 @@ export class EditUserPage implements OnInit {
 
   onEditName(form: NgForm) {
     if (form.valid) {
-      this.authService.editUser(form.value.name, '')
+      this.authService.editUser(form.value.name, this.imgPath)
       .then(() => {
         this.events.publish('user:updateName', form.value.name);
         this.successToast();

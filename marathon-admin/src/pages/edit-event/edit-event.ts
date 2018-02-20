@@ -41,8 +41,8 @@ export class EditEventPage {
 
   ionViewDidEnter () {
     if(this.mode === 'edit') {
-      this.loadMap();
-      this.showNavigation();
+      // this.loadMap();
+      // this.showNavigation();
     }
   }
 
@@ -149,36 +149,7 @@ export class EditEventPage {
       if(data) {
         this.end = data.end;
       }
-      this.loadMap();
-      this.showNavigation();
     })
-  }
-
-  loadMap() {
-    let latLng = new google.maps.LatLng(12.8797, 121.7740); //PH map coordinates
-    let mapOptions = {
-      center: latLng,
-      zoom: 15,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    }
-    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-  }
-
-  showNavigation() {
-    let directionsService = new google.maps.DirectionsService;
-    let directionsDisplay = new google.maps.DirectionsRenderer;
-    directionsDisplay.setMap(this.map);
-    directionsService.route({
-      origin: this.start,
-      destination: this.end,
-      travelMode: google.maps.TravelMode['WALKING']
-    }, (res, status) => {
-      if (status == google.maps.DirectionsStatus.OK) {
-        directionsDisplay.setDirections(res);
-      } else {
-        console.warn(status);
-      }
-    });
   }
 
   private initializeForm() {

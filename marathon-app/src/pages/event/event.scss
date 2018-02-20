@@ -1,10 +1,4 @@
 page-event {
-  .segment-button {
-    color: #fff !important;
-  }
-  .segment-button.segment-activated {
-    border-bottom-color: #fff !important;
-  }
   #header {
     position: relative;
   }
@@ -20,7 +14,7 @@ page-event {
     color: map-get($colors, secondarytext);
   }
   .description {
-    padding: 20px 16px 50px 16px;
+    padding: 20px 16px 30px 16px;
     p {
       margin: 0;
     }

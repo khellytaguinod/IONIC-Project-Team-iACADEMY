@@ -20,7 +20,6 @@ export class EventPage {
   event: any;
   loaded = false;
   id;
-  item: string;
   date;
   name;
   time;
@@ -84,7 +83,6 @@ export class EventPage {
   }
 
   ionViewWillEnter() {
-    this.item = 'details';
     this.offline = this.connectivity.isOffline().subscribe(data => {
       this.navCtrl.push(NoConnectionPage);
     });

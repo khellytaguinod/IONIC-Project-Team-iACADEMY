@@ -27,7 +27,7 @@ export class AuthService {
     return firebase.auth().signOut();
   }
 
-  editUser(displayName: string, photoURL: string = '') {
+  editUser(displayName: string, photoURL: string) {
     let user = firebase.auth().currentUser;
     if(user) {
       user.updateProfile({
