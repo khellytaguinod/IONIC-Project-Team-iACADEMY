@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams, ViewController, ModalController } from 'ionic-angular';
-import { ParticipantPage } from '../participant/participant';
+import { NavParams, ViewController } from 'ionic-angular';
 
 @Component({
   selector: 'page-participants',
@@ -10,16 +9,11 @@ export class ParticipantsPage implements OnInit {
   eventData;
   participants;
 
-  constructor(public navParams: NavParams, public viewCtrl: ViewController, public modalCtrl: ModalController) {}
+  constructor(public navParams: NavParams, public viewCtrl: ViewController) {}
 
   ngOnInit() {
     this.eventData = this.navParams.get('event');
     this.participants = this.navParams.get('participants');
-  }
-
-  onOpenParticipant(participant) {
-    let modal = this.modalCtrl.create(ParticipantPage, {event: this.eventData, participant});
-    modal.present();
   }
 
   onClose() {

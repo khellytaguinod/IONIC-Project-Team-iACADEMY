@@ -18,7 +18,6 @@ import { EventsService } from '../services/events';
 import { ProfilePage } from '../pages/profile/profile';
 import { LiveEventPage } from '../pages/live-event/live-event';
 import { NoConnectionPage } from '../pages/no-connection/no-connection';
-import { ParticipantPage } from '../pages/participant/participant';
 import { ParticipantsPage } from '../pages/participants/participants';
 import { StartPointPage } from '../pages/start-point/start-point';
 import { EndPointPage } from '../pages/end-point/end-point';
@@ -35,7 +34,6 @@ import { ConnectivityService } from '../services/connectivity';
     ProfilePage,
     LiveEventPage,
     NoConnectionPage,
-    ParticipantPage,
     ParticipantsPage,
     StartPointPage,
     EndPointPage
@@ -55,7 +53,6 @@ import { ConnectivityService } from '../services/connectivity';
     ProfilePage,
     LiveEventPage,
     NoConnectionPage,
-    ParticipantPage,
     ParticipantsPage,
     StartPointPage,
     EndPointPage
