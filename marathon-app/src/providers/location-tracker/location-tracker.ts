@@ -45,7 +45,7 @@ export class LocationTrackerProvider {
 
         let savedLocation = new LatLng(location.latitude, location.longitude);
         let myKey = firebase.database().ref('userCoords/' + eventId + '/' + this.userId).push();
-        this.userTrack.push({[myKey.key]: savedLocation});
+        this.userTrack.push({[myKey.key]: savedLocation, 'time': new Date().toISOString()});
       });
     }, (err) => {
       console.log(err);
@@ -61,7 +61,6 @@ export class LocationTrackerProvider {
     };
 
     this.watch = this.geolocation.watchPosition(options).filter((p: any) => p.code === undefined).subscribe((position: Geoposition) => {
-      console.log(position);
       // Run update inside of Angular's zone
       this.zone.run(() => {
         this.lat = position.coords.latitude;
@@ -69,7 +68,7 @@ export class LocationTrackerProvider {
 
         let savedLocation = new LatLng(position.coords.latitude, position.coords.longitude);
         let myKey = firebase.database().ref('userCoords/' + eventId + '/' + this.userId).push();
-        this.userTrack.push({[myKey.key]: savedLocation});
+        this.userTrack.push({[myKey.key]: savedLocation, 'time': new Date().toISOString()});
       });
     });
   }
@@ -81,7 +80,6 @@ export class LocationTrackerProvider {
   }
 
   stopTracking() {
-    console.log('stopTracking');
     this.backgroundGeolocation.finish();
     this.backgroundGeolocation.stop();
     this.watch.unsubscribe();
@@ -91,7 +89,6 @@ export class LocationTrackerProvider {
   showRecord() {
     this.storage.get('coordinates').then((val) => {
       this.name = val;
-      console.log('coordinates are', val);
     });
   }
 }
