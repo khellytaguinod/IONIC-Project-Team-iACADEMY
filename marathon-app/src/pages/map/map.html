@@ -14,8 +14,10 @@
     <ion-row>
       <ion-col>
         <h1>
-          <ion-icon item-start name="time"></ion-icon>
-          00:01:00
+          <span><ion-icon item-start name="time"></ion-icon></span>
+          <span class="label label-default">{{timer.hours | twoDigit}}</span> :
+          <span class="label label-default">{{timer.minutes | twoDigit}}</span> :
+          <span class="label label-default">{{timer.seconds | twoDigit}}</span>
         </h1>
       </ion-col>
     </ion-row>

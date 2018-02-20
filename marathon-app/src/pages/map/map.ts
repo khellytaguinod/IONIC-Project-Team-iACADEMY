@@ -13,12 +13,14 @@ import {
   LatLng
 } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
-import { LocationTrackerProvider } from '../../providers/location-tracker/location-tracker';
-
 import parseTrack from 'parse-gpx/src/parseTrack'
 import xml2js from 'xml2js';
+
+import {LocationTrackerProvider} from '../../providers/location-tracker/location-tracker';
 import { EventPage } from '../event/event';
 import { ConnectivityService } from '../../services/connectivity';
+import { Timer } from '../../app/timer';
+import { State } from '../../app/state';
 import firebase from 'firebase';
 import { Storage } from "@ionic/storage";
 
@@ -56,7 +58,9 @@ export class MapPage {
               private loadCtrl: LoadingController,
               private navCtrl: NavController,
               private storage: Storage,
-              private connectivity: ConnectivityService) {
+              private connectivity: ConnectivityService,
+              private timer: Timer,
+              private state: State) {
     this.loading = loadCtrl.create({
       content: "Preparing your course map"
     });
@@ -150,6 +154,7 @@ export class MapPage {
 
   loadMap() {
     this.loading.dismiss();
+    this.timerPlay();
     let mapOptions: GoogleMapOptions = {
       camera: {
         target: this.list[0],
@@ -201,13 +206,6 @@ export class MapPage {
     }, 5000);
   }
 
-  // startDrawingUserTrack(){
-  //   setInterval(() => {
-  //     console.log('adding user past tracks');
-  //     this.addCurrentTrack();
-  //   }, 4000); // will draw th users track every 4 seconds
-  // }
-
   drawCurrentTrack() {
 
     this.map.addPolyline({
@@ -232,11 +230,13 @@ export class MapPage {
   }
 
   onFinish() {
+    this.timerStop();
     let alert = this.alertCtrl.create({
       title: 'Are you sure you want to quit?',
       buttons: [{
         text: 'Yes',
         handler: () => {
+          this.timerReset();
           this.navCtrl.pop().then(() => {
             this.navCtrl.pop();
             this.locationTracker.stopTracking();
@@ -244,11 +244,29 @@ export class MapPage {
         }
       }, {
         text: 'No',
-        role: 'cancel'
+        role: 'cancel',
+        handler: () => {
+          this.timerPlay();
+        }
       }]
     });
     alert.present();
   }
+
+  timerPlay() {
+		this.timer.start();
+		this.state.setPlay();
+	}
+
+	timerStop() {
+		this.timer.stop();
+		this.state.setStop();
+	}
+	
+	timerReset() {
+		this.timer.reset();
+		this.state.setBackward();
+	}
 
   private roundOff(number) {
     let factor = Math.pow(10, 4);

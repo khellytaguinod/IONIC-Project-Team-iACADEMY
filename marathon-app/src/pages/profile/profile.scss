@@ -1,34 +1,19 @@
 page-profile {
-  ion-item {
-    background-color: map-get($colors, primary) !important;
-    color: #fff !important;
-    p {
-      font-size: 110% !important;
-      color: #fff !important;
-      margin-bottom: 8px !important;
-    }
-  }
-  ion-note {
-    font-size: 13px;
-    align-self: flex-start;
-    margin-top: 14px;
-  }
-  .title {
-    font-size: 115%;
-  }
   #header {
     position: relative;
-  }
-  .list1 {
-    margin-top: 0;
-    ion-list-header {
-      margin-bottom: 0;
+    ion-item {
+      background-color: map-get($colors, primary) !important;
+      color: #fff !important;
     }
   }
-  .list2 {
-    margin-top: 30px;
-    ion-list-header {
-      margin-bottom: 0;
+  ion-list {
+    .item-md {
+      padding: 0px 25px;
+      color: #333;
+      font-size: 130%;
+      ion-icon {
+        color: map-get($colors, secondarytext);
+      }
     }
   }
 }

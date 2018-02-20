@@ -26,6 +26,9 @@ import { Network } from '@ionic-native/network';
 import { ConnectivityService } from '../services/connectivity';
 import { ChangePhotoPage } from '../pages/change-photo/change-photo';
 import { NoConnectionPage } from '../pages/no-connection/no-connection';
+import { TwoDigit } from './pipes/two-digit';
+import { Timer } from './timer';
+import { State } from './state';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,8 @@ import { NoConnectionPage } from '../pages/no-connection/no-connection';
     ChangeFrequencyPage,
     EditUserPage,
     ChangePhotoPage,
-    NoConnectionPage
+    NoConnectionPage,
+    TwoDigit
   ],
   imports: [
     BrowserModule,
@@ -72,7 +76,9 @@ import { NoConnectionPage } from '../pages/no-connection/no-connection';
     Network,
     ConnectivityService,
     Camera,
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    Timer,
+    State,
   ]
 })
 export class AppModule {
