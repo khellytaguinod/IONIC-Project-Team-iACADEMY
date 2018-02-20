@@ -4,12 +4,6 @@ page-map {
     background-color: map-get($colors, bg);
   }
 
-  .stats {
-    padding-right: 0;
-    padding-left: 0;
-    border-bottom-width: 0px;
-  }
-
   .item-md.item-block .item-inner {
     padding-right: 0 !important;
   }
@@ -17,25 +11,23 @@ page-map {
   .label-md {
     margin-right: 0 !important;
   }
-  
-  .stats-open {
-    width: 10%;
-    height: 3px;
-    margin: auto;
-    background-color: rgba(83, 83, 83, 0.5);
-    border-radius: 5px;
-  }
 
-  .details {
-    font-size: 115%;
-    color: #333;
-    ion-icon {
-      font-size: 100%;
-      color: #2979ff;
+  ion-footer {
+    ion-grid {
+      h1 {
+        color: #333;
+        margin: 0;
+        padding: 15px 0;
+        ion-icon {
+          color: map-get($colors, primary);
+          font-size: 95%;
+          margin-right: 5px;
+        }
+      }
     }
-  }
-
-  h5 {
-    margin-top: 0;
+    button {
+      margin: 0 !important;
+      padding: 4px 0 !important;
+    }
   }
 }
