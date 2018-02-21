@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavParams, ViewController, NavController } from 'ionic-angular';
+import * as firebase from "firebase/app";
+
 import { NoConnectionPage } from '../no-connection/no-connection';
 import { ConnectivityService } from '../../services/connectivity';
 
@@ -34,4 +36,12 @@ export class ParticipantsPage implements OnInit {
     this.viewCtrl.dismiss();
   }
 
+  onFetchData(userId) {
+    console.log('Working');
+
+    firebase.database().ref('userCoords/' + this.eventData.id).child(userId).on('child_added', snapshot => {
+      console.log(snapshot.val());
+
+    })
+  }
 }
