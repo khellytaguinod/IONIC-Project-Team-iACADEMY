@@ -1,17 +1,31 @@
 import { Component } from '@angular/core';
 import { AlertController, ToastController, NavController  } from 'ionic-angular';
 import { AuthService } from '../../services/auth';
+import { NoConnectionPage } from '../no-connection/no-connection';
+import { ConnectivityService } from '../../services/connectivity';
 
 @Component({
   selector: 'page-profile',
   templateUrl: 'profile.html',
 })
 export class ProfilePage {
+  private offline;
   adminName: string;
   adminEmail: string;
 
-  constructor(private alertCtrl: AlertController, private toastCtrl: ToastController, private authService: AuthService, public navCtrl: NavController) {
+  constructor(private alertCtrl: AlertController, private toastCtrl: ToastController, private authService: AuthService, public navCtrl: NavController, private connectivity: ConnectivityService) {
     this.getDetails();
+  }
+
+  ionViewWillEnter() {
+    this.offline = this.connectivity.isOffline().subscribe(data => {
+      console.log(data);
+      this.navCtrl.push(NoConnectionPage);
+    });
+  }
+
+  ionViewWillLeave() {
+    this.offline.unsubscribe();
   }
 
   onChangeName() {

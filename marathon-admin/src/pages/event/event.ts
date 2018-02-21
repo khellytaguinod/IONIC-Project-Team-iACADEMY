@@ -6,6 +6,8 @@ import { EditEventPage } from '../edit-event/edit-event';
 import { LiveEventPage } from '../live-event/live-event';
 import { EventsService } from '../../services/events';
 import { EventsPage } from '../events/events';
+import { NoConnectionPage } from '../no-connection/no-connection';
+import { ConnectivityService } from '../../services/connectivity';
 
 declare var google;
 
@@ -15,6 +17,7 @@ declare var google;
   templateUrl: 'event.html',
 })
 export class EventPage {
+  private offline;
 
   @ViewChild('map') mapElement: ElementRef;
   map: any;
@@ -26,7 +29,7 @@ export class EventPage {
   anEventStarted: boolean = false;
   default = 'https://cdn.barnimages.com/wp-content/uploads/2017/03/2017-03-27-roman-drits-barnimages-009-768x512.jpg';
 
-  constructor(public navParams: NavParams, public navCtrl: NavController, private actionSheetCtrl: ActionSheetController, private eventsService: EventsService, public alertCtrl: AlertController, public toastCtrl: ToastController) {
+  constructor(public navParams: NavParams, public navCtrl: NavController, private actionSheetCtrl: ActionSheetController, private eventsService: EventsService, public alertCtrl: AlertController, public toastCtrl: ToastController, private connectivity: ConnectivityService) {
     this.eventData = this.navParams.get('event');
     firebase.database().ref('participants/' + this.eventData.id).on('child_added', snapshot => {
       if (snapshot) {
@@ -45,6 +48,14 @@ export class EventPage {
 
   ionViewWillEnter() {
     this.event = 'details';
+    this.offline = this.connectivity.isOffline().subscribe(data => {
+      console.log(data);
+      this.navCtrl.push(NoConnectionPage);
+    });
+  }
+
+  ionViewWillLeave() {
+    this.offline.unsubscribe();
   }
 
   onShowMore() {
