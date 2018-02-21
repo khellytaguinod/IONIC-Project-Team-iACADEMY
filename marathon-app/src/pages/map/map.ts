@@ -240,10 +240,8 @@ export class MapPage {
         text: 'Yes',
         handler: () => {
           this.timerReset();
-          this.navCtrl.pop().then(() => {
-            this.navCtrl.pop();
-            this.locationTracker.stopTracking(this.id);
-          });
+          this.locationTracker.stopTracking(this.id);
+          this.navCtrl.popToRoot();
         }
       }, {
         text: 'No',
