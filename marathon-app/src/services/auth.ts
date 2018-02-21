@@ -10,7 +10,7 @@ export class AuthService {
     return firebase.auth().createUserWithEmailAndPassword(email, password).then((user) => {
       user = firebase.auth().currentUser;
       user.updateProfile({displayName: name}).then(() => {
-        firebase.database().ref('/users').child(user.uid).set({
+        firebase.database().ref('users').child(user.uid).set({
           email: user.email,
           name: user.displayName,
           userType: 'user'
