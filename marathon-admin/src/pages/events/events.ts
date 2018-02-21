@@ -12,7 +12,6 @@ import { ConnectivityService } from '../../services/connectivity';
   templateUrl: 'events.html',
 })
 export class EventsPage {
-  private offline;
   data;
   events: any = [];
   isListed: boolean;
@@ -42,14 +41,14 @@ export class EventsPage {
   }
 
   ionViewWillEnter() {
-    this.offline = this.connectivity.isOffline().subscribe(data => {
+    this.connectivity.isOffline().subscribe(data => {
       console.log(data);
       this.navCtrl.push(NoConnectionPage);
     });
-  }
-
-  ionViewWillLeave() {
-    this.offline.unsubscribe();
+    this.connectivity.isOnline().subscribe(data => {
+      console.log(data);
+      this.navCtrl.popToRoot();
+    })
   }
 
   onOpenEvent(event) {

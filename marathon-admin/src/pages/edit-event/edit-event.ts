@@ -7,15 +7,12 @@ import { EventsService } from '../../services/events';
 import { StartPointPage } from '../start-point/start-point';
 import { EndPointPage } from '../end-point/end-point';
 import { EventsPage } from '../events/events';
-import { NoConnectionPage } from '../no-connection/no-connection';
-import { ConnectivityService } from '../../services/connectivity';
 
 @Component({
   selector: 'page-edit-event',
   templateUrl: 'edit-event.html',
 })
 export class EditEventPage {
-  private offline;
 
   @ViewChild('map') mapElement: ElementRef;
   map: any;
@@ -30,7 +27,7 @@ export class EditEventPage {
   end: string;
   file;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, private camera: Camera, public toastCtrl: ToastController, private eventsService: EventsService, public modalCtrl: ModalController, private connectivity: ConnectivityService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, private camera: Camera, public toastCtrl: ToastController, private eventsService: EventsService, public modalCtrl: ModalController) {
     this.mode = this.navParams.get('mode');
     if (this.mode === 'edit') {
       this.eventData = this.navParams.get('data');
@@ -39,17 +36,6 @@ export class EditEventPage {
       
     }
     this.initializeForm();
-  }
-
-  ionViewWillEnter() {
-    this.offline = this.connectivity.isOffline().subscribe(data => {
-      console.log(data);
-      this.navCtrl.push(NoConnectionPage);
-    });
-  }
-
-  ionViewWillLeave() {
-    this.offline.unsubscribe();
   }
 
   onUploadImg() {

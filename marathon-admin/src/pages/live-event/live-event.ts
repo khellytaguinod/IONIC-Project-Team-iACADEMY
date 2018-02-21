@@ -20,15 +20,12 @@ import xml2js from 'xml2js';
 import { ParticipantsPage } from '../participants/participants';
 import { EventsService } from '../../services/events';
 import { EventsPage } from '../events/events';
-import { NoConnectionPage } from '../no-connection/no-connection';
-import { ConnectivityService } from '../../services/connectivity';
 
 @Component({
   selector: 'page-live-event',
   templateUrl: 'live-event.html',
 })
 export class LiveEventPage {
-  private offline;
 
   public list: any[] = [];
   public gpxData: any;
@@ -41,7 +38,7 @@ export class LiveEventPage {
   loading;
 
 
-  constructor(private modalCtrl: ModalController, public http: Http, private loadCtrl: LoadingController, private actionSheetCtrl: ActionSheetController, private alertCtrl: AlertController, private eventsService: EventsService, private navCtrl: NavController, private connectivity: ConnectivityService
+  constructor(private modalCtrl: ModalController, public http: Http, private loadCtrl: LoadingController, private actionSheetCtrl: ActionSheetController, private alertCtrl: AlertController, private eventsService: EventsService, private navCtrl: NavController
 ) {
     this.loading = loadCtrl.create({
       content: "Preparing Live Event Map"
@@ -100,19 +97,8 @@ export class LiveEventPage {
     }
   }
 
-  ionViewWillEnter() {
-    this.offline = this.connectivity.isOffline().subscribe(data => {
-      console.log(data);
-      this.navCtrl.push(NoConnectionPage);
-    });
-  }
-
   ionViewDidLoad() {
     this.fetchGPX();
-  }
-
-  ionViewWillLeave() {
-    this.offline.unsubscribe();
   }
 
   onShowMore() {
