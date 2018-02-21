@@ -85,7 +85,11 @@ export class LiveEventPage {
     if (this.isListed) {
       firebase.database().ref('participants/' + this.eventData.id).on('child_added', snapshot => {
         if (snapshot) {
-          this.participants.push(snapshot.val());
+          this.participants.push({
+            'id': snapshot.ref.key,
+            'name': snapshot.val().name,
+            'joined': snapshot.val().joined
+          });
         } else {
           this.participants = [];
         }
@@ -199,7 +203,7 @@ export class LiveEventPage {
         }, 30000); // will add new pin about user whereAbout every 30 seconds
 
       });
-      
+
   }
 
   showUser() {
