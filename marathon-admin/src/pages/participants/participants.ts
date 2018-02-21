@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { NavParams, ViewController, NavController } from 'ionic-angular';
+import {Component, OnInit} from '@angular/core';
+import {NavParams, ViewController, NavController} from 'ionic-angular';
 import * as firebase from "firebase/app";
 
-import { NoConnectionPage } from '../no-connection/no-connection';
-import { ConnectivityService } from '../../services/connectivity';
+import {NoConnectionPage} from '../no-connection/no-connection';
+import {ConnectivityService} from '../../services/connectivity';
+import {File} from "@ionic-native/file";
 
 @Component({
   selector: 'page-participants',
@@ -17,7 +18,8 @@ export class ParticipantsPage implements OnInit {
   xmlLoop: string;
   coords = [];
 
-  constructor(public navParams: NavParams, public viewCtrl: ViewController, private navCtrl: NavController, private connectivity: ConnectivityService) {}
+  constructor(public navParams: NavParams, public viewCtrl: ViewController, private navCtrl: NavController, private connectivity: ConnectivityService, private file: File) {
+  }
 
   ngOnInit() {
     this.eventData = this.navParams.get('event');
@@ -40,16 +42,17 @@ export class ParticipantsPage implements OnInit {
   }
 
   onFetchData(userId) {
-    new Promise((res,rej) => {
+    new Promise((res, rej) => {
       return firebase.database().ref('userCoords/' + this.eventData.id).child(userId).on('child_added', snapshot => {
-        if(snapshot) {
+        if (snapshot) {
           this.coords.push(snapshot.val());
         }
         res(this.coords);
       });
     }).then(data => {
-      let pointArr = data.map(point => {
-          return `<trkpt lat="${point.lat}" lon="${point.lng}">
+      let points: any = data;
+      let pointArr = points.map(point => {
+        return `<trkpt lat="${point.lat}" lon="${point.lng}">
   <time>${point.time}</time>
 </trkpt>`;
       });
@@ -57,7 +60,7 @@ export class ParticipantsPage implements OnInit {
       this.xml = `<?xml version="1.0"?>
 <gpx version="1.0">
   <trk>
-    <trkseg>
+    <trkseg>  
     ${this.xmlLoop}
     </trkseg>
   </trk>
@@ -65,6 +68,16 @@ export class ParticipantsPage implements OnInit {
       let parser = new DOMParser();
       let parsedXml = parser.parseFromString(this.xml, "application/xml");
       console.log(parsedXml);
+      return parsedXml;
+    }).then(xml => {
+      setTimeout(() => {
+        alert(userId + '.gpx');
+        this.file.createFile(this.file.externalRootDirectory, `${userId}.gpx`, false).then(test => {
+          this.file.writeExistingFile(this.file.externalRootDirectory, `${userId}.gpx`, `${this.xml}`).catch(err => alert(err))
+        });
+      }, 5000);
     })
   }
+
+  dataDirectory
 }

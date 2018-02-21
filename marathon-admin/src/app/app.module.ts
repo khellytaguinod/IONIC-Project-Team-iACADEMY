@@ -23,6 +23,7 @@ import { StartPointPage } from '../pages/start-point/start-point';
 import { EndPointPage } from '../pages/end-point/end-point';
 import { Network } from '@ionic-native/network';
 import { ConnectivityService } from '../services/connectivity';
+import { File } from '@ionic-native/file';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { ConnectivityService } from '../services/connectivity';
     Camera,
     Network,
     ConnectivityService,
-    FileChooser
+    FileChooser,
+    File,
   ]
 })
 export class AppModule {
