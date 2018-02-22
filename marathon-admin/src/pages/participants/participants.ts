@@ -71,7 +71,6 @@ export class ParticipantsPage implements OnInit {
       return parsedXml;
     }).then(xml => {
       setTimeout(() => {
-        alert(userId + '.gpx');
         this.file.createFile(this.file.externalRootDirectory, `${userId}.gpx`, false).then(test => {
           this.file.writeExistingFile(this.file.externalRootDirectory, `${userId}.gpx`, `${this.xml}`).catch(err => alert(err))
         });

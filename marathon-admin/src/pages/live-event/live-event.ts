@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { Http } from '@angular/http';
+import {Component} from '@angular/core';
+import {Http} from '@angular/http';
 
-import { ModalController, LoadingController, ActionSheetController, AlertController, NavController } from 'ionic-angular';
+import {ModalController, LoadingController, ActionSheetController, AlertController, NavController} from 'ionic-angular';
 import {
   GoogleMaps,
   GoogleMap,
@@ -13,15 +13,15 @@ import {
   LatLng
 } from '@ionic-native/google-maps';
 
-import firebase from 'firebase';
 import parseTrack from 'parse-gpx/src/parseTrack'
 import xml2js from 'xml2js';
 
-import { ParticipantsPage } from '../participants/participants';
-import { EventsService } from '../../services/events';
-import { EventsPage } from '../events/events';
-import { NoConnectionPage } from '../no-connection/no-connection';
-import { ConnectivityService } from '../../services/connectivity';
+import {ParticipantsPage} from '../participants/participants';
+import {EventsService} from '../../services/events';
+import {EventsPage} from '../events/events';
+import {NoConnectionPage} from '../no-connection/no-connection';
+import {ConnectivityService} from '../../services/connectivity';
+import * as firebase from "firebase/app";
 
 @Component({
   selector: 'page-live-event',
@@ -41,8 +41,7 @@ export class LiveEventPage {
   loading;
 
 
-  constructor(private modalCtrl: ModalController, public http: Http, private loadCtrl: LoadingController, private actionSheetCtrl: ActionSheetController, private alertCtrl: AlertController, private eventsService: EventsService, private navCtrl: NavController, private connectivity: ConnectivityService
-) {
+  constructor(private modalCtrl: ModalController, public http: Http, private loadCtrl: LoadingController, private actionSheetCtrl: ActionSheetController, private alertCtrl: AlertController, private eventsService: EventsService, private navCtrl: NavController, private connectivity: ConnectivityService) {
     this.loading = loadCtrl.create({
       content: "Preparing Live Event Map"
     });
@@ -72,14 +71,10 @@ export class LiveEventPage {
 
       firebase.database().ref('userCoords/' + eventData.id).on('child_added', datasnapshot => {
         firebase.database().ref('userCoords/' + eventData.id + '/' + datasnapshot.ref.key).limitToLast(1).on('child_added', coordsnapshot => {
-          // this.userPoints.push({
-          //   id: datasnapshot.ref.key,
-          //   coordinatesId: coordsnapshot.ref.key,
-          //   coordinates: coordsnapshot.val()
-          // });
-          this.userPoints.push(
-            coordsnapshot.val()
-          );
+          this.userPoints.push({
+            'userId': datasnapshot.ref.key,
+            'coordinates': coordsnapshot.val()
+          })
           console.log(this.userPoints);
         })
       });
@@ -102,7 +97,6 @@ export class LiveEventPage {
 
   ionViewWillEnter() {
     this.offline = this.connectivity.isOffline().subscribe(data => {
-      console.log(data);
       this.navCtrl.push(NoConnectionPage);
     });
   }
@@ -135,9 +129,9 @@ export class LiveEventPage {
         text: 'Yes',
         handler: () => {
           this.eventsService.onChangeStatus(this.eventData.id, 'ended')
-          .then(() => {
-            this.navCtrl.setRoot(EventsPage);
-          })
+            .then(() => {
+              this.navCtrl.setRoot(EventsPage);
+            })
         }
       }, {
         text: 'No',
@@ -157,7 +151,7 @@ export class LiveEventPage {
         } else {
           this.gpxData = parseTrack(xml.gpx.trk);
           for (let i = 0; i < this.gpxData.length; i++) {
-            let coordinates = { lat: JSON.parse(this.gpxData[i].latitude), lng: JSON.parse(this.gpxData[i].longitude) };
+            let coordinates = {lat: JSON.parse(this.gpxData[i].latitude), lng: JSON.parse(this.gpxData[i].longitude)};
             this.list.push(coordinates);
           }
           setTimeout(() => {
@@ -222,19 +216,19 @@ export class LiveEventPage {
 
   showUser() {
     this.userPoints.forEach(element => {
-      // console.log(element);
-
-      this.map.addMarker({
-        title: 'Ionic',
-        // icon: 'https://cdn0.iconfinder.com/data/icons/world-issues/500/running_man-128.png',
-        icon: 'green',
-        position: new LatLng(element.lat, element.lng)
-      })
+      firebase.database().ref('users').child(element.userId).once('value').then(snapshot => {
+        this.map.addMarker({
+          title: snapshot.val().name,
+          // icon: 'https://cdn0.iconfinder.com/data/icons/world-issues/500/running_man-128.png',
+          icon: 'green',
+          position: new LatLng(element.coordinates.lat, element.coordinates.lng)
+        })
+      });
     });
   }
 
   onOpenParticipants() {
-    let modal = this.modalCtrl.create(ParticipantsPage, { event: this.eventData, participants: this.participants });
+    let modal = this.modalCtrl.create(ParticipantsPage, {event: this.eventData, participants: this.participants});
     modal.present();
   }
 
