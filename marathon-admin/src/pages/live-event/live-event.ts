@@ -45,11 +45,11 @@ export class LiveEventPage {
     this.loading = loadCtrl.create({
       content: "Preparing Live Event Map"
     });
-    this.loading.present();
 
     new Promise((resolve, reject) => {
       return firebase.database().ref('events').orderByChild('eventStatus').limitToFirst(1).equalTo('started').on('child_added', snapshot => {
         if (snapshot.val() != null) {
+          this.loading.present();
           this.isListed = true;
           this.eventData = {
             id: snapshot.ref.key,
