@@ -14,14 +14,8 @@
     <ion-item *ngFor="let participant of participants">
       <ion-grid no-padding text-center>
         <ion-row>
-          <ion-col col-2>#001</ion-col>
-          <ion-col>{{ participant.name }}</ion-col>
-          <ion-col>
-            <button ion-button icon-left clear>
-              <ion-icon name="pin"></ion-icon>
-              Show
-            </button>
-          </ion-col>
+          <ion-col>#001</ion-col>
+          <ion-col col-6>{{ participant.name }}</ion-col>
           <ion-col>
             <button ion-button icon-left clear color="secondary" (click)="onFetchData(participant.id)">
               <ion-icon name="download"></ion-icon>
