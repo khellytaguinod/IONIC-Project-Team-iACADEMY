@@ -91,4 +91,5 @@
         <variable name="PLAY_SERVICES_VERSION" value="11.8.0" />
         <variable name="ANDROID_SUPPORT_V4_VERSION" value="24.1.0" />
     </plugin>
+    <plugin name="cordova-plugin-file" spec="^6.0.1" />
 </widget>
