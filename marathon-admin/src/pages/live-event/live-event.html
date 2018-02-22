@@ -5,7 +5,7 @@
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-buttons right>
+    <ion-buttons right *ngIf="isListed">
       <button ion-button icon-only (click)="onShowMore()">
         <ion-icon name="more"></ion-icon>
       </button>
