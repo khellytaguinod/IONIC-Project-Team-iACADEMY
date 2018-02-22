@@ -133,7 +133,7 @@ export class MapPage {
   }
 
   fetchGPX() {
-    this.http.get('https://marathon-app-database.firebaseapp.com/makatiRun.gpx').subscribe(data => {
+    this.http.get('https://marathon-app-database.firebaseapp.com/runRouteFinal.gpx').subscribe(data => {
       let dataCoords: any = data;
       let parser = new xml2js.Parser();
       parser.parseString(dataCoords._body, (err, xml) => {

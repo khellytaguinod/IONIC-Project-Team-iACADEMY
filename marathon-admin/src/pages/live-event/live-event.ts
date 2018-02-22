@@ -142,7 +142,7 @@ export class LiveEventPage {
   }
 
   fetchGPX() {
-    this.http.get('https://marathon-app-database.firebaseapp.com/makatiRun.gpx').subscribe(data => {
+    this.http.get('https://marathon-app-database.firebaseapp.com/runRouteFinal.gpx').subscribe(data => {
       let dataCoords: any = data;
       let parser = new xml2js.Parser();
       parser.parseString(dataCoords._body, (err, xml) => {
@@ -219,8 +219,8 @@ export class LiveEventPage {
       firebase.database().ref('users').child(element.userId).once('value').then(snapshot => {
         this.map.addMarker({
           title: snapshot.val().name,
-          // icon: 'https://cdn0.iconfinder.com/data/icons/world-issues/500/running_man-128.png',
-          icon: 'green',
+          icon: 'https://marathon-app-database.firebaseapp.com/pin.png',
+          // icon: 'green',
           position: new LatLng(element.coordinates.lat, element.coordinates.lng)
         })
       });
