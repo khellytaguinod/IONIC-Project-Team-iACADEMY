@@ -78,6 +78,4 @@ export class ParticipantsPage implements OnInit {
       }, 5000);
     })
   }
-
-  dataDirectory
 }
