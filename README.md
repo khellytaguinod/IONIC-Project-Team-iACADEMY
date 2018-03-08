@@ -46,3 +46,10 @@ Ensure that your **_Android Studio_** setup is correctly done. ( need [help?](ht
 * [Cordova](https://cordova.apache.org/docs/en/latest/guide/platforms/android/#installing-the-requirements)
 * [Android Studio](https://developer.android.com/studio/intro/index.html)
 * [Angular](https://angular.io/docs)
+
+## Creators
+
+* Brian Tan Seng - Project Manager
+* Joanne Daroya - Design/Frontend/Backend
+* James Tarrobal - Frontend/Backend
+* Khelly Taguinod - Frontend/Backend
