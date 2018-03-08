@@ -40,6 +40,12 @@ Ensure that your **_Android Studio_** setup is correctly done. ( need [help?](ht
 1. Connect your Android device to PC.
 2. Running `ionic cordova run android` will build the application and install the app on your android device.
 
+## Technologies Used
+
+- [Ionic Framework](https://ionicframework.com/docs/cli/) *Ionic is a complete open-source SDK for hybrid mobile app development.*
+- [Cordova](http://cordova.apache.org/) *Create Mobile Apps with HTML, CSS & JS.*
+- [Angular](https://angular.io/) *An application framework for web development.*
+
 ## Useful Resources
 
 * [Ionic Framework](https://ionicframework.com/docs/cli/)
